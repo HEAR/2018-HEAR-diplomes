@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
 
   <meta charset="utf-8">
@@ -7,19 +7,10 @@
 
   <title><?= $site->title() ?> | <?= $page->title() ?></title>
 
-  <?= css(['assets/css/index.css', '@auto']) ?>
 
 </head>
 <body>
 
-  <div class="page">
-    <header class="header">
-      <a class="logo" href="<?= $site->url() ?>"><?= $site->title() ?></a>
+<h1><?= $site->title() ?></h1>
 
-      <nav id="menu" class="menu">
-        <?php foreach ($site->children()->listed() as $item): ?>
-        <?= $item->title()->link() ?>
-        <?php endforeach ?>
-      </nav>
-    </header>
-
+<?php snippet('menu') ?>
