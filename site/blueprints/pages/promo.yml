@@ -1,0 +1,20 @@
+title: Promo
+preset: page
+# icon: 📝
+
+status:
+  draft: false
+  unlisted: false
+  listed: true
+
+pages:
+  template: etudiant
+
+fields:
+  annee:
+    type: number
+    label: Année de diplôme
+    min: 2012
+    step: 1
+    required: true
+    default: 2012

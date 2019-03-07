@@ -1,0 +1,100 @@
+title: Étudiant
+# preset: page
+# icon: 📝
+
+status:
+  draft: true
+  unlisted: false
+  listed: true
+
+tabs:
+  content:
+    label: Informations
+    columns:
+      - width: 1/2
+        fields:
+          prenom:
+            type: text
+            label: Prénom
+          pseudonyme:
+            type: text
+            label: Pseudonyme
+          date_naissance:
+            type: date
+            label: Date de naissance
+            min: 1979
+          ville_naissance:
+            type: text
+            label: Ville de naissance
+          pays de naissance:
+            type: text
+            label: Pays de naissance
+      - width: 1/2
+        fields:
+          email:
+            type: email
+            label: Email
+          phone:
+            type: tel
+            label: Téléphone    
+          site:
+            type: url
+            label: Site internet
+          mention:
+            type: select
+            label: Mention
+            options:
+              art: Art
+              art_objet: Art objet
+              scenographie: Scénographie
+              communication_graphique: Communication graphique
+              didactique_visuelle: Didactique visuelle
+              illustration: Illustration
+              design: Design
+              design_textile: Design textile
+              musique: Musique
+          atelier_groupe:
+            type: select
+            label: Atelier ou groupe
+            options:
+              farmteam: Farmteam / Storyteller
+              hors_format: Hors format
+              la_fabrique: La fabrique
+              no_name: No Name
+              peinture: Peinture(s)
+              phonon: Phonon
+              le_plateau: Le plateau
+              bijoux: Bijoux
+              bois: Bois
+              terre: Terre
+              verre: Verre
+              metal: Métal
+              livre: Livre
+  projet:
+    label: Projet
+    columns:
+      - width: 1/2
+        fields:
+          text_fr:
+            type: textarea
+            size: small
+            label: Texte français
+          images:
+            label: Images
+            type: files
+      - width: 1/2
+        fields:
+          text_en:
+            type: textarea
+            size: small
+            label: Texte anglais
+          sons_videos:
+            label: Sons ou vidéos
+            type: structure
+            fields:
+              lien:
+                label: Adresse
+                type: url
+              titre:
+                label: Titre
+                type: text

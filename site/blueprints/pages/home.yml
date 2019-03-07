@@ -11,9 +11,9 @@ sections:
     type: info
     text: All content for the homepage is being pulled from the photography page.
 
-  photography:
-    headline: Photography
-    extends: sections/albums
-    status: listed
+  # photography:
+  #   headline: Photography
+  #   extends: sections/albums
+  #   status: listed
 
 

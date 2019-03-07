@@ -1,0 +1,7 @@
+type: pages
+headline: Étudiants
+# parent: site.find("etudiants")
+# info: "{{ page.date.toDate('d.m.Y') }}"
+template: etudiant
+# empty: No student yet
+# sortBy: date desc
