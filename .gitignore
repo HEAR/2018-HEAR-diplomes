@@ -1,1 +1,5 @@
 .DS_Store
+
+site/sessions
+site/accounts/*
+media
