@@ -1,0 +1,21 @@
+Title: test nom-long
+
+----
+
+Date-naissance: 
+
+----
+
+Text-fr: 
+
+----
+
+Images: 
+
+----
+
+Text-en: 
+
+----
+
+Sons-videos: 

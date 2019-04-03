@@ -1,6 +1,7 @@
 title: Étudiant
 # preset: page
 # icon: 📝
+num: zero
 
 status:
   draft: true
@@ -26,7 +27,7 @@ tabs:
           ville_naissance:
             type: text
             label: Ville de naissance
-          pays de naissance:
+          pays_de_naissance:
             type: text
             label: Pays de naissance
       - width: 1/2

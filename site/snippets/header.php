@@ -11,6 +11,6 @@
 </head>
 <body>
 
-<h1><?= $site->title() ?></h1>
+<h1>SUPER <?= $site->title() ?></h1>
 
 <?php snippet('menu') ?>
