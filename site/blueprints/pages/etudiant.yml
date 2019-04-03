@@ -75,14 +75,25 @@ tabs:
     label: Projet
     columns:
       - width: 1/2
-        fields:
-          text_fr:
-            type: textarea
-            size: small
-            label: Texte français
+        sections:
+          content:
+            type: fields
+            fields:
+              text_fr:
+                type: textarea
+                size: small
+                label: Texte français
           images:
-            label: Images
             type: files
+            layout: cards
+            template: image
+            info: "{{ file.dimensions }}"
+            image:
+              ratio: 1/1
+              cover: false
+              # back: pattern (default)
+            max: 4
+            size: tiny
       - width: 1/2
         fields:
           text_en:

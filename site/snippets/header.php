@@ -7,10 +7,17 @@
 
   <title><?= $site->title() ?> | <?= $page->title() ?></title>
 
+  <?= css([
+  	'assets/css/reset.css',
+  	'assets/css/index.css'
+  	]) ?>
+
 
 </head>
 <body>
 
-<h1>SUPER <?= $site->title() ?></h1>
+<h1><a href="<?= $site->url() ?>"><?= $site->title() ?></a></h1>
 
 <?php snippet('menu') ?>
+
+<!-- fin header.php -->
