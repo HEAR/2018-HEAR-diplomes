@@ -1,8 +1,12 @@
+<!-- menu.php -->
+
 <nav>
+	<p>Menu : </p>
 	<ul>
-		<li>item 1</li>
-		<li>item 2</li>
-		<li>item 3</li>
-		<li>item 4</li>
+		<?php foreach( $site->children()->listed() as $page ) : ?>
+		<li><a href="<?= $page->url() ?>"><?= $page->title() ?></a></li>
+		<?php endforeach; ?>
 	</ul>
 </nav>
+
+<!-- fin menu.php -->

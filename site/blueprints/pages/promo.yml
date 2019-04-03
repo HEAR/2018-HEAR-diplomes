@@ -4,8 +4,8 @@ preset: page
 
 status:
   draft: false
-  unlisted: false
-  listed: true
+  unlisted: true
+  listed: false
 
 pages:
   template: etudiant
