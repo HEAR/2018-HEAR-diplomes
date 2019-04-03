@@ -1,0 +1,53 @@
+Title: Savio
+
+----
+
+Prenom: Lucas
+
+----
+
+Pseudonyme: 
+
+----
+
+Date-naissance: 1992-09-26
+
+----
+
+Ville-naissance: Strasbourg
+
+----
+
+Pays-de-naissance: 
+
+----
+
+Email: amadeo.savio@gmail.com
+
+----
+
+Phone: +33 (0)6 59 64 50 20
+
+----
+
+Site: 
+
+----
+
+Mention: communication_graphique
+
+----
+
+Atelier-groupe: 
+
+----
+
+Text-fr: Après un travail théorique sur l’évolution visuelle et technique des outils de création sonore et de communication utilisés dans la musique électronique, le constat a été fait qu’aujourd’hui cette musique est majoritairement produite sur différents logiciels, la rendant très peu vivante et didactique. Elle est souvent considérée comme une musique de « geek » difficilement abordable. Il a donc été question de créer de nouveaux instruments simples, rapides d’utilisation et le plus éloignés possible de l’ordinateur.   La première piste de ce projet est un contrôleur modulable, transportable et métamorphosable visuellement offrant un premier pas dans la production de la musique électronique aux non-initiés. 
+
+----
+
+Text-en: After a theoretical work on the visual and technical evolution of the tools  (sound creation and communication) used in electronic music it was made the observation that today this music is mainly produced on softwares, making it very apathetic and not really didactic. Considered as a « geek music » it was therefore question of creating new instruments simple, fast to use and as far away as possible from the computer.  The first idea of this project is a modular controller, transportable and visually transformable offering a first step in the production of electronic music for beginners.
+
+----
+
+Sons-videos: 

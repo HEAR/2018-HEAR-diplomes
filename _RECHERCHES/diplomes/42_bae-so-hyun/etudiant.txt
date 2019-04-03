@@ -1,0 +1,53 @@
+Title: Bae
+
+----
+
+Prenom: So-hyun
+
+----
+
+Pseudonyme: 
+
+----
+
+Date-naissance: 1994-juillet-19
+
+----
+
+Ville-naissance: Séoul
+
+----
+
+Pays-de-naissance: Corée du Sud
+
+----
+
+Email: hy@baesohyun.com
+
+----
+
+Phone: 58544651
+
+----
+
+Site: baesohyun.com
+
+----
+
+Mention: communication_graphique
+
+----
+
+Atelier-groupe: 
+
+----
+
+Text-fr: La Johab est une police de caractère expérimentale, inspirée de l’écriture coréenne appelée « hangeul ». Le hangeul est qualifié comme une écriture « johab » qui signifie en coréen « composé », « associé », « assemblé ». Les consonnes et les voyelles se composent pour créer un caractère représentant une syllabe, soit un phonème. La Johab est donc une tentative d'appliquer cette spécificité de l'écriture coréenne à l'alphabet latin, plus spécifiquement au français. Les lettres s'emboîtent pour former un phonème. Les mots composés en Johab sont ainsi morcellés en syllabes.
+
+----
+
+Text-en: Johab is an experimental typeface inspired from hangeul, the Korean writing system. As consonnants and vowels are combined to create one character that represents one syllable or one phoneme, Hangeul is often described as "johab" which means in Korean "combined", "associated", "assembled". Johab applies this caracteristic of hangeul onto the latin alphabet, more specifically onto French. Letters are "packed" up to create one phoneme. Words typed in Johab is therefore cut up into several syllables.
+
+----
+
+Sons-videos: 
