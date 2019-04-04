@@ -1,0 +1,53 @@
+Title: Fouilleux
+
+----
+
+Prenom: Louis
+
+----
+
+Pseudonyme: 
+
+----
+
+Date-naissance: 1995-avril-27
+
+----
+
+Ville-naissance: Saint Etienne
+
+----
+
+Pays-de-naissance: 
+
+----
+
+Email: louis.fouilleux@orange.fr
+
+----
+
+Phone: +33 (0)6 16 40 84 69
+
+----
+
+Site: www.cargocollective.com/louisfouilleux
+
+----
+
+Mention: 
+
+----
+
+Atelier-groupe: 
+
+----
+
+Text-fr: Pourquoi faire ? Dans une société du tout disponible tout de suite, nous ne produisons plus pour survivre, mais bien souvent pour se sentir exister. Mais ces protocoles d'autoproduction doivent-ils s'opposer à l'usage de codes de représentation normés de l'industrie ? Est-ce que des modes d'assemblages peuvent s'exprimer autrement que par la traditionnelle notice de montage ? "Equation Action" est une tentative de réponse, sous la forme d'équations et algorithmes d'assemblage. Cet outil se veut être le vecteur des protocoles mis au point par le bricoleur du dimanche, un langage technique en tant qu'alternative aux tutoriels et autres modes d'expression contemporains.
+
+----
+
+Text-en: Why making things ? In our consumption society where anything is available at almost anytime, we don't make to survive anymore. We make to feel alive. But does these self-made protocols need to be against the industrial standards in terms of representation ? Is there a way to express assembly protocols other than the traditionnal user manuals ? "Equation Action" tries to answer this problematic through equations and assembly algorithms. This tool is here to help the handy man to express his ideas and protocols, as an alternative technical language, other than the usuals tutorials and other contemporary ways to do it.
+
+----
+
+Sons-videos: 

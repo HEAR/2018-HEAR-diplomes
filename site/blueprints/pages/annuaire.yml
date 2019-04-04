@@ -1,0 +1,19 @@
+title: Annuaire
+
+icon: 🏠
+
+options:
+  status: false
+
+sections:
+  info:
+    headline: Info
+    type: info
+    text: Tous les contenus proviennent des fiches étudiants.
+
+  # photography:
+  #   headline: Photography
+  #   extends: sections/albums
+  #   status: listed
+
+
