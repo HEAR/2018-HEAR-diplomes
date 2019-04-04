@@ -1,5 +1,4 @@
 <!-- menu.php -->
-
 <nav>
 	<p>Menu : </p>
 	<ul>
@@ -8,5 +7,4 @@
 		<?php endforeach; ?>
 	</ul>
 </nav>
-
 <!-- fin menu.php -->
