@@ -13,4 +13,5 @@ columns:
         template:
           - home
           - default
+          - annuaire
       

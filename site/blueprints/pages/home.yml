@@ -9,7 +9,7 @@ sections:
   info:
     headline: Info
     type: info
-    text: All content for the homepage is being pulled from the photography page.
+    text: Tous les contenus proviennent des fiches étudiants.
 
   # photography:
   #   headline: Photography
