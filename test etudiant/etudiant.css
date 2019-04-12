@@ -1,0 +1,212 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.texte_gauche
+{
+  /*display: inline;  the default for span */
+  
+  top: 50px;
+  width: 40%;
+  border: 1px blue solid;
+  margin-left: 1%; 
+  position: fixed;
+  float: left;
+  background: white;
+  z-index: 3 ;
+
+ /* flex-wrap: nowrap | wrap | wrap-reverse; */
+}
+
+.images_droite
+{
+  /*display: inline;  the default for span */
+   float: right;
+  position:relative;
+  width: 56%;
+  border: 1px blue solid;
+  margin: 1% ;
+  top: 115px;
+  background: white;
+  z-index: 1 ;
+  padding-right;
+
+ /* flex-wrap: nowrap | wrap | wrap-reverse; */
+}
+
+
+
+
+.nom_droite
+{
+
+
+  margin-left: 1%; 
+  width: 97%;
+  border: 1px blue solid;
+  margin-right: 1%; 
+
+   position: fixed;
+  float: right;
+   top: 70px;
+   background: white;
+   z-index: 2 ;
+   text-align: right;
+   font-size: 32px;
+   font-weight: bold;
+
+}
+
+
+
+h2 {
+ text-align: left;
+ font-size: 32px;
+}
+
+
+
+
+
+
+img {
+	width: 100%;
+}
+
+
+
+header
+{
+
+
+   position: fixed;
+   top: 4
+   px;
+   width: 100%;
+   height: 30px;
+   background: white;
+   border: 1px blue solid;
+     z-index: 4 ;
+
+
+}
+
+
+.barre
+{
+	float: right;
+	width:200px;
+	height:30px;
+	background: black;	
+	 margin-right: 1%; 
+}
+
+
+.web
+{
+	 top: 3px;
+	border: 1px blue solid;
+	float: right;
+	margin-right: 1%; 
+	font-weight: bold;
+
+}
+   
+
+.nav
+
+{
+	  top: 3px;
+	border: 1px blue solid;
+	float: left;
+	margin-left: 1%; 
+	font-weight: bold;
+}
+
+
+.legende
+
+{
+color : white;
+ position: absolute;
+ width: 40%;
+ border: 1px blue solid;
+ margin-left: 1%; 
+ margin-left: 1%; 
+ margin-top: 1%;
+ 
+}
+
+
+/*
+	<div class="nav">HEAR  DIPLOMÉS    ANNUAIRE</div>
+			<div class="site_hear">HEAR.FR</div>
+			<div class="barre"></div>
+
+
+
+.legende {
+
+top:0;
+left:0;
+  margin: 10px 2%;
+  padding:25px; 
+  position: absolute;
+  width: 96% ;
+  display: none;
+  background: #FFF;
+  color: #000000;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+
+  font-family: 'RobotoMono-Regular' ; 
+  font-style: normal;
+  font-weight:normal;
+  text-decoration:none;
+
+}
+
+
+
+.nom_droite
+{
+  
+  border: 1px blue solid;
+  float: right;
+  margin-right: 1%; 
+    width: 40%;
+   position: fixed;
+   top: 50px;
+   z-index: 3 ;
+    text-align: right;
+ font-size: 32px;
+
+}
+
+
+
+.colonne_droite {
+  position:sticky;
+  position:-webkit-sticky;
+  top:0px;
+  float:right;
+  padding-right:30px;
+  width:32%;min-height:500px;
+  border:solid 0px #7B7433;
+  overflow:auto;
+  color:#fff;
+  box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  font-size: 13px;  
+}
+
+
+.grille {
+  width:65%;
+  border:solid 0px #fff;
+  position:relative;
+}
+
+*/

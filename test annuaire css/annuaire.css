@@ -1,0 +1,144 @@
+*
+{
+  box-sizing: border-box;
+}
+
+html{
+  font-size: 20px;
+}
+
+
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+h1{
+  text-align: right;
+  font-size: 1.5rem;
+}
+
+h2 {
+  text-align: left;
+  font-size: 1.5rem;
+}
+
+
+
+
+
+
+img {
+  width: 100%;
+}
+
+
+
+header#entete
+{
+  top: 0;
+  left:0;
+  /*background: #F00;*/
+  position: fixed;
+  width: 100%;
+  /*height: 50px;*/
+  background: white;
+  /*border: 1px blue solid;*/
+  z-index: 3;
+  padding: 1rem;
+
+  display: grid;
+  grid-template-columns: auto auto 100px 200px;
+  grid-template-rows: 2rem;
+  grid-template-areas: "menu . url search";
+}
+
+nav
+{
+  /*top: 3px;*/
+  /*border: 1px blue solid;*/
+  float: left;
+  /*margin-left: 1%; */
+  font-weight: bold;
+  text-transform: uppercase;
+  grid-area: menu;
+}
+
+
+.url
+{
+  /*top: 3px;*/
+  /*border: 1px blue solid;*/
+  /*float: right;*/
+  /*margin-right: 1%; */
+  font-weight: bold;
+  grid-area: url;
+}
+
+form{
+  grid-area: search;
+}
+
+#search
+{
+  width:200px;
+  /*height:30px;*/
+  height: 1rem;
+  background: black;
+  border: 0;
+  color: #FFF; 
+}
+
+nav li{
+  display: inline-block;
+  margin-right: 1.5rem;
+}
+
+
+
+main{
+  margin-top: 6rem;
+  padding: 1rem;
+}
+
+
+
+main header{
+  position: fixed;
+  top: 3rem;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  z-index: 1000;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 30px;
+  grid-template-areas: "option nom";
+}
+
+main header h1{
+  text-align: right;
+  grid-area: nom;
+}
+
+main header h2{
+  text-align: left;
+  grid-area: option;
+}
+
+
+
+
+
+#content{
+  display: grid;
+ grid-template-columns: 700px ;
+}
+
+
+
+section {
+  grid-column: 1;
+  background-color: yellow;
+}
