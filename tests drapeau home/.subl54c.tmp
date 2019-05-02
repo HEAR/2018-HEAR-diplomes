@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<title>Titre de la page</title>
+		<link rel="stylesheet" href="reset.css">
+		<link rel="stylesheet" href="home.css">
+		<link rel="stylesheet" href="etudiant.css">
+		<script src="jquery-3.3.1.min.js"></script>
+		<script src="script.js"></script>
+	</head>
+	<body>
+		<h1 id="logo">Hear diplomés</h1>
+
+		<header id="entete">
+			<nav>
+					<ul>
+							<li>Annuaire</li>
+					</ul>
+			</nav>
+			<p class="url">hear.fr</p>
+			<form>
+					<input type="text" id="search" name="">
+			</form>
+		</header>
+
+		<div class="gridimage">
+			<a href="etudiant"> <img src="images/DG_ammar-khodja_01.png"> </a>
+			<img src="images/CG_andres_01.png">
+			<img src="images/AO_Angoumois_01.png">
+			<img src="images/DT_Antonin_01.jpg">
+			<img src="images/S_ardouin_01.jpg">
+			<img src="images/I_arnoul_01.jpg">
+			<img src="images/DV_arrighi_1.jpg">
+			<img src="images/DV_aubert_01.jpg">
+			<img src="images/C_Aubin_Albane_1.jpg">
+			<img src="images/Aznard-Samuel-carte-postale-et-site.jpg">
+			<img src="images/A_levy_martin_01.jpg">
+			<img src="images/SITE-Astridbachoux_01.jpg">
+			<img src="images/CG_bae_1.png">
+			<img src="images/DG_bassin.png">
+			<img src="images/D_begon_01.jpg">
+			<img src="images/S_bentkowski_01.jpg">
+			<img src="images/I_bertron_01.png">
+			<img src="images/AO_BEYREND_01.jpg">
+			<img src="images/IMG_9782-lea_bianco.jpg">
+			<img src="images/Bidault_Axel_01.jpg">
+			<img src="images/CG_bigourie_01.jpg">
+			<img src="images/Blanco-Gonzales-Javier.jpg">
+			<img src="images/Blum-juliette-Site.jpg">
+			<img src="images/DT_Fosset_01.png">
+			<img src="images/AO_boisserie05.jpg">
+			<img src="images/A_bonicel_01.jpg">
+			<img src="images/IMG_9050-marie_bonifait.jpg">
+			<img src="images/A_Bonnifait_01.jpg">
+			<img src="images/IMG_9984-kevin_bourdat.jpg">
+			<img src="images/DV_Bourry_01.png">
+			<img src="images/IMG_6500-matthieu_brechet.jpg">
+			<img src="images/DG_bresson_01.png">
+			<img src="images/A_BURUCOA_01.png">
+			<img src="images/IMG_7804-marie_camilleri.jpg">
+			<img src="images/Campbell-Adam-site.jpg">
+			<img src="images/DT_caravati_01.jpg">
+			<img src="images/CG_Caron_01.jpg">
+			<img src="images/DV_CARRER_01_W.jpg">
+			<img src="images/IMG_7915-noelia_carrera.jpg">
+			<img src="images/A_cazenavedelaroche_01.jpg">
+			<img src="images/DV_ceschin_01.jpg">
+			<img src="images/IMG_9731-coline_charnier.jpg">
+			<img src="images/Doriane-Charton.jpg">
+			<img src="images/A_cherici_1.png">
+			<img src="images/1.jpg">
+			<img src="images/A0_Chevanse_01.jpg">
+			<img src="images/01-1.jpg">
+			<img src="images/1.png">
+			<img src="images/I_ciquier_01.jpg">
+			<img src="images/I_Clarke_01.jpg">
+			<img src="images/IMG_6407-olivier_claude.jpg">
+			<img src="images/DV_Clausolles_01.jpg">
+			<img src="images/S_clouzeau_01.jpg">
+			<img src="images/D_coat_01.png">
+			<img src="images/I_cochepin_01.jpg">
+			<img src="images/W5COCHET-I-WATCHED-A-SNAIL.png">
+			<img src="images/A_colascaroline_01.jpg">
+			<img src="images/S_Lisa-C_01.jpg">
+			<img src="images/I_collardot_01.jpg">
+			<img src="images/CG_Colombo_01.jpg">
+			<img src="images/AO_colrat_01.jpg">
+			<img src="images/DV_Coquart-Pocztar1.jpg">
+			<img src="images/CG_Corvo_01.jpg">
+			<img src="images/IMG_8524-alexandre_cottin.jpg">
+			<img src="images/Courcier-Alexis-site-et-carte-postale.jpg">
+			<img src="images/Curutchet-Sebastien-site-et-carte-postale.jpg">
+			<img src="images/Gzubicka-Marta-site-et-carte-postale.jpg">
+			<img src="images/I_dOrlando_01.jpg">
+			<img src="images/1_La-Cheffe-vue-densemble.jpg">
+			<img src="images/01.jpg">
+			<img src="images/DV_deBezenac_01.jpg">
+			<img src="images/I_deFERRAN_01.jpg">
+			<img src="images/DT_derooster_01.jpg">
+			<img src="images/I_debaye_01.jpg">
+			<img src="images/AO_defrance_01.png">
+			<img src="images/CG_degardin_01.jpg">
+			<img src="images/I_delafoulhouze_01.jpg">
+			<img src="images/DV_delage_01.jpg">
+			<img src="images/CG_delavilledelaparra_01.jpg">
+			<img src="images/I_deschiens_01.jpg">
+			<img src="images/CG_deslot_1.jpg">
+			<img src="images/Devaux-dit-Site.jpg">
+			<img src="images/Di-Lazzaro-Luca-Site.jpg">
+			<img src="images/IMG_7895-lilia_dornhof.jpg">
+			<img src="images/Dornhof-Lilia-site.jpg">
+			<img src="images/DV_dubois_01.jpg">
+			<img src="images/IMG_9730-margot_dubois_lafaye.jpg">
+			<img src="images/IMG_7005-daisy_dugardin.jpg">
+			<img src="images/IMG_7238-cedric_dupuy.jpg">
+			<img src="images/IMG_9547-aleksandra_dsenisenia.jpg">
+			<img src="images/IMG_9019-jad_el_khechen.jpg">
+			<img src="images/DV_escoriza_01.jpg">
+			<img src="images/S_euzet_01.jpg">
+			<img src="images/DV_Exposito_01.jpg">
+			<img src="images/Fassel-Mathieu-site.jpg">
+			<img src="images/A_Castel_1.png">
+			<img src="images/Fereira-Juliette-Site.jpg">
+			<img src="images/DT_Finance_01-1.jpg">
+			<img src="images/DV_fiore_01.jpg">
+			<img src="images/Fischer-Laure-Site.jpg">
+			<img src="images/Maisema-6.jpg">
+			<img src="images/Fortin-Thibaud-Site.jpg">
+			<img src="images/CG-foucou_1.jpg">
+			<img src="images/dg_fouilleux_01.jpg">
+			<img src="images/S_fournier_1.png">
+			<img src="images/IMG_8077-gaelle_francois.jpg">
+			<img src="images/Fromager_Florian_Web_01.jpg">
+			<img src="images/couvdiplômes.png">
+			<img src="images/A_Gallais_01.jpg">
+			<img src="images/DV_galvier_01.png">
+			<img src="images/IMG_6164-elise_gauthier.jpg">
+			<img src="images/DV_Gauthier_1.jpg">
+			<img src="images/AO_girard_1.jpg">
+			<img src="images/S_giraud_01.png">
+			<img src="images/CG_gosse_1.png">
+			<img src="images/DT_gourhand_01.jpg">
+			<img src="images/S-Grandjean_1.jpg">
+			<img src="images/AO_grenois_01.jpg">
+			<img src="images/I_griot_01.jpg">
+			<img src="images/A_guerin_1.jpg">
+			<img src="images/AO_Guerin-1.png">
+			<img src="images/IMG_7585-rui_guo.jpg">
+			<img src="images/IMG_6879-marta_dorota_gzubicka.jpg">
+			<img src="images/IMG_8234-etienne_haan.jpg">
+			<img src="images/CG_hachad_01.jpg">
+			<img src="images/DV_harrivelle_01.png">
+			<img src="images/DT_Hateley_Joanna_01.jpg">
+			<img src="images/IMG_7128-sayaka_hayano.jpg">
+			<img src="images/Haye-Jean-Baptiste-site.jpg">
+			<img src="images/IMG_6021-daphne_hejebri.jpg">
+			<img src="images/IMG_7193-florent_hervier.jpg">
+			<img src="images/IMG_6050-tiphaine_hervouet.jpg">
+			<img src="images/IMG_9887-iida_hirvola.jpg">
+			<img src="images/IMG_9617-victor_hocquet.jpg">
+			<img src="images/IMG_6606-clement_huber.jpg">
+			<img src="images/AO_Hubert_01.jpg">
+			<img src="images/DT_hunsinger-loones_01.png">
+			<img src="images/Iltis-François-Site.jpg">
+			<img src="images/S_Imirizaldu_01.jpg">
+			<img src="images/A_jaoudat_01.png">
+			<img src="images/A_jeanjean_01.jpg">
+			<img src="images/DV_jeljeli_01.jpg">
+			<img src="images/w_simon_jerez_1.jpg">
+			<img src="images/A_jiang-0.png">
+			<img src="images/IMG_8161-gregoire_jokic.jpg">
+			<img src="images/I_josset_01.png">
+			<img src="images/DG_joufflineau_01.jpg">
+			<img src="images/D_jouve-corneloup_1.jpg">
+			<img src="images/CG_juhel_01.jpg">
+			<img src="images/IMG_8322-noemie_jusselle.jpg">
+			<img src="images/A_Kaemmerer_01.jpg">
+			<img src="images/A_kalvar_01.jpg">
+			<img src="images/Kawamura-Noroko-Site_DxO_2.jpg">
+			<img src="images/A_kerssenbrock_01.jpg">
+			<img src="images/AO_kieffer_victoria_01.jpg">
+			<img src="images/D_kim_01.png">
+			<img src="images/I_klee.jpg">
+			<img src="images/IMG_7038-yuko_kokaji.jpg">
+			<img src="images/D_krengel_01.jpg">
+			<img src="images/AO_Lagnier_Bluenn_bague-1.jpg">
+			<img src="images/Laise-Aurelien-site-et-carte-postale.jpg">
+			<img src="images/Lambert-Marin-Site.jpg">
+			<img src="images/IMG_6639-margaux_lang.jpg">
+			<img src="images/CG_lange_01.jpg">
+			<img src="images/i_lannes_01.jpg">
+			<img src="images/AO_laperriere_01.jpg">
+			<img src="images/A_laucher_01.jpg">
+			<img src="images/DV_laudet_01.jpg">
+			<img src="images/Lavenas-Celine-site.jpg">
+			<img src="images/A_leal_02.png">
+			<img src="images/AO_Lefevre_01.jpg">
+			<img src="images/Sans-titre012018Huile-sur-toile-dortie125x85cm.jpg">
+			<img src="images/A_Lequenne_01.jpg">
+			<img src="images/S_levylajeunesse_01.jpg">
+			<img src="images/DV_Qianli_01.jpg">
+			<img src="images/A_cottet_01.jpg">
+			<img src="images/CG_meas_01.png">
+			<img src="images/DG_lopes-marques01.png">
+			<img src="images/IMG_6945-clement_losco.jpg">
+			<img src="images/A_LUO_01PNG-.jpg">
+			<img src="images/A_mancini_01_weed.jpg">
+			<img src="images/Managanas-Serena-Site.jpg">
+			<img src="images/D_manowicz_01.jpg">
+			<img src="images/A_mansard_01.jpg">
+			<img src="images/IMG_5857-diego_manuschevich.jpg">
+			<img src="images/S_Marchal_01.jpg">
+			<img src="images/A_mariat_01.png">
+			<img src="images/A_Marie-Hardy_01.jpg">
+			<img src="images/IMG_7634-clement_marin.jpg">
+			<img src="images/A_marini_01.jpg">
+			<img src="images/IMG_8113-firmin_martens.jpg">
+			<img src="images/CG_martin_03.png">
+			<img src="images/antoine_martynciow.jpg">
+			<img src="images/01.jpg">
+			<img src="images/A_massard_01.jpg">
+			<img src="images/DV_chene_1.jpg">
+			<img src="images/Mainier-Guilhem-site.jpg">
+			<img src="images/I_mazars_1.jpg">
+			<img src="images/I_meissonnier_01.jpg">
+			<img src="images/Mehri-Jean-David-site.jpg">
+			<img src="images/JULIETTE_MICHALET.jpg">
+			<img src="images/Missioux-Helene-Site.jpg">
+			<img src="images/W_tania_moisan_1.jpg">
+			<img src="images/IMG_5708-salome_mokdad.jpg">
+			<img src="images/AO_Mollard_01.png">
+			<img src="images/DT_Monfourny_1.jpg">
+			<img src="images/I_Monnier_01.jpg">
+			<img src="images/Moquet-Julien-site.jpg">
+			<img src="images/D_Morel_01.jpg">
+			<img src="images/A_moyaux_01.jpg">
+			<img src="images/Jose-Xavier-Munoz.jpg">
+			<img src="images/MYLENE_NICOLAS.jpg">
+			<img src="images/DV_nagy_01.jpg">
+		</div>
+
+		
+		<!-- <header id="entete">
+				
+				<nav>
+						<ul>
+								<li>Annuaire</li>
+						</ul>
+				</nav>
+				<p class="url">hear.fr</p>
+				<form>
+						<input type="text" id="search" name="">
+				</form>
+		</header>
+		<main>
+				<header>
+						<h3>Hear diplômés</h3>
+				</header>
+		</main> -->
+	</body>
+</html>

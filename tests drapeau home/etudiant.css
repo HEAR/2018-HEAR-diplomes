@@ -1,0 +1,298 @@
+*
+{
+  box-sizing: border-box;
+}
+
+html{
+  font-size: 20px;
+}
+
+
+
+body {
+  font-family: Michroma, sans-serif;
+}
+
+
+h1{
+  text-align: right;
+  /*font-size: 1.5rem;*/
+}
+
+h2 {
+  text-align: left;
+  font-size: 1.5rem;
+}
+
+
+
+
+
+
+img {
+  width: 100%;
+}
+
+
+
+header#entete
+{
+  top: 0;
+  left:0;
+  /*background: #F00;*/
+  position: fixed;
+  width: 100%;
+  /*height: 50px;*/
+  background: white;
+  /*border: 1px blue solid;*/
+  z-index: 3;
+  padding: 1rem;
+
+  display: grid;
+  grid-template-columns:auto auto 100px 200px;
+  grid-template-rows: 1rem;
+  grid-template-areas: "  menu . url search";
+}
+
+
+nav
+{
+  /*top: 3px;*/
+  /*border: 1px blue solid;*/
+  float: left;
+  /*margin-left: 1%; */
+  font-weight: bold;
+  text-transform: uppercase;
+  grid-area: menu;
+  margin-left: 300px;
+}
+
+
+.url
+{
+  /*top: 3px;*/
+  /*border: 1px blue solid;*/
+  /*float: right;*/
+  /*margin-right: 1%; */
+  font-weight: bold;
+  grid-area: url;
+}
+
+form{
+  grid-area: search;
+}
+
+#search
+{
+  width:200px;
+  /*height:30px;*/
+  height: 1rem;
+  background: white;
+  border: 1px solid black;
+  color: black; 
+}
+
+nav li{
+  display: inline-block;
+  margin-right: 1.5rem;
+}
+
+
+
+main{
+  margin-top: 6rem;
+  padding: 1rem;
+}
+
+
+
+main header{
+  position: fixed;
+  top: 3rem;
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 1rem;
+  z-index: 1000;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 30px;
+  grid-template-areas: "option nom";
+}
+
+main header h1{
+  text-align: right;
+  grid-area: nom;
+}
+
+main header h2{
+  text-align: left;
+  grid-area: option;
+}
+
+#content{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: "gauche droite";
+}
+
+.gauche{
+  position: fixed;
+  width: calc(50vw - 1.5rem);
+  grid-area: gauche;
+  height: calc(100vh - 8rem);
+  overflow: auto;
+}
+
+.droite{
+  grid-area: droite;
+}
+
+
+figure{
+  position: relative;
+  background: #000;
+  margin-bottom: 0.5rem;
+}
+
+figure img{
+  filter: grayscale(0);
+  opacity: 1;
+  transition: filter 0.5s ease, opacity 0.5s ease;
+}
+
+figcaption{
+  position: absolute;
+  bottom: -15px;
+  left:15px;
+  right: 15px;
+  color: #FFF;
+  opacity: 0;
+  transition: opacity 0.5s ease, bottom 1s ease;
+}
+
+figure:hover figcaption{
+  opacity: 1;
+  bottom: 15px;
+}
+
+figure:hover img{
+  opacity: 0.3;
+  filter: grayscale(1);
+}
+
+.legende 
+{
+  color : white;
+  position: absolute;
+  width: 40%;
+  /*border: 1px blue solid;*/
+  margin-left: 1%; 
+  margin-left: 1%; 
+  margin-top: 1%;
+
+}
+
+
+/*
+<div class="nav">HEAR  DIPLOMÉS    ANNUAIRE</div>
+<div class="site_hear">HEAR.FR</div>
+<div class="barre"></div>
+
+
+
+.legende {
+
+top:0;
+left:0;
+margin: 10px 2%;
+padding:25px; 
+position: absolute;
+width: 96% ;
+display: none;
+background: #FFF;
+color: #000000;
+box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+
+font-family: 'RobotoMono-Regular' ; 
+font-style: normal;
+font-weight:normal;
+text-decoration:none;
+
+}
+
+
+
+
+.colonne_droite {
+position:sticky;
+position:-webkit-sticky;
+top:0px;
+float:right;
+padding-right:30px;
+width:32%;min-height:500px;
+border:solid 0px #7B7433;
+overflow:auto;
+color:#fff;
+box-sizing:border-box;
+-webkit-box-sizing:border-box;
+-moz-box-sizing:border-box;
+font-size: 13px;  
+}
+
+
+.grille {
+width:65%;
+border:solid 0px #fff;
+position:relative;
+}
+
+*/
+
+
+
+.texte_gauche
+{
+  /*display: inline;  the default for span */
+
+  width: 40%;
+  /*border: 1px blue solid;*/
+  margin-left: 1%; 
+  position: fixed;
+  float: left;
+  top: 50px;
+  background: white;
+  z-index: 3 ;
+
+  /* flex-wrap: nowrap | wrap | wrap-reverse; */
+}
+
+.images_droite
+{
+  /*display: inline;  the default for span */
+  float: right;
+  position: relative;
+  overflow: scroll;
+  width: 56%;
+  /*border: 1px blue solid;*/
+  top: 115px;
+  z-index: 1 ;
+
+  /* flex-wrap: nowrap | wrap | wrap-reverse; */
+}
+
+.nom_droite
+{
+
+  /*border: 1px blue solid;*/
+  float: right;
+  position: fixed;
+  margin-top: 40px;
+  width: 98%;
+  z-index: 2 ;
+  background: white;
+
+}

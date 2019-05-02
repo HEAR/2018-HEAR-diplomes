@@ -1,0 +1,68 @@
+/* https://jsfiddle.net/5o48vs9y/ */
+
+
+
+header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #F00;
+  padding: 25px;
+  display: flex;
+ 
+}
+
+h1#logo{
+  position: fixed;
+  margin: 0;
+  top: 3.5rem;
+  left: 1.65rem;
+  font-size:120px;
+  font-stretch: 20%;
+  text-transform:uppercase;
+  line-height:40px;
+  transition:  font-size 4s ease,
+  				line-height 4s ease, 
+  				top 4s ease, 
+  				left 4s ease;
+  z-index: 1000;
+}
+
+span{
+  margin-left: 30px;
+  font-size:40px;
+  line-height:40px;
+  transition:  font-size 1s ease,line-height 1s ease;
+}
+
+header.small span{
+  font-size:10px;
+  line-height:10px;
+}
+
+h1#logo.small{
+  font-size:1rem;
+  top: 0.5rem;
+  left: 2rem;
+
+}
+
+main{
+  margin: 100px 20px 20px;
+}
+
+.grid{
+  column-count: 8;
+  padding: 15px;
+  column-gap: 0.5rem;
+  margin-top: 150px;
+  /*margin: 4px*/
+}
+
+.grid img{
+  /*height: 130px;
+  width: auto;*/
+  margin-right: 2px;
+  margin-bottom: 4px;
+}
