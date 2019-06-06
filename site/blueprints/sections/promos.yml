@@ -1,8 +1,0 @@
-type: pages
-headline: Promos
-# parent: site.find("etudiants")
-# info: "{{ page.date.toDate('d.m.Y') }}"
-template: promo
-# empty: No student yet
-sortBy: date desc
-
