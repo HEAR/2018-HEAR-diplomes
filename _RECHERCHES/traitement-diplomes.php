@@ -73,6 +73,10 @@ foreach( $csv->data as $key => $ligne ){
 
 	$repertoire = "diplomes/" . $dirname;
 
+	if(!is_dir("diplomes/")){
+		mkdir("diplomes/");
+	}
+
 	if(!is_dir($repertoire)){
 		mkdir( $repertoire );
 	}
