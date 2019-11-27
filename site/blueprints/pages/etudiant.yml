@@ -38,7 +38,7 @@ tabs:
           phone:
             type: tel
             label: Téléphone    
-          site:
+          weburl:
             type: url
             label: Site internet
           mention:

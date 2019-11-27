@@ -2,7 +2,7 @@ Title: Horellou
 
 ----
 
-Prenom: 
+Prenom: Loïc
 
 ----
 
@@ -14,27 +14,27 @@ Date-naissance: 1979-11-16
 
 ----
 
-Ville-naissance: 
+Ville-naissance: Pau
 
 ----
 
-Pays-de-naissance: 
+Pays-de-naissance: France
 
 ----
 
-Email: 
+Email: loic.horellou@hear.fr
 
 ----
 
-Phone: 
+Phone: 06.84.70.19.67
 
 ----
 
-Site: 
+Weburl: http://comgraph.hear.fr
 
 ----
 
-Mention: didactique_visuelle
+Mention: communication_graphique
 
 ----
 
@@ -42,16 +42,16 @@ Atelier-groupe:
 
 ----
 
-Text-fr: 
+Text-fr: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, uis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 ----
 
-Images: 
-
-----
-
-Text-en: 
+Text-en: english Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat upidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 ----
 
 Sons-videos: 
+
+----
+
+Images: 

@@ -2,8 +2,7 @@
 
 <!-- home.php -->
 
-<?= $page->title() ?>
-
+<div class="gridimage">
 <ul>
 <?php 
 
@@ -13,12 +12,24 @@ $promo = $site->index()->filterBy('template', 'promo')->sortBy("title", "desc")-
 //foreach($promos as $promo) :
 ?>
 
-<li><?= $promo->title(); ?>
+<!-- <li><?= $promo->title(); ?> -->
 
 	<ul>
 	<?php foreach( $promo->children()->sortBy("title") as $etudiant ) : ?>
 
-	<li><a href="<?= $etudiant->url() ?>"><?= $etudiant->prenom().' '.$etudiant->title() ?></a></li>
+	
+
+	<li>
+		<a href="<?= $etudiant->url() ?>">
+		<?php foreach ($etudiant->images() as $image) : ?>
+  		<?= $image->resize(null,130)->html() ?>
+  		<?php break; endforeach; ?>
+
+		<!-- <?= $etudiant->prenom().' '.$etudiant->title() ?> -->
+			
+		</a>
+
+	</li>
 
 	<?php endforeach; ?>
 	</ul>
@@ -29,6 +40,8 @@ $promo = $site->index()->filterBy('template', 'promo')->sortBy("title", "desc")-
 <?php //endforeach; ?>
 
 </ul>
+
+</div>
 <!-- fin home.php -->
 
 <?php snippet('footer') ?>

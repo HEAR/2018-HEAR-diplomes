@@ -1,4 +1,12 @@
-Caption: 
+Caption: Test de légende image n°2
+
+----
+
+Alt: 
+
+----
+
+Author: 
 
 ----
 
