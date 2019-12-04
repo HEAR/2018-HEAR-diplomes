@@ -30,7 +30,7 @@ Phone: +33 (0)7 86 84 20 32
 
 ----
 
-Site: www.annagriot.com
+Weburl: www.annagriot.com
 
 ----
 

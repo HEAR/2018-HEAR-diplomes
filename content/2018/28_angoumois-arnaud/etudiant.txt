@@ -10,7 +10,7 @@ Pseudonyme:
 
 ----
 
-Date-naissance: 
+Date-naissance: 1992-avril-2
 
 ----
 
@@ -30,7 +30,7 @@ Phone: +33 (0)7 68 86 00 76
 
 ----
 
-Weburl: 
+Weburl: www.arnaudangoumois.com
 
 ----
 
@@ -51,7 +51,3 @@ Text-en: I dream myself as the distant heir of the one who, by the arrangement o
 ----
 
 Sons-videos: 
-
-----
-
-Site: www.arnaudangoumois.com

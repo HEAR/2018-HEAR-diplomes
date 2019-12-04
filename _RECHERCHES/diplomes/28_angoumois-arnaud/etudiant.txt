@@ -30,11 +30,11 @@ Phone: +33 (0)7 68 86 00 76
 
 ----
 
-Site: www.arnaudangoumois.com
+Weburl: www.arnaudangoumois.com
 
 ----
 
-Mention: 
+Mention: art_objet
 
 ----
 

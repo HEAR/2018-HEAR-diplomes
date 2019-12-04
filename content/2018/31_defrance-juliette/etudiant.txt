@@ -30,11 +30,11 @@ Phone: +33 (0)6 37 96 80 21
 
 ----
 
-Site: www.instagram.fr/defrancejuliette
+Weburl: www.instagram.fr/defrancejuliette
 
 ----
 
-Mention: 
+Mention: art_objet
 
 ----
 

@@ -30,15 +30,15 @@ Phone: +33 (0)6 22 17 74 81
 
 ----
 
-Site: www.morganebeyrend.com
+Weburl: www.morganebeyrend.com
 
 ----
 
-Mention: 
+Mention: art_objet
 
 ----
 
-Atelier-groupe: 
+Atelier-groupe: bijou
 
 ----
 

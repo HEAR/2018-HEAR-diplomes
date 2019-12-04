@@ -30,7 +30,7 @@ Phone: +33 (0)663526674
 
 ----
 
-Site: www.lisapages.fr
+Weburl: www.lisapages.fr
 
 ----
 

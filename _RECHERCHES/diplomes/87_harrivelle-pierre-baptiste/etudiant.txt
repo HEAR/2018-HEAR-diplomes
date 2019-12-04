@@ -30,7 +30,7 @@ Phone: +33 (0)6 11 03 37 65
 
 ----
 
-Site: www.pibi.fr
+Weburl: www.pibi.fr
 
 ----
 

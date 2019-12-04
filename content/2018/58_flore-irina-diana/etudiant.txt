@@ -30,7 +30,7 @@ Phone: +33 (0)7 61 32 81 94
 
 ----
 
-Site: www.irinaflore.com
+Weburl: www.irinaflore.com
 
 ----
 

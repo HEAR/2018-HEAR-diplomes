@@ -1,8 +1,8 @@
-Title: Sclavo
+Title: Lisa
 
 ----
 
-Prenom: Lisa
+Prenom: Sclavo
 
 ----
 
@@ -30,7 +30,7 @@ Phone: +33 (0)669121776
 
 ----
 
-Site: 
+Weburl: 
 
 ----
 
@@ -43,10 +43,6 @@ Atelier-groupe:
 ----
 
 Text-fr: Le Musée Invisible  Le Musée Invisible est l’archétype des musées en France aujourd’hui : une œuvre, son cartel, une assise et un système de surveillance incontournable.  Le Musée Invisible s’installe cette année à Strasbourg pour présenter son exposition inédite, éphémère et hors les murs. Un parcours dans la ville pour découvrir les œuvres obtenues par le Musée d’Art Moderne et Contemporain de Strasbourg en 2017 jamais encore dévoilées au grand public.   De l’appropriation à la copie d’œuvres, en passant par le pouvoir de la vidéo-surveillance comment peut-on faire musée aujourd’hui ?
-
-----
-
-Images: 
 
 ----
 

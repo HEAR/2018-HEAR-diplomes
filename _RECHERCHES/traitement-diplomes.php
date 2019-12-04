@@ -13,9 +13,10 @@ $csv->parse('diplomes-2018.csv');
 
 
 $mention['Art'] 					= 'art'; 
-$mention['Art objet'] 				= 'art_objet'; 
+$mention['Art-Objet'] 				= 'art_objet'; 
 $mention['Scénographie'] 			= 'scenographie'; 
 $mention['Communication graphique'] = 'communication_graphique'; 
+$mention['Design graphique'] = 'design_graphique'; 
 $mention['Didactique visuelle'] 	= 'didactique_visuelle'; 
 $mention['Illustration'] 			= 'illustration'; 
 $mention['Design'] 					= 'design'; 
@@ -31,7 +32,7 @@ $atelier_groupe['No Name']					= 'no_name';
 $atelier_groupe['Peinture(s)']				= 'peinture';
 $atelier_groupe['Phonon']					= 'phonon';
 $atelier_groupe['Le plateau']				= 'le_plateau';
-$atelier_groupe['Bijoux']					= 'bijoux';
+$atelier_groupe['Bijou']					= 'bijou';
 $atelier_groupe['Bois']						= 'bois';
 $atelier_groupe['Terre']					= 'terre';
 $atelier_groupe['Verre']					= 'verre';

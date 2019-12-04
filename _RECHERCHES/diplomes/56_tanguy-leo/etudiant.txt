@@ -30,7 +30,7 @@ Phone: +33 (0)6 17 57 40 11
 
 ----
 
-Site: www.leotanguy.com
+Weburl: www.leotanguy.com
 
 ----
 

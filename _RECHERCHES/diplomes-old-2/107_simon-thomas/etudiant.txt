@@ -1,0 +1,53 @@
+Title: Simon
+
+----
+
+Prenom: Thomas
+
+----
+
+Pseudonyme: 
+
+----
+
+Date-naissance: 1995-12-20
+
+----
+
+Ville-naissance: Brest
+
+----
+
+Pays-de-naissance: 
+
+----
+
+Email: thomas.simon29480@gmail.com
+
+----
+
+Phone: +33 (06)46279150
+
+----
+
+Site: 
+
+----
+
+Mention: illustration
+
+----
+
+Atelier-groupe: 
+
+----
+
+Text-fr: Bonjour je m'appelle toto, mon arrière-grand-mère pensait que j'étais en Allemagne pour faire mon service militaire.
+
+----
+
+Text-en: Hello my name is toto, my great grandmother thought I was in Germany to do my military service.
+
+----
+
+Sons-videos: 

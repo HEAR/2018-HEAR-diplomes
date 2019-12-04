@@ -30,11 +30,11 @@ Phone: +33 (0)628369799
 
 ----
 
-Site: www.victoriakieffer.com
+Weburl: www.victoriakieffer.com
 
 ----
 
-Mention: 
+Mention: art_objet
 
 ----
 

@@ -28,9 +28,9 @@ $(function(){
 
     });
 
+    $('#annuaire li').click(function(event){
 
-
-    $('#annuaire li').click(function(){
+        // event.preventDefault()
 
         // console.log( $(this).data("diplome") )
 
@@ -52,25 +52,30 @@ $(function(){
                 .find(".content")
                 .slideUp(0)
 
+            let url = `${ $(this).data("url") }.json`
 
+            console.log(url)
 
             $.ajax({
-                url: "json/diplome.json",
+                url: url,
                 data: { cache : new Date() }
             }).done(function(data) {
                 // console.log(data)
 
                 let htmlContent = "";
 
-                htmlContent += '<div class="container">';
-                htmlContent += '<div id="content_vignette">';
-                htmlContent += '<figure>';
-                htmlContent += '<img src="'+data.image+'">';
-                htmlContent += '<figcaption>'+data.legende+'</figcaption>';
-                htmlContent += '</figure>';
-                htmlContent += '</div>';
-                htmlContent += '<div id="content_informations"><p>'+data.ville+', '+data.pays+'<br>'+data.telephone+'<br>'+data.mail+'</p></div>';
-                htmlContent += '</div>';
+                htmlContent += `<div class="container">`;
+                htmlContent += `<div id="content_vignette">`;
+                htmlContent += `<figure>`;
+
+                if( data.images.length > 0 ){
+                htmlContent += `<a href="${data.url}"><img src="${data.images[0].image_url}"></a>`;
+                htmlContent += `<figcaption>${data.images[0].image_caption}</figcaption>`;
+                }
+                htmlContent += `</figure>`;
+                htmlContent += `</div>`;
+                htmlContent += `<div id="content_informations"><p><a href="${data.url}">Aller sur la page</a></p><p>${data.ville}, ${data.pays}<br>${data.telephone}<br>${data.mail}</p></div>`;
+                htmlContent += `</div>`;
 
                 $(".open")
                     .find(".content")
@@ -90,5 +95,9 @@ $(function(){
                 })
         }
     })	
+
+    $('#annuaire li a').click(function(event){
+        event.stopPropagation()
+    })
 
 });

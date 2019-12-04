@@ -449,6 +449,11 @@ h1#logo.small{
 
 /* ANNUAIRE */
 
+#annuaire:first-child{
+	position: sticky;
+	top: 100px;
+}
+
 
 #annuaire-container{
 	margin-top: 50px;
@@ -486,6 +491,10 @@ h1#logo.small{
 	background: var(--couleur-actif);
 }
 
+#annuaire-container li.open .content{
+	min-height: 90px;
+}
+
 #annuaire-container .annee{
 	grid-area: a;
 	padding-left: var(--petite-marge);
@@ -505,7 +514,8 @@ h1#logo.small{
 
 #annuaire-container .content{
 	grid-area: c;
-	max-height:100%;width:auto;
+	max-height:100%;
+	width:auto;
 	position: relative;
 	background-color: var(--couleur-actif);
 }
@@ -526,6 +536,10 @@ h1#logo.small{
 	/*bottom: c;*/
 	position:absolute;
 	bottom:0;
+}
+
+#annuaire-container #content_informations p+p{
+	margin-top: 1em;
 }
 
 #annuaire-container figure{

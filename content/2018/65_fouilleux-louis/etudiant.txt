@@ -30,11 +30,11 @@ Phone: +33 (0)6 16 40 84 69
 
 ----
 
-Site: www.cargocollective.com/louisfouilleux
+Weburl: www.cargocollective.com/louisfouilleux
 
 ----
 
-Mention: 
+Mention: design_graphique
 
 ----
 

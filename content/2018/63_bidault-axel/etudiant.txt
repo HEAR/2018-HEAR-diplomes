@@ -30,11 +30,11 @@ Phone: +33 (0)6 14 39 17 50
 
 ----
 
-Site: www.axelbidault.fr
+Weburl: www.axelbidault.fr
 
 ----
 
-Mention: 
+Mention: design_graphique
 
 ----
 

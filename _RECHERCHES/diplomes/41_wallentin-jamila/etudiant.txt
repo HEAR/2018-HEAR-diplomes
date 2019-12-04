@@ -30,15 +30,15 @@ Phone: +33 (0)767456332
 
 ----
 
-Site: 
+Weburl: 
 
 ----
 
-Mention: 
+Mention: art_objet
 
 ----
 
-Atelier-groupe: 
+Atelier-groupe: bijou
 
 ----
 

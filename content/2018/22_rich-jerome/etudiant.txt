@@ -30,7 +30,7 @@ Phone: +33 (0)6 49 62 26 02
 
 ----
 
-Site: www.jeromerich.com
+Weburl: www.jeromerich.com
 
 ----
 

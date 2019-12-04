@@ -10,7 +10,7 @@ Pseudonyme:
 
 ----
 
-Date-naissance: 
+Date-naissance: 1994-juillet-11
 
 ----
 
@@ -30,7 +30,7 @@ Phone: +33 (0)686050969
 
 ----
 
-Site: 
+Weburl: 
 
 ----
 
@@ -42,7 +42,7 @@ Atelier-groupe: no_name
 
 ----
 
-Text-fr: Gang de perruches, réseaux d'ondes telluriques, usines transformées en musée, mémoire familiale et fantômes de site internet : entre les archives et au milieu des rencontres j'explore et agence des histoires.
+Text-fr: Gang de perruches, réseaux d'ondes telluriques, usines transformées en musée, mémoire familiale et fantômes de site internet : entre les archives et au milieu des rencontres j'explore et agence des histoires. 
 
 ----
 
