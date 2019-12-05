@@ -11,12 +11,12 @@
   	'//fonts.googleapis.com/css?family=Michroma&display=swap',
   	'//fonts.googleapis.com/css?family=Roboto:300&display=swap',
   	'assets/css/reset.css',
-  	'assets/css/main.css?v=0.2'
+  	'assets/css/main.css?v=0.8'
   	]) ?>
 
   <?= js([
   	'assets/js/jquery-3.4.1.min.js',
-  	'assets/js/script.js?v=0.2'
+  	'assets/js/script.js?v=0.8'
   	]) ?>
 
 
@@ -25,7 +25,7 @@
 
 	<header id="entete">
 
-		<h1 id="logo"><a href="<?= $site->url() ?>">Hear diplomes</a></h1>
+		<h1 id="logo"><a href="<?= $site->url() ?>">Hear&nbsp;diplomes</a></h1>
 
 		<?php snippet('menu') ?>
 		

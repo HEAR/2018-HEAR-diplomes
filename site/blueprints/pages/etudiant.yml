@@ -1,7 +1,7 @@
 title: Étudiant
 # preset: page
 # icon: 📝
-num: zero
+num: '{{ page.title }}'
 
 status:
   draft: true
@@ -49,6 +49,7 @@ tabs:
               art_objet: Art objet
               scenographie: Scénographie
               communication_graphique: Communication graphique
+              design_graphique: Design graphique
               didactique_visuelle: Didactique visuelle
               illustration: Illustration
               design: Design
@@ -65,7 +66,7 @@ tabs:
               peinture: Peinture(s)
               phonon: Phonon
               le_plateau: Le plateau
-              bijoux: Bijoux
+              bijou: Bijou
               bois: Bois
               terre: Terre
               verre: Verre

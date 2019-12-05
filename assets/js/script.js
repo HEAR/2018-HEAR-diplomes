@@ -100,4 +100,28 @@ $(function(){
         event.stopPropagation()
     })
 
+
+    $( "body" ).keyup(function( event ) {
+
+        console.log(event.which);
+        // event.preventDefault();
+
+        if(event.which == 38 || event.which == 37){ // top / left
+            event.preventDefault()
+
+            $('#annuaire').find('.open').prev().trigger("click")
+
+            return false
+        }
+
+        if(event.which == 40 || event.which == 39){ // bottom / right
+            event.preventDefault()
+
+            $('#annuaire').find('.open').next().trigger("click")
+
+            return false
+        }
+
+    });
+
 });

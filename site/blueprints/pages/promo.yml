@@ -9,6 +9,8 @@ status:
 
 pages:
   template: etudiant
+  sortBy: title asc
+  info: "{{ page.prenom }}"
 
 fields:
   annee:
@@ -18,3 +20,4 @@ fields:
     step: 1
     required: true
     default: 2012
+  

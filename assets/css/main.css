@@ -449,9 +449,12 @@ h1#logo.small{
 
 /* ANNUAIRE */
 
-#annuaire:first-child{
+#annuaire li:first-child{
 	position: sticky;
-	top: 100px;
+	top: 3rem;
+	/*background: red;*/
+	border-top: 1px solid var(--main-color);
+	border-bottom: 1px solid var(--main-color);
 }
 
 
@@ -476,11 +479,15 @@ h1#logo.small{
 	grid-template-areas:
 	"a g n u"
 	"c c c c";
-	border-top: 1px solid var(--main-color);
+	border-bottom: 1px solid var(--main-color);
 	padding: 5px 0px;
 	/*cursor:pointer;*/
 	background: #FFF;
 	/*transition: background 1s ease;*/
+}
+
+#annuaire-container li:last-child{
+	border-bottom: 0;
 }
 
 #annuaire-container li span{
