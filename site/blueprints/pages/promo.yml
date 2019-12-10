@@ -1,20 +1,10 @@
 title: Promo
-# preset: page
-# icon: 📝
-
-# pages: true
 
 status:
   draft: false
   unlisted: true
   listed: false
 files: true
-
-
-# pages:
-#   template: etudiant
-#   sortBy: title asc
-#   info: "{{ page.prenom }}"
 
 columns:
   detail:
@@ -40,17 +30,31 @@ columns:
   main:
     width: 1/1
     sections:
+      # https://github.com/sylvainjule/kirby-pagetable
       diplomes:
         headline: Diplômés
-        type: pages
         template: etudiant
         sortBy: title asc
         info: "{{ page.prenom }}"
-        # type: pagetable
-        # limit: 25
-        # columns:
-        #   title:
-        #     text: '{{ page.title }}'
+        type: pagetable
+        limit: 25
+        columns:
+          title:
+            label: Nom
+            text: '{{ page.title }}'
+          prenom:
+            label: Prénom
+            text: '{{ page.prenom }}'
+          mention:
+            label: Mention
+            text: '{{ page.mention }}'
+          atelier_groupe:
+            label: Atelier ou groupe
+            text: '{{ page.atelier_groupe }}'
+          url:
+            label: URL
+            text: '{{ page.slug }}'
+
 
 
   
