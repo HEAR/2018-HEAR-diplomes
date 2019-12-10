@@ -2,7 +2,7 @@ Title: Bae
 
 ----
 
-Prenom: So-hyun
+Prenom: So-Hyun
 
 ----
 
@@ -10,7 +10,7 @@ Pseudonyme:
 
 ----
 
-Date-naissance: 1994-juillet-19
+Date-naissance: 
 
 ----
 
@@ -30,7 +30,7 @@ Phone: 58544651
 
 ----
 
-Weburl: baesohyun.com
+Weburl: http://www.baesohyun.com
 
 ----
 
