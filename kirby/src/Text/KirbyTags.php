@@ -9,10 +9,16 @@ use Exception;
  * given string. KiryTags are defined via
  * `KirbyTag::$types`. The default tags for the
  * Cms are located in `kirby/config/tags.php`
+ *
+ * @package   Kirby Text
+ * @author    Bastian Allgeier <bastian@getkirby.com>
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://opensource.org/licenses/MIT
  */
 class KirbyTags
 {
-    protected static $tagClass = KirbyTag::class;
+    protected static $tagClass = 'Kirby\Text\KirbyTag';
 
     public static function parse(string $text = null, array $data = [], array $options = []): string
     {

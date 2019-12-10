@@ -5,10 +5,15 @@ namespace Kirby\Cms;
 use Kirby\Exception\BadMethodCallException;
 use Kirby\Image\Image;
 use Kirby\Toolkit\F;
-use Kirby\Toolkit\Properties;
 
 /**
  * Foundation for all file objects
+ *
+ * @package   Kirby Cms
+ * @author    Bastian Allgeier <bastian@getkirby.com>
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://getkirby.com/license
  */
 trait FileFoundation
 {
@@ -66,10 +71,10 @@ trait FileFoundation
 
     /**
      * Returns the Image object
-     *^
-     * @return Image
+     *
+     * @return \Kirby\Image\Image
      */
-    public function asset(): Image
+    public function asset()
     {
         return $this->asset = $this->asset ?? new Image($this->root());
     }
@@ -77,7 +82,7 @@ trait FileFoundation
     /**
      * Checks if the file exists on disk
      *
-     * @return boolean
+     * @return bool
      */
     public function exists(): bool
     {
@@ -97,7 +102,7 @@ trait FileFoundation
     /**
      * Converts the file to html
      *
-     * @param  array  $attr
+     * @param array $attr
      * @return string
      */
     public function html(array $attr = []): string
@@ -112,7 +117,7 @@ trait FileFoundation
     /**
      * Checks if the file is a resizable image
      *
-     * @return boolean
+     * @return bool
      */
     public function isResizable(): bool
     {
@@ -131,7 +136,7 @@ trait FileFoundation
      * Checks if a preview can be displayed for the file
      * in the panel or in the frontend
      *
-     * @return boolean
+     * @return bool
      */
     public function isViewable(): bool
     {
@@ -150,9 +155,9 @@ trait FileFoundation
     /**
      * Returns the app instance
      *
-     * @return App
+     * @return \Kirby\Cms\App
      */
-    public function kirby(): App
+    public function kirby()
     {
         return App::instance();
     }
@@ -160,8 +165,8 @@ trait FileFoundation
     /**
      * Get the file's last modification time.
      *
-     * @param  string $format
-     * @param  string|null $handler date or strftime
+     * @param string $format
+     * @param string|null $handler date or strftime
      * @return mixed
      */
     public function modified(string $format = null, string $handler = null)
@@ -225,7 +230,7 @@ trait FileFoundation
      *
      * @return string|null
      */
-    public function type()
+    public function type(): ?string
     {
         return F::type($this->root());
     }

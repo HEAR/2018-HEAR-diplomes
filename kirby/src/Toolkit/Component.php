@@ -4,15 +4,19 @@ namespace Kirby\Toolkit;
 
 use ArgumentCountError;
 use Kirby\Exception\InvalidArgumentException;
-use Kirby\Toolkit\A;
 use TypeError;
 
 /**
  * Vue-like components
+ *
+ * @package   Kirby Toolkit
+ * @author    Bastian Allgeier <bastian@getkirby.com>
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://opensource.org/licenses/MIT
  */
 class Component
 {
-
     /**
      * Registry for all component mixins
      *
@@ -129,11 +133,11 @@ class Component
     }
 
     /**
-     * Improved var_dump output
+     * Improved `var_dump` output
      *
      * @return array
      */
-    public function __debuginfo(): array
+    public function __debugInfo(): array
     {
         return $this->toArray();
     }
@@ -203,7 +207,9 @@ class Component
     protected function applyComputed(array $computed): void
     {
         foreach ($computed as $computedName => $computedFunction) {
-            $this->$computedName = $this->computed[$computedName] = $computedFunction->call($this);
+            if (is_callable($computedFunction) === true) {
+                $this->$computedName = $this->computed[$computedName] = $computedFunction->call($this);
+            }
         }
     }
 

@@ -3,13 +3,18 @@
 namespace Kirby\Toolkit;
 
 use Closure;
-use Exception;
 use ReflectionFunction;
 
 /**
  * A smart extension of Closures with
  * magic dependency injection based on the
  * defined variable names.
+ *
+ * @package   Kirby Toolkit
+ * @author    Bastian Allgeier <bastian@getkirby.com>
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://opensource.org/licenses/MIT
  */
 class Controller
 {
@@ -27,12 +32,7 @@ class Controller
 
         foreach ($info->getParameters() as $parameter) {
             $name = $parameter->getName();
-
-            if (isset($data[$name]) === false) {
-                throw new Exception(sprintf('The "%s" parameter is missing', $name));
-            }
-
-            $args[] = $data[$name];
+            $args[] = $data[$name] ?? null;
         }
 
         return $args;

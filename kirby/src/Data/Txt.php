@@ -9,24 +9,23 @@ use Kirby\Toolkit\Str;
  *
  * @package   Kirby Data
  * @author    Bastian Allgeier <bastian@getkirby.com>
- * @link      http://getkirby.com
- * @copyright Bastian Allgeier
- * @license   MIT
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://opensource.org/licenses/MIT
  */
 class Txt extends Handler
 {
-
     /**
      * Converts an array to an encoded Kirby txt string
      *
-     * @param  array  $data
+     * @param mixed $data
      * @return string
      */
-    public static function encode(array $data): string
+    public static function encode($data): string
     {
         $result = [];
 
-        foreach ($data as $key => $value) {
+        foreach ((array)$data as $key => $value) {
             if (empty($key) === true || $value === null) {
                 continue;
             }
@@ -40,9 +39,9 @@ class Txt extends Handler
     }
 
     /**
-     * Helper for converting value
+     * Helper for converting the value
      *
-     * @param  array|string  $value
+     * @param array|string $value
      * @return string
      */
     protected static function encodeValue($value): string
@@ -56,25 +55,27 @@ class Txt extends Handler
         }
 
         // escape accidental dividers within a field
-        $value = preg_replace('!(\n|^)----(.*?\R*)!', '$1\\----$2', $value);
+        $value = preg_replace('!(?<=\n|^)----!', '\\----', $value);
 
         return $value;
     }
 
     /**
-     * Helper for converting key and value to result string
+     * Helper for converting the key and value to the result string
      *
-     * @param  string $key
-     * @param  string $value
+     * @param string $key
+     * @param string $value
      * @return string
      */
     protected static function encodeResult(string $key, string $value): string
     {
-        $result = $key . ': ';
+        $result = $key . ':';
 
         // multi-line content
         if (preg_match('!\R!', $value) === 1) {
             $result .= "\n\n";
+        } else {
+            $result .= ' ';
         }
 
         $result .= trim($value);
@@ -85,7 +86,7 @@ class Txt extends Handler
     /**
      * Parses a Kirby txt string and returns a multi-dimensional array
      *
-     * @param  string $string
+     * @param string $string
      * @return array
      */
     public static function decode($string): array
@@ -107,7 +108,10 @@ class Txt extends Handler
                 continue;
             }
 
-            $data[$key] = trim(substr($field, $pos + 1));
+            $value = trim(substr($field, $pos + 1));
+
+            // unescape escaped dividers within a field
+            $data[$key] = preg_replace('!(?<=\n|^)\\\\----!', '----', $value);
         }
 
         return $data;

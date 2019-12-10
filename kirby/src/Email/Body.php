@@ -11,10 +11,10 @@ use Kirby\Toolkit\Properties;
  * @package   Kirby Email
  * @author    Bastian Allgeier <bastian@getkirby.com>,
  *            Nico Hoffmann <nico@getkirby.com>
- * @link      http://getkirby.com
- * @copyright Bastian Allgeier
- * @license   MIT
-*/
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://opensource.org/licenses/MIT
+ */
 class Body
 {
     use Properties;
@@ -32,7 +32,7 @@ class Body
         return $this->html;
     }
 
-    public function text(): string
+    public function text()
     {
         return $this->text;
     }
@@ -43,7 +43,7 @@ class Body
         return $this;
     }
 
-    protected function setText(string $text)
+    protected function setText(string $text = null)
     {
         $this->text = $text;
         return $this;

@@ -4,26 +4,30 @@ namespace Kirby\Cms;
 
 use Closure;
 use Kirby\Data\Data;
-use Kirby\Exception\DuplicateException;
-use Kirby\Exception\Exception;
-use Kirby\Exception\InvalidArgumentLogicException;
 use Kirby\Exception\LogicException;
 use Kirby\Exception\PermissionException;
 use Kirby\Toolkit\Dir;
 use Kirby\Toolkit\F;
 use Kirby\Toolkit\Str;
-use Kirby\Toolkit\V;
 
+/**
+ * UserActions
+ *
+ * @package   Kirby Cms
+ * @author    Bastian Allgeier <bastian@getkirby.com>
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://getkirby.com/license
+ */
 trait UserActions
 {
-
     /**
      * Changes the user email address
      *
      * @param string $email
      * @return self
      */
-    public function changeEmail(string $email): self
+    public function changeEmail(string $email)
     {
         return $this->commit('changeEmail', [$this, $email], function ($user, $email) {
             $user = $user->clone([
@@ -44,7 +48,7 @@ trait UserActions
      * @param string $language
      * @return self
      */
-    public function changeLanguage(string $language): self
+    public function changeLanguage(string $language)
     {
         return $this->commit('changeLanguage', [$this, $language], function ($user, $language) {
             $user = $user->clone([
@@ -65,7 +69,7 @@ trait UserActions
      * @param string $name
      * @return self
      */
-    public function changeName(string $name): self
+    public function changeName(string $name)
     {
         return $this->commit('changeName', [$this, $name], function ($user, $name) {
             $user = $user->clone([
@@ -86,7 +90,7 @@ trait UserActions
      * @param string $password
      * @return self
      */
-    public function changePassword(string $password): self
+    public function changePassword(string $password)
     {
         return $this->commit('changePassword', [$this, $password], function ($user, $password) {
             $user = $user->clone([
@@ -105,7 +109,7 @@ trait UserActions
      * @param string $role
      * @return self
      */
-    public function changeRole(string $role): self
+    public function changeRole(string $role)
     {
         return $this->commit('changeRole', [$this, $role], function ($user, $role) {
             $user = $user->clone([
@@ -153,10 +157,10 @@ trait UserActions
     /**
      * Creates a new User from the given props and returns a new User object
      *
-     * @param array $input
+     * @param array $props
      * @return self
      */
-    public static function create(array $props = null): self
+    public static function create(array $props = null)
     {
         $data = $props;
 
@@ -164,7 +168,9 @@ trait UserActions
             $data['password'] = static::hashPassword($props['password']);
         }
 
-        $user = new static($data);
+        $props['role'] = $props['model'] = strtolower($props['role'] ?? 'default');
+
+        $user = User::factory($data);
 
         // create a form for the user
         $form = Form::for($user, [
@@ -185,8 +191,18 @@ trait UserActions
 
             $user->writePassword($user->password());
 
+            // always create users in the default language
+            if ($user->kirby()->multilang() === true) {
+                $languageCode = $user->kirby()->defaultLanguage()->code();
+            } else {
+                $languageCode = null;
+            }
+
+            // add the user to users collection
+            $user->kirby()->users()->add($user);
+
             // write the user data
-            return $user->save();
+            return $user->save($user->content()->toArray(), $languageCode);
         });
     }
 
@@ -227,6 +243,9 @@ trait UserActions
             if (Dir::remove($user->root()) !== true) {
                 throw new LogicException('The user directory for "' . $user->email() . '" could not be deleted');
             }
+
+            // remove the user from users collection
+            $user->kirby()->users()->remove($user);
 
             return true;
         });
@@ -273,13 +292,12 @@ trait UserActions
     /**
      * Writes the account information to disk
      *
-     * @return boolean
+     * @param array $credentials
+     * @return bool
      */
     protected function writeCredentials(array $credentials): bool
     {
-        $export = '<?php' . PHP_EOL . PHP_EOL . 'return ' . var_export($credentials, true) . ';';
-
-        return F::write($this->root() . '/index.php', $export);
+        return Data::write($this->root() . '/index.php', $credentials);
     }
 
     /**

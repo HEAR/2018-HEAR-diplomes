@@ -1,12 +1,19 @@
 <?php
 
 use Kirby\Cms\System;
+use Kirby\Toolkit\Str;
 
 /**
  * System
  */
 return [
     'fields' => [
+        'ascii' => function () {
+            return Str::$ascii;
+        },
+        'defaultLanguage' => function () {
+            return $this->kirby()->option('panel.language', 'en');
+        },
         'isOk' => function (System $system) {
             return $system->isOk();
         },
@@ -31,12 +38,15 @@ return [
         'requirements' => function (System $system) {
             return $system->toArray();
         },
-        'breadcrumbTitle' => function () {
+        'site' => function () {
             try {
                 return $this->site()->blueprint()->title();
             } catch (Throwable $e) {
                 return $this->site()->title()->value();
             }
+        },
+        'slugs' => function () {
+            return Str::$language;
         },
         'title' => function () {
             return $this->site()->title()->value();
@@ -55,7 +65,7 @@ return [
             }
         },
         'kirbytext' => function () {
-            return $this->kirby()->option('panel')['kirbytext'] ?? true;
+            return $this->kirby()->option('panel.kirbytext') ?? true;
         },
         'user' => function () {
             return $this->user();
@@ -64,7 +74,7 @@ return [
             return $this->kirby()->version();
         }
     ],
-    'type'   => System::class,
+    'type'   => 'Kirby\Cms\System',
     'views'  => [
         'login' => [
             'isOk',
@@ -82,19 +92,22 @@ return [
             'requirements'
         ],
         'panel' => [
-            'breadcrumbTitle',
+            'ascii',
+            'defaultLanguage',
             'isOk',
             'isInstalled',
             'isLocal',
             'kirbytext',
-            'languages' => 'compact',
+            'languages',
             'license',
             'multilang',
             'requirements',
+            'site',
+            'slugs',
             'title',
             'translation',
             'user' => 'auth',
-                'version'
+            'version'
         ]
     ],
 ];

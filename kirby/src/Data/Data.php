@@ -8,31 +8,31 @@ use Kirby\Toolkit\F;
 /**
  * The `Data` class provides readers and
  * writers for data. The class comes with
- * three handlers for `json`, `yaml` and
- * `txt` encoded data, but can be extended
- * and customized.
+ * four handlers for `json`, `php`, `txt`
+ * and `yaml` encoded data, but can be
+ * extended and customized.
  *
  * The read and write methods automatically
- * detect, which data handler to use in order
+ * detect which data handler to use in order
  * to correctly encode and decode passed data.
  *
  * @package   Kirby
  * @author    Bastian Allgeier <bastian@getkirby.com>
- * @link      http://getkirby.com
- * @copyright Bastian Allgeier
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://opensource.org/licenses/MIT
  */
 class Data
 {
-
     /**
      * Handler Type Aliases
      *
      * @var array
      */
     public static $aliases = [
-        'yml'   => 'yaml',
         'md'    => 'txt',
-        'mdown' => 'txt'
+        'mdown' => 'txt',
+        'yml'   => 'yaml',
     ];
 
     /**
@@ -42,35 +42,36 @@ class Data
      */
     public static $handlers = [
         'json' => 'Kirby\Data\Json',
+        'php'  => 'Kirby\Data\PHP',
+        'txt'  => 'Kirby\Data\Txt',
         'yaml' => 'Kirby\Data\Yaml',
-        'txt'  => 'Kirby\Data\Txt'
     ];
 
     /**
      * Handler getter
      *
-     * @param  string          $type
-     * @return Handler|null
+     * @param string $type
+     * @return \Kirby\Data\Handler
      */
     public static function handler(string $type)
     {
         // normalize the type
-        $type    = strtolower($type);
-        $handler = static::$handlers[$type] ?? null;
+        $type = strtolower($type);
 
-        if ($handler === null && isset(static::$aliases[$type]) === true) {
-            $handler = static::$handlers[static::$aliases[$type]] ?? null;
+        // find a handler or alias
+        $handler = static::$handlers[$type] ??
+                   static::$handlers[static::$aliases[$type] ?? null] ??
+                   null;
+
+        if (class_exists($handler)) {
+            return new $handler();
         }
 
-        if ($handler === null) {
-            throw new Exception('Missing Handler for type: "' . $type . '"');
-        }
-
-        return new $handler;
+        throw new Exception('Missing handler for type: "' . $type . '"');
     }
 
     /**
-     * Decode data with the specified handler
+     * Decodes data with the specified handler
      *
      * @param string $data
      * @param string $type
@@ -82,7 +83,7 @@ class Data
     }
 
     /**
-     * Encode data with the specified handler
+     * Encodes data with the specified handler
      *
      * @param array $data
      * @param string $type
@@ -94,12 +95,12 @@ class Data
     }
 
     /**
-     * Reads data from a file
-     * The data handler is automatically chosen by
-     * the extension if not specified.
+     * Reads data from a file;
+     * the data handler is automatically chosen by
+     * the extension if not specified
      *
-     * @param  string $file
-     * @param  string $type
+     * @param string $file
+     * @param string $type
      * @return array
      */
     public static function read(string $file, string $type = null): array
@@ -108,14 +109,14 @@ class Data
     }
 
     /**
-     * Writes data to a file.
-     * The data handler is automatically chosen by
-     * the extension if not specified.
+     * Writes data to a file;
+     * the data handler is automatically chosen by
+     * the extension if not specified
      *
-     * @param  string    $file
-     * @param  array     $data
-     * @param  string    $type
-     * @return boolean
+     * @param string $file
+     * @param array $data
+     * @param string $type
+     * @return bool
      */
     public static function write(string $file = null, array $data = [], string $type = null): bool
     {

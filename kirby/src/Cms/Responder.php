@@ -7,14 +7,19 @@ use Kirby\Toolkit\Str;
 
 /**
  * Global response configuration
+ *
+ * @package   Kirby Cms
+ * @author    Bastian Allgeier <bastian@getkirby.com>
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://getkirby.com/license
  */
 class Responder
 {
-
     /**
      * HTTP status code
      *
-     * @var integer
+     * @var int
      */
     protected $code = null;
 
@@ -46,7 +51,7 @@ class Responder
      */
     public function __toString(): string
     {
-        return $this->send();
+        return (string)$this->send();
     }
 
     /**
@@ -68,8 +73,8 @@ class Responder
     /**
      * Setter and getter for the status code
      *
-     * @param integer $code
-     * @return integer|self
+     * @param int $code
+     * @return int|self
      */
     public function code(int $code = null)
     {
@@ -85,9 +90,8 @@ class Responder
      * Construct response from an array
      *
      * @param array $response
-     * @return self
      */
-    public function fromArray(array $response)
+    public function fromArray(array $response): void
     {
         $this->body($response['body'] ?? null);
         $this->code($response['code'] ?? null);
@@ -137,7 +141,7 @@ class Responder
      * Shortcut to configure a json response
      *
      * @param array $json
-     * @return self
+     * @return string|self
      */
     public function json(array $json = null)
     {
@@ -152,7 +156,7 @@ class Responder
      * Shortcut to create a redirect response
      *
      * @param string|null $location
-     * @param integer|null $code
+     * @param int|null $code
      * @return self
      */
     public function redirect(?string $location = null, ?int $code = null)
@@ -169,7 +173,7 @@ class Responder
      * Creates and returns the response object from the config
      *
      * @param string|null $body
-     * @return Response
+     * @return \Kirby\Cms\Response
      */
     public function send(string $body = null)
     {

@@ -10,10 +10,15 @@ use Exception;
  * The collection class provides a nicer
  * interface around arrays of arrays or objects,
  * with advanced filters, sorting, navigation and more.
+ *
+ * @package   Kirby Toolkit
+ * @author    Bastian Allgeier <bastian@getkirby.com>
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://opensource.org/licenses/MIT
  */
 class Collection extends Iterator implements Countable
 {
-
     /**
      * All registered collection filters
      *
@@ -30,8 +35,8 @@ class Collection extends Iterator implements Countable
     /**
      * Magic getter function
      *
-     * @param  string $key
-     * @param  mixed  $arguments
+     * @param string $key
+     * @param mixed $arguments
      * @return mixed
      */
     public function __call(string $key, $arguments)
@@ -54,7 +59,7 @@ class Collection extends Iterator implements Countable
      *
      * @return array
      */
-    public function __debuginfo(): array
+    public function __debugInfo(): array
     {
         return $this->keys();
     }
@@ -62,7 +67,7 @@ class Collection extends Iterator implements Countable
     /**
      * Low-level getter for elements
      *
-     * @param  mixed $key
+     * @param mixed $key
      * @return mixed
      */
     public function __get($key)
@@ -77,8 +82,8 @@ class Collection extends Iterator implements Countable
     /**
      * Low-level setter for elements
      *
-     * @param string  $key    string or array
-     * @param mixed   $value
+     * @param string $key string or array
+     * @param mixed $value
      */
     public function __set(string $key, $value)
     {
@@ -109,15 +114,15 @@ class Collection extends Iterator implements Countable
     /**
      * Appends an element
      *
-     * @param  mixed      $key
-     * @param  mixed      $item
-     * @return Collection
+     * @param mixed $key
+     * @param mixed $item
+     * @return \Kirby\Toolkit\Collection
      */
     public function append(...$args)
     {
         if (count($args) === 1) {
             $this->data[] = $args[0];
-        } elseif (count($args) === 2) {
+        } elseif (count($args) > 1) {
             $this->set($args[0], $args[1]);
         }
 
@@ -128,11 +133,11 @@ class Collection extends Iterator implements Countable
      * Creates chunks of the same size.
      * The last chunk may be smaller
      *
-     * @param  int        $size  Number of elements per chunk
-     * @return Collection        A new collection with an element for each chunk and
-     *                           a sub collection in each chunk
+     * @param int $size Number of elements per chunk
+     * @return \Kirby\Toolkit\Collection A new collection with an element for each chunk and
+     *                                   a sub collection in each chunk
      */
-    public function chunk(int $size): self
+    public function chunk(int $size)
     {
         // create a multidimensional array that is chunked with the given
         // chunk size keep keys of the elements
@@ -162,7 +167,7 @@ class Collection extends Iterator implements Countable
      *
      * @return self
      */
-    public function clone(): self
+    public function clone()
     {
         return clone $this;
     }
@@ -170,7 +175,7 @@ class Collection extends Iterator implements Countable
     /**
      * Getter and setter for the data
      *
-     * @param  array $data
+     * @param array $data
      * @return array|Collection
      */
     public function data(array $data = null)
@@ -191,7 +196,7 @@ class Collection extends Iterator implements Countable
     /**
      * Clone and remove all elements from the collection
      *
-     * @return Collection
+     * @return \Kirby\Toolkit\Collection
      */
     public function empty()
     {
@@ -204,9 +209,10 @@ class Collection extends Iterator implements Countable
     /**
      * Adds all elements to the collection
      *
-     * @return Collection
+     * @param mixed $items
+     * @return self
      */
-    public function extend($items): self
+    public function extend($items)
     {
         $collection = clone $this;
         return $collection->set($items);
@@ -219,7 +225,7 @@ class Collection extends Iterator implements Countable
      * @param Closure $filter
      * @return self
      */
-    public function filter($filter): self
+    public function filter($filter)
     {
         if (is_callable($filter) === true) {
             $collection = clone $this;
@@ -244,9 +250,10 @@ class Collection extends Iterator implements Countable
      * predefined filter methods.
      *
      * @param string $field
+     * @param array ...$args
      * @return self
      */
-    public function filterBy(string $field, ...$args): self
+    public function filterBy(string $field, ...$args)
     {
         $operator = '==';
         $test     = $args[0] ?? null;
@@ -349,6 +356,9 @@ class Collection extends Iterator implements Countable
 
         foreach ($keys as $key) {
             if ($item = $this->findByKey($key)) {
+                if (is_object($item) && method_exists($item, 'id') === true) {
+                    $key = $item->id();
+                }
                 $result[$key] = $item;
             }
         }
@@ -363,11 +373,11 @@ class Collection extends Iterator implements Countable
      *
      * @param string $attribute
      * @param mixed $value
-     * @return mixed
+     * @return mixed|null
      */
     public function findBy(string $attribute, $value)
     {
-        foreach ($this->data as $key => $item) {
+        foreach ($this->data as $item) {
             if ($this->getAttribute($item, $attribute) == $value) {
                 return $item;
             }
@@ -381,7 +391,7 @@ class Collection extends Iterator implements Countable
      * @param string $key
      * @return mixed
      */
-    public function findByKey($key)
+    public function findByKey(string $key)
     {
         return $this->get($key);
     }
@@ -400,9 +410,9 @@ class Collection extends Iterator implements Countable
     /**
      * Returns the elements in reverse order
      *
-     * @return Collection
+     * @return \Kirby\Toolkit\Collection
      */
-    public function flip(): self
+    public function flip()
     {
         $collection = clone $this;
         $collection->data = array_reverse($this->data, true);
@@ -412,8 +422,8 @@ class Collection extends Iterator implements Countable
     /**
      * Getter
      *
-     * @param  mixed  $key
-     * @param  mixed  $default
+     * @param mixed $key
+     * @param mixed $default
      * @return mixed
      */
     public function get($key, $default = null)
@@ -429,15 +439,20 @@ class Collection extends Iterator implements Countable
      *
      * @param array|object $item
      * @param string $attribute
-     * @param boolean $split
+     * @param bool $split
+     * @param mixed $related
      * @return mixed
      */
-    public function getAttribute($item, string $attribute, $split = false)
+    public function getAttribute($item, string $attribute, $split = false, $related = null)
     {
         $value = $this->{'getAttributeFrom' . gettype($item)}($item, $attribute);
 
         if ($split !== false) {
-            $value = Str::split($value, $split === true ? ',' : $split);
+            return Str::split($value, $split === true ? ',' : $split);
+        }
+
+        if ($related !== null) {
+            return Str::toType((string)$value, $related);
         }
 
         return $value;
@@ -467,9 +482,9 @@ class Collection extends Iterator implements Countable
      * Groups the elements by a given callback
      *
      * @param Closure $callback
-     * @return Collection A new collection with an element for each group and a subcollection in each group
+     * @return self A new collection with an element for each group and a subcollection in each group
      */
-    public function group(Closure $callback): Collection
+    public function group(Closure $callback)
     {
         $groups = [];
 
@@ -511,9 +526,9 @@ class Collection extends Iterator implements Countable
      *
      * @param string $field
      * @param bool $i
-     * @return Collection A new collection with an element for each group and a subcollection in each group
+     * @return \Kirby\Toolkit\Collection A new collection with an element for each group and a subcollection in each group
      */
-    public function groupBy(string $field, bool $i = true)
+    public function groupBy($field, bool $i = true)
     {
         if (is_string($field) === false) {
             throw new Exception('Cannot group by non-string values. Did you mean to call group()?');
@@ -528,9 +543,39 @@ class Collection extends Iterator implements Countable
     }
 
     /**
+     * Returns a Collection with the intersection of the given elements
+     * @since 3.3.0
+     *
+     * @param \Kirby\Toolkit\Collection $other
+     * @return \Kirby\Toolkit\Collection
+     */
+    public function intersection($other)
+    {
+        return $other->find($this->keys());
+    }
+
+    /**
+     * Checks if there is an intersection between the given collection and this collection
+     * @since 3.3.0
+     *
+     * @param \Kirby\Toolkit\Collection $other
+     * @return bool
+     */
+    public function intersects($other): bool
+    {
+        foreach ($this->keys() as $key) {
+            if ($other->has($key)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Checks if the number of elements is zero
      *
-     * @return boolean
+     * @return bool
      */
     public function isEmpty(): bool
     {
@@ -540,7 +585,7 @@ class Collection extends Iterator implements Countable
     /**
      * Checks if the number of elements is even
      *
-     * @return boolean
+     * @return bool
      */
     public function isEven(): bool
     {
@@ -550,7 +595,7 @@ class Collection extends Iterator implements Countable
     /**
      * Checks if the number of elements is more than zero
      *
-     * @return boolean
+     * @return bool
      */
     public function isNotEmpty(): bool
     {
@@ -560,7 +605,7 @@ class Collection extends Iterator implements Countable
     /**
      * Checks if the number of elements is odd
      *
-     * @return boolean
+     * @return bool
      */
     public function isOdd(): bool
     {
@@ -581,10 +626,10 @@ class Collection extends Iterator implements Countable
     /**
      * Returns a new object with a limited number of elements
      *
-     * @param  int        $limit  The number of elements to return
-     * @return Collection
+     * @param int $limit The number of elements to return
+     * @return \Kirby\Toolkit\Collection
      */
-    public function limit(int $limit): self
+    public function limit(int $limit)
     {
         return $this->slice(0, $limit);
     }
@@ -592,10 +637,10 @@ class Collection extends Iterator implements Countable
     /**
      * Map a function to each element
      *
-     * @param  callable $callback
-     * @return Collection
+     * @param callable $callback
+     * @return \Kirby\Toolkit\Collection
      */
-    public function map(callable $callback): self
+    public function map(callable $callback)
     {
         $this->data = array_map($callback, $this->data);
         return $this;
@@ -604,7 +649,7 @@ class Collection extends Iterator implements Countable
     /**
      * Returns the nth element from the collection
      *
-     * @param integer $n
+     * @param int $n
      * @return mixed
      */
     public function nth(int $n)
@@ -615,14 +660,14 @@ class Collection extends Iterator implements Countable
     /**
      * Returns a Collection without the given element(s)
      *
-     * @param  args    any number of keys, passed as individual arguments
-     * @return Collection
+     * @param string ...$keys any number of keys, passed as individual arguments
+     * @return \Kirby\Toolkit\Collection
      */
     public function not(...$keys)
     {
         $collection = clone $this;
         foreach ($keys as $key) {
-            unset($collection->$key);
+            unset($collection->data[$key]);
         }
         return $collection;
     }
@@ -630,10 +675,10 @@ class Collection extends Iterator implements Countable
     /**
      * Returns a new object starting from the given offset
      *
-     * @param  int        $offset  The index to start from
-     * @return Collection
+     * @param int $offset The index to start from
+     * @return \Kirby\Toolkit\Collection
      */
-    public function offset(int $offset): self
+    public function offset(int $offset)
     {
         return $this->slice($offset);
     }
@@ -641,7 +686,8 @@ class Collection extends Iterator implements Countable
     /**
      * Add pagination
      *
-     * @return Collection a sliced set of data
+     * @param array ...$arguments
+     * @return \Kirby\Toolkit\Collection a sliced set of data
      */
     public function paginate(...$arguments)
     {
@@ -654,7 +700,7 @@ class Collection extends Iterator implements Countable
     /**
      * Get the previously added pagination object
      *
-     * @return Pagination|null
+     * @return \Kirby\Toolkit\Pagination|null
      */
     public function pagination()
     {
@@ -694,15 +740,15 @@ class Collection extends Iterator implements Countable
     /**
      * Prepends an element to the data array
      *
-     * @param  mixed       $key
-     * @param  mixed       $item
-     * @return Collection
+     * @param mixed $key
+     * @param mixed $item
+     * @return self
      */
-    public function prepend(...$args): self
+    public function prepend(...$args)
     {
         if (count($args) === 1) {
             array_unshift($this->data, $args[0]);
-        } elseif (count($args) === 2) {
+        } elseif (count($args) > 1) {
             $data = $this->data;
             $this->data = [];
             $this->set($args[0], $args[1]);
@@ -774,11 +820,11 @@ class Collection extends Iterator implements Countable
     /**
      * Adds a new element to the collection
      *
-     * @param  mixed  $key    string or array
-     * @param  mixed  $value
+     * @param mixed $key string or array
+     * @param mixed $value
      * @return self
      */
-    public function set($key, $value = null): self
+    public function set($key, $value = null)
     {
         if (is_array($key)) {
             foreach ($key as $k => $v) {
@@ -793,9 +839,9 @@ class Collection extends Iterator implements Countable
     /**
      * Shuffle all elements
      *
-     * @return Collection
+     * @return \Kirby\Toolkit\Collection
      */
-    public function shuffle(): self
+    public function shuffle()
     {
         $data = $this->data;
         $keys = $this->keys();
@@ -814,11 +860,11 @@ class Collection extends Iterator implements Countable
     /**
      * Returns a slice of the object
      *
-     * @param  int        $offset  The optional index to start the slice from
-     * @param  int        $limit   The optional number of elements to return
-     * @return Collection
+     * @param int $offset The optional index to start the slice from
+     * @param int $limit The optional number of elements to return
+     * @return \Kirby\Toolkit\Collection
      */
-    public function slice(int $offset = 0, int $limit = null): self
+    public function slice(int $offset = 0, int $limit = null)
     {
         if ($offset === 0 && $limit === null) {
             return $this;
@@ -830,14 +876,34 @@ class Collection extends Iterator implements Countable
     }
 
     /**
+     * Get sort arguments from a string
+     *
+     * @param string $sortBy
+     * @return array
+     */
+    public static function sortArgs(string $sortBy): array
+    {
+        $sortArgs = Str::split($sortBy, ' ');
+
+        // fill in PHP constants
+        array_walk($sortArgs, function (string &$value) {
+            if (Str::startsWith($value, 'SORT_') === true && defined($value) === true) {
+                $value = constant($value);
+            }
+        });
+
+        return $sortArgs;
+    }
+
+    /**
      * Sorts the elements by any number of fields
      *
-     * @param   $field      string|callable  Field name or value callback to sort by
-     * @param   $direction  string           asc or desc
-     * @param   $method     int              The sort flag, SORT_REGULAR, SORT_NUMERIC etc.
-     * @return  Collection
+     * @param string|callable $field Field name or value callback to sort by
+     * @param string $direction asc or desc
+     * @param int $method The sort flag, SORT_REGULAR, SORT_NUMERIC etc.
+     * @return Collection
      */
-    public function sortBy(): self
+    public function sortBy()
     {
         // there is no need to sort empty collections
         if (empty($this->data) === true) {
@@ -908,7 +974,34 @@ class Collection extends Iterator implements Countable
             $params[] = $field['flags']     ?? SORT_NATURAL | SORT_FLAG_CASE;
         }
 
-        $params[] = &$array;
+        // check what kind of collection items we have; only check for the first
+        // item for better performance (we assume that all collection items are
+        // of the same type)
+        $firstItem = $collection->first();
+        if (is_object($firstItem) === true) {
+            // avoid the "Nesting level too deep - recursive dependency?" error
+            // when PHP tries to sort by the objects directly (in case all other
+            // fields are 100 % equal for some elements)
+            if (method_exists($firstItem, '__toString') === true) {
+                // PHP can easily convert the objects to strings, so it should
+                // compare them as strings instead of as objects to avoid the recursion
+                $params[] = &$array;
+                $params[] = SORT_STRING;
+            } else {
+                // we can't convert the objects to strings, so we need a fallback:
+                // custom fictional field that is guaranteed to have a unique value
+                // for each item; WARNING: may lead to slightly wrong sorting results
+                // and is therefore only used as a fallback if we don't have another way
+                $params[] = range(1, count($array));
+                $params[] = SORT_ASC;
+                $params[] = SORT_NUMERIC;
+
+                $params[] = &$array;
+            }
+        } else {
+            // collection items are scalar or array; no correction necessary
+            $params[] = &$array;
+        }
 
         // array_multisort receives $params as separate params
         array_multisort(...$params);
@@ -921,6 +1014,7 @@ class Collection extends Iterator implements Countable
     /**
      * Converts the object into an array
      *
+     * @param Closure $map
      * @return array
      */
     public function toArray(Closure $map = null): array
@@ -964,10 +1058,35 @@ class Collection extends Iterator implements Countable
     }
 
     /**
+     * The when method only executes the given Closure when the first parameter
+     * is true. If the first parameter is false, the Closure will not be executed.
+     * You may pass another Closure as the third parameter to the when method.
+     * This Closure will execute if the first parameter evaluates as false
+     * @since 3.3.0
+     *
+     * @param mixed $condition
+     * @param Closure $callback
+     * @param Closure $fallback
+     * @return mixed
+     */
+    public function when($condition, Closure $callback, Closure $fallback = null)
+    {
+        if ($condition) {
+            return $callback->call($this, $condition);
+        }
+
+        if ($fallback !== null) {
+            return $fallback->call($this, $condition);
+        }
+
+        return $this;
+    }
+
+    /**
      * Alias for $this->not()
      *
-     * @param  args    any number of keys, passed as individual arguments
-     * @return Collection
+     * @param string ...$keys any number of keys, passed as individual arguments
+     * @return \Kirby\Toolkit\Collection
      */
     public function without(...$keys)
     {
@@ -980,13 +1099,13 @@ class Collection extends Iterator implements Countable
  */
 Collection::$filters['=='] = function ($collection, $field, $test, $split = false) {
     foreach ($collection->data as $key => $item) {
-        $value = $collection->getAttribute($item, $field, $split);
+        $value = $collection->getAttribute($item, $field, $split, $test);
 
         if ($split !== false) {
             if (in_array($test, $value) === false) {
                 unset($collection->data[$key]);
             }
-        } elseif ($value != $test) {
+        } elseif ($value !== $test) {
             unset($collection->data[$key]);
         }
     }
@@ -999,13 +1118,13 @@ Collection::$filters['=='] = function ($collection, $field, $test, $split = fals
  */
 Collection::$filters['!='] = function ($collection, $field, $test, $split = false) {
     foreach ($collection->data as $key => $item) {
-        $value = $collection->getAttribute($item, $field, $split);
+        $value = $collection->getAttribute($item, $field, $split, $test);
 
         if ($split !== false) {
             if (in_array($test, $value) === true) {
                 unset($collection->data[$key]);
             }
-        } elseif ($value == $test) {
+        } elseif ((string)$value == $test) {
             unset($collection->data[$key]);
         }
     }

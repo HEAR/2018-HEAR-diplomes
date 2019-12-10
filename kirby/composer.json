@@ -1,7 +1,7 @@
 {
   "name": "getkirby/cms",
   "description": "The Kirby 3 core",
-  "version": "3.1.1",
+  "version": "3.3.1",
   "license": "proprietary",
   "keywords": ["kirby", "cms", "core"],
   "homepage": "https://getkirby.com",
@@ -27,24 +27,24 @@
     "mustangostang/spyc": "0.6.2",
     "michelf/php-smartypants": "1.8.1",
     "claviska/simpleimage": "3.3.3",
-    "phpmailer/phpmailer": "6.0.6",
+    "phpmailer/phpmailer": "6.0.7",
     "filp/whoops": "2.3.1",
     "true/punycode": "2.1.1",
     "zendframework/zend-escaper": "2.6.0"
   },
   "autoload": {
-    "files": ["config/helpers.php", "config/aliases.php", "config/tests.php"],
+    "files": ["config/setup.php"],
     "classmap": ["dependencies/"],
     "psr-4": {
       "Kirby\\": "src/"
     }
   },
   "scripts": {
-    "analyze": "phpstan analyse src",
+    "analyze": "phpstan analyse",
     "test": "phpunit --stderr --coverage-html=tests/coverage",
     "zip": "composer archive --format=zip --file=dist",
     "build": "./scripts/build",
-    "fix": "php-cs-fixer fix ."
+    "fix": "php-cs-fixer fix --config .php_cs"
   },
   "config": {
     "optimize-autoloader": true

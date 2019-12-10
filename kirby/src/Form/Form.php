@@ -2,15 +2,20 @@
 
 namespace Kirby\Form;
 
-use Throwable;
-use Kirby\Toolkit\Collection;
 use Kirby\Data\Yaml;
+use Throwable;
 
 /**
  * The main form class, that is being
  * used to create a list of form fields
  * and handles global form validation
  * and submission
+ *
+ * @package   Kirby Form
+ * @author    Bastian Allgeier <bastian@getkirby.com>
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://opensource.org/licenses/MIT
  */
 class Form
 {
@@ -32,7 +37,7 @@ class Form
 
         unset($inject['fields'], $inject['values'], $inject['input']);
 
-        $this->fields = new Fields;
+        $this->fields = new Fields();
         $this->values = [];
 
         foreach ($fields as $name => $props) {
@@ -56,14 +61,7 @@ class Form
             try {
                 $field = new Field($props['type'], $props);
             } catch (Throwable $e) {
-                $props = array_merge($props, [
-                    'name'  => $props['name'],
-                    'label' => 'Error in "' . $props['name'] . '" field',
-                    'theme' => 'negative',
-                    'text'  => $e->getMessage(),
-                ]);
-
-                $field = new Field('info', $props);
+                $field = static::exceptionField($e, $props);
             }
 
             if ($field->save() !== false) {
@@ -122,6 +120,17 @@ class Form
         return $this->errors;
     }
 
+    public static function exceptionField(Throwable $exception, array $props = [])
+    {
+        $props = array_merge($props, [
+            'label' => 'Error in "' . $props['name'] . '" field',
+            'theme' => 'negative',
+            'text'  => strip_tags($exception->getMessage()),
+        ]);
+
+        return new Field('info', $props);
+    }
+
     public function fields()
     {
         return $this->fields;
@@ -154,7 +163,7 @@ class Form
         return $strings;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         $array = [
             'errors' => $this->errors(),

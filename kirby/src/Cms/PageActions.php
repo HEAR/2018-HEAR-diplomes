@@ -3,7 +3,7 @@
 namespace Kirby\Cms;
 
 use Closure;
-use Kirby\Data\Data;
+use Kirby\Exception\DuplicateException;
 use Kirby\Exception\Exception;
 use Kirby\Exception\InvalidArgumentException;
 use Kirby\Exception\LogicException;
@@ -12,9 +12,17 @@ use Kirby\Toolkit\A;
 use Kirby\Toolkit\F;
 use Kirby\Toolkit\Str;
 
+/**
+ * PageActions
+ *
+ * @package   Kirby Cms
+ * @author    Bastian Allgeier <bastian@getkirby.com>
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://getkirby.com/license
+ */
 trait PageActions
 {
-
     /**
      * Changes the sorting number
      * The sorting number must already be correct
@@ -23,10 +31,15 @@ trait PageActions
      * @param int $num
      * @return self
      */
-    public function changeNum(int $num = null): self
+    public function changeNum(int $num = null)
     {
         if ($this->isDraft() === true) {
             throw new LogicException('Drafts cannot change their sorting number');
+        }
+
+        // don't run the action if everything stayed the same
+        if ($this->num() === $num) {
+            return $this;
         }
 
         return $this->commit('changeNum', [$this, $num], function ($oldPage, $num) {
@@ -55,10 +68,10 @@ trait PageActions
      * Changes the slug/uid of the page
      *
      * @param string $slug
-     * @param string $language
+     * @param string $languageCode
      * @return self
      */
-    public function changeSlug(string $slug, string $languageCode = null): self
+    public function changeSlug(string $slug, string $languageCode = null)
     {
         // always sanitize the slug
         $slug = Str::slug($slug);
@@ -85,11 +98,19 @@ trait PageActions
                 'root'    => null
             ]);
 
-            // actually move stuff on disk
             if ($oldPage->exists() === true) {
+                // remove the lock of the old page
+                if ($lock = $oldPage->lock()) {
+                    $lock->remove();
+                }
+
+                // actually move stuff on disk
                 if (Dir::move($oldPage->root(), $newPage->root()) !== true) {
                     throw new LogicException('The page directory cannot be moved');
                 }
+
+                // remove from the siblings
+                $oldPage->parentModel()->children()->remove($oldPage);
 
                 Dir::remove($oldPage->mediaRoot());
             }
@@ -109,10 +130,10 @@ trait PageActions
      * Change the slug for a specific language
      *
      * @param string $slug
-     * @param string $language
+     * @param string $languageCode
      * @return self
      */
-    protected function changeSlugForLanguage(string $slug, string $languageCode = null): self
+    protected function changeSlugForLanguage(string $slug, string $languageCode = null)
     {
         $language = $this->kirby()->language($languageCode);
 
@@ -139,10 +160,10 @@ trait PageActions
      * to either draft, listed or unlisted
      *
      * @param string $status "draft", "listed" or "unlisted"
-     * @param integer $position Optional sorting number
-     * @return Page
+     * @param int $position Optional sorting number
+     * @return self
      */
-    public function changeStatus(string $status, int $position = null): self
+    public function changeStatus(string $status, int $position = null)
     {
         switch ($status) {
             case 'draft':
@@ -156,16 +177,20 @@ trait PageActions
         }
     }
 
-    protected function changeStatusToDraft(): self
+    protected function changeStatusToDraft()
     {
-        $page = $this->commit('changeStatus', [$this, 'draft'], function ($page) {
+        $page = $this->commit('changeStatus', [$this, 'draft', null], function ($page) {
             return $page->unpublish();
         });
 
         return $page;
     }
 
-    protected function changeStatusToListed(int $position = null): self
+    /**
+     * @param int $position
+     * @return self
+     */
+    protected function changeStatusToListed(int $position = null)
     {
         // create a sorting number for the page
         $num = $this->createNum($position);
@@ -186,13 +211,16 @@ trait PageActions
         return $page;
     }
 
-    protected function changeStatusToUnlisted(): self
+    /**
+     * @return self
+     */
+    protected function changeStatusToUnlisted()
     {
         if ($this->status() === 'unlisted') {
             return $this;
         }
 
-        $page = $this->commit('changeStatus', [$this, 'unlisted'], function ($page) {
+        $page = $this->commit('changeStatus', [$this, 'unlisted', null], function ($page) {
             return $page->publish()->changeNum(null);
         });
 
@@ -207,29 +235,24 @@ trait PageActions
      * @param string $template
      * @return self
      */
-    public function changeTemplate(string $template): self
+    public function changeTemplate(string $template)
     {
         if ($template === $this->template()->name()) {
             return $this;
         }
 
-        // prepare data to transfer between blueprints
-        $oldBlueprint = 'pages/' . $this->template();
-        $newBlueprint = 'pages/' . $template;
-
-        return $this->commit('changeTemplate', [$this, $template], function ($oldPage, $template) use ($oldBlueprint, $newBlueprint) {
+        return $this->commit('changeTemplate', [$this, $template], function ($oldPage, $template) {
             if ($this->kirby()->multilang() === true) {
                 $newPage = $this->clone([
                     'template' => $template
                 ]);
 
                 foreach ($this->kirby()->languages()->codes() as $code) {
+                    $content = $oldPage->content($code)->convertTo($template);
+
                     if (F::remove($oldPage->contentFile($code)) !== true) {
                         throw new LogicException('The old text file could not be removed');
                     }
-
-                    // convert the content to the new blueprint
-                    $content = $oldPage->transferData($oldPage->content($code), $oldBlueprint, $newBlueprint)['data'];
 
                     // save the language file
                     $newPage->save($content, $code);
@@ -239,7 +262,7 @@ trait PageActions
                 return $newPage->clone();
             } else {
                 $newPage = $this->clone([
-                    'content'  => $this->transferData($this->content(), $oldBlueprint, $newBlueprint)['data'],
+                    'content'  => $this->content()->convertTo($template),
                     'template' => $template
                 ]);
 
@@ -259,7 +282,7 @@ trait PageActions
      * @param string|null $languageCode
      * @return self
      */
-    public function changeTitle(string $title, string $languageCode = null): self
+    public function changeTitle(string $title, string $languageCode = null)
     {
         return $this->commit('changeTitle', [$this, $title, $languageCode], function ($page, $title, $languageCode) {
             return $page->save(['title' => $title], $languageCode);
@@ -276,7 +299,8 @@ trait PageActions
      * 5. returns the result
      *
      * @param string $action
-     * @param mixed ...$arguments
+     * @param array $arguments
+     * @param Closure $callback
      * @return mixed
      */
     protected function commit(string $action, array $arguments, Closure $callback)
@@ -292,12 +316,82 @@ trait PageActions
     }
 
     /**
+     * Copies the page to a new parent
+     *
+     * @param array $options
+     * @return \Kirby\Cms\Page
+     */
+    public function copy(array $options = [])
+    {
+        $slug        = $options['slug']      ?? $this->slug();
+        $isDraft     = $options['isDraft']   ?? $this->isDraft();
+        $parent      = $options['parent']    ?? null;
+        $parentModel = $options['parent']    ?? $this->site();
+        $num         = $options['num']       ?? null;
+        $children    = $options['children']  ?? false;
+        $files       = $options['files']     ?? false;
+
+        // clean up the slug
+        $slug = Str::slug($slug);
+
+        if ($parentModel->findPageOrDraft($slug)) {
+            throw new DuplicateException([
+                'key'  => 'page.duplicate',
+                'data' => [
+                    'slug' => $slug
+                ]
+            ]);
+        }
+
+        $tmp = new static([
+            'isDraft' => $isDraft,
+            'num'     => $num,
+            'parent'  => $parent,
+            'slug'    => $slug,
+        ]);
+
+        $ignore = [];
+
+        // don't copy files
+        if ($files === false) {
+            foreach ($this->files() as $file) {
+                $ignore[] = $file->root();
+
+                // append all content files
+                array_push($ignore, ...$file->contentFiles());
+            }
+        }
+
+        Dir::copy($this->root(), $tmp->root(), $children, $ignore);
+
+        $copy = $parentModel->clone()->findPageOrDraft($slug);
+
+        // remove all translated slugs
+        if ($this->kirby()->multilang() === true) {
+            foreach ($this->kirby()->languages() as $language) {
+                if ($language->isDefault() === false) {
+                    $copy = $copy->save(['slug' => null], $language->code());
+                }
+            }
+        }
+
+        // add copy to siblings
+        if ($isDraft === true) {
+            $parentModel->drafts()->append($copy->id(), $copy);
+        } else {
+            $parentModel->children()->append($copy->id(), $copy);
+        }
+
+        return $copy;
+    }
+
+    /**
      * Creates and stores a new page
      *
      * @param array $props
      * @return self
      */
-    public static function create(array $props): self
+    public static function create(array $props)
     {
         // clean up the slug
         $props['slug']     = Str::slug($props['slug'] ?? $props['content']['title'] ?? null);
@@ -352,7 +446,7 @@ trait PageActions
      * @param array $props
      * @return self
      */
-    public function createChild(array $props): self
+    public function createChild(array $props)
     {
         $props = array_merge($props, [
             'url'    => null,
@@ -368,8 +462,8 @@ trait PageActions
      * Create the sorting number for the page
      * depending on the blueprint settings
      *
-     * @param integer $num
-     * @return integer
+     * @param int $num
+     * @return int
      */
     public function createNum(int $num = null): int
     {
@@ -381,10 +475,10 @@ trait PageActions
             case 'date':
             case 'datetime':
                 $format = $mode === 'date' ? 'Ymd' : 'YmdHi';
-                $date   = $this->content()->get('date')->value();
-                $time   = empty($date) === true ? time() : strtotime($date);
-
-                return date($format, $time);
+                $lang   = $this->kirby()->defaultLanguage() ?? null;
+                $field  = $this->content($lang)->get('date');
+                $date   = $field->isEmpty() ? 'now' : $field;
+                return date($format, strtotime($date));
                 break;
             case 'default':
 
@@ -418,7 +512,7 @@ trait PageActions
                     'site'  => $this->site(),
                 ]);
 
-                return intval($template);
+                return (int)$template;
         }
     }
 
@@ -473,6 +567,31 @@ trait PageActions
         });
     }
 
+    /**
+     * Duplicates the page with the given
+     * slug and optionally copies all files
+     *
+     * @param string $slug
+     * @param array $options
+     * @return \Kirby\Cms\Page
+     */
+    public function duplicate(string $slug = null, array $options = [])
+    {
+
+        // create the slug for the duplicate
+        $slug = Str::slug($slug ?? $this->slug() . '-copy');
+
+        return $this->commit('duplicate', [$this, $slug, $options], function ($page, $slug, $options) {
+            return $this->copy([
+                'parent'   => $this->parent(),
+                'slug'     => $slug,
+                'isDraft'  => true,
+                'files'    => $options['files']    ?? false,
+                'children' => $options['children'] ?? false,
+            ]);
+        });
+    }
+
     public function publish()
     {
         if ($this->isDraft() === false) {
@@ -508,15 +627,17 @@ trait PageActions
 
     /**
      * Clean internal caches
+     * @return self
      */
-    public function purge(): self
+    public function purge()
     {
-        $this->children  = null;
-        $this->blueprint = null;
-        $this->drafts    = null;
-        $this->files     = null;
-        $this->content   = null;
-        $this->inventory = null;
+        $this->blueprint    = null;
+        $this->children     = null;
+        $this->content      = null;
+        $this->drafts       = null;
+        $this->files        = null;
+        $this->inventory    = null;
+        $this->translations = null;
 
         return $this;
     }
@@ -597,79 +718,6 @@ trait PageActions
     }
 
     /**
-     * Transfers data from old to new blueprint and tracks changes
-     *
-     * @param Content $content
-     * @param string $old       Old blueprint
-     * @param string $new       New blueprint
-     * @return array
-     */
-    protected function transferData(Content $content, string $old, string $new): array
-    {
-        // Prepare data
-        $data      = [];
-        $old       = Blueprint::factory($old, 'pages/default', $this);
-        $new       = Blueprint::factory($new, 'pages/default', $this);
-        $oldForm   = new Form(['fields' => $old->fields(), 'model' => $this]);
-        $newForm   = new Form(['fields' => $new->fields(), 'model' => $this]);
-        $oldFields = $oldForm->fields();
-        $newFields = $newForm->fields();
-
-        // Tracking changes
-        $added    = [];
-        $replaced = [];
-        $removed  = [];
-
-        // Ensure to keep title
-        $data['title'] = $content->get('title')->value();
-
-        // Go through all fields of new template
-        foreach ($newFields as $newField) {
-            $name     = $newField->name();
-            $oldField = $oldFields->get($name);
-
-            // Field name matches with old template
-            if ($oldField !== null) {
-
-                // Same field type, add and keep value
-                if ($oldField->type() === $newField->type()) {
-                    $data[$name] = $content->get($name)->value();
-
-                // Different field type, add with empty value
-                } else {
-                    $data[$name]     = null;
-                    $replaced[$name] = $oldFields->get($name)->label() ?? $name;
-                }
-
-                // Field does not exist in old template,
-            // add with empty or preserved value
-            } else {
-                $preserved    = $content->get($name);
-                $data[$name]  = $preserved ? $preserved->value(): null;
-                $added[$name] = $newField->label() ?? $name;
-            }
-        }
-
-        // Go through all values to preserve them
-        foreach ($content->fields() as $field) {
-            $name     = $field->key();
-            $newField = $newFields->get($name);
-
-            if ($newField === null) {
-                $data[$name]    = $field->value();
-                $removed[$name] = $field->name();
-            }
-        }
-
-        return [
-            'data'     => $data,
-            'added'    => $added,
-            'replaced' => $replaced,
-            'removed'  => $removed
-        ];
-    }
-
-    /**
      * Convert a page from listed or
      * unlisted to draft.
      *
@@ -709,7 +757,7 @@ trait PageActions
      *
      * @param array $input
      * @param string $language
-     * @param boolean $validate
+     * @param bool $validate
      * @return self
      */
     public function update(array $input = null, string $language = null, bool $validate = false)

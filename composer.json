@@ -1,6 +1,6 @@
 {
-    "name": "getkirby/starterkit",
-    "description": "Kirby Starterkit",
+    "name": "getkirby/plainkit",
+    "description": "Kirby Plainkit",
     "type": "project",
     "keywords": ["kirby", "cms", "starterkit"],
     "homepage": "https://getkirby.com",

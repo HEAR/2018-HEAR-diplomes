@@ -1,7 +1,5 @@
 <?php
 
-use Kirby\Exception\InvalidArgumentException;
-
 /**
  * Page Routes
  */
@@ -60,6 +58,16 @@ return [
             } else {
                 return $pages->query($this->requestBody());
             }
+        }
+    ],
+    [
+        'pattern' => 'pages/(:any)/duplicate',
+        'method'  => 'POST',
+        'action'  => function (string $id) {
+            return $this->page($id)->duplicate($this->requestBody('slug'), [
+                'children' => $this->requestBody('children'),
+                'files'    => $this->requestBody('files'),
+            ]);
         }
     ],
     [

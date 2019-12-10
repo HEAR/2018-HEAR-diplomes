@@ -2,9 +2,19 @@
 
 namespace Kirby\Cms;
 
+use Throwable;
+
+/**
+ * AppUsers
+ *
+ * @package   Kirby Cms
+ * @author    Bastian Allgeier <bastian@getkirby.com>
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://getkirby.com/license
+ */
 trait AppUsers
 {
-
     /**
      * Cache for the auth auth layer
      *
@@ -16,7 +26,7 @@ trait AppUsers
      * Returns the Authentication layer class
      *
      * @internal
-     * @return Auth
+     * @return \Kirby\Cms\Auth
      */
     public function auth()
     {
@@ -27,7 +37,7 @@ trait AppUsers
      * Become any existing user
      *
      * @param string|null $who
-     * @return self
+     * @return \Kirby\Cms\User|null
      */
     public function impersonate(string $who = null)
     {
@@ -37,10 +47,10 @@ trait AppUsers
     /**
      * Set the currently active user id
      *
-     * @param  User|string $user
-     * @return self
+     * @param \Kirby\Cms\User|string $user
+     * @return \Kirby\Cms\App
      */
-    protected function setUser($user = null): self
+    protected function setUser($user = null)
     {
         $this->user = $user;
         return $this;
@@ -50,9 +60,9 @@ trait AppUsers
      * Create your own set of app users
      *
      * @param array $users
-     * @return self
+     * @return \Kirby\Cms\App
      */
-    protected function setUsers(array $users = null): self
+    protected function setUsers(array $users = null)
     {
         if ($users !== null) {
             $this->users = Users::factory($users, [
@@ -67,11 +77,10 @@ trait AppUsers
      * Returns a specific user by id
      * or the current user if no id is given
      *
-     * @param  string        $id
-     * @param  \Kirby\Session\Session|array $session Session options or session object for getting the current user
-     * @return User|null
+     * @param string $id
+     * @return \Kirby\Cms\User|null
      */
-    public function user(string $id = null, $session = null)
+    public function user(string $id = null)
     {
         if ($id !== null) {
             return $this->users()->find($id);
@@ -80,16 +89,20 @@ trait AppUsers
         if (is_string($this->user) === true) {
             return $this->auth()->impersonate($this->user);
         } else {
-            return $this->auth()->user();
+            try {
+                return $this->auth()->user();
+            } catch (Throwable $e) {
+                return null;
+            }
         }
     }
 
     /**
      * Returns all users
      *
-     * @return Users
+     * @return \Kirby\Cms\Users
      */
-    public function users(): Users
+    public function users()
     {
         if (is_a($this->users, 'Kirby\Cms\Users') === true) {
             return $this->users;

@@ -12,13 +12,12 @@ use Kirby\Toolkit\Str;
  *
  * @package   Kirby Http
  * @author    Bastian Allgeier <bastian@getkirby.com>
- * @link      http://getkirby.com
- * @copyright Bastian Allgeier
- * @license   http://www.opensource.org/licenses/mit-license.php MIT License
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://opensource.org/licenses/MIT
  */
 class Remote
 {
-
     /**
      * @var array
      */
@@ -114,7 +113,7 @@ class Remote
     /**
      * Returns the http status code
      *
-     * @return integer|null
+     * @return int|null
      */
     public function code(): ?int
     {
@@ -180,7 +179,7 @@ class Remote
         }
 
         // do some request specific stuff
-        switch ($action = strtoupper($this->options['method'])) {
+        switch (strtoupper($this->options['method'])) {
             case 'POST':
                 $this->curlopt[CURLOPT_POST]          = true;
                 $this->curlopt[CURLOPT_CUSTOMREQUEST] = 'POST';
@@ -285,7 +284,7 @@ class Remote
      * Decode the response content
      *
      * @param bool $array decode as array or object
-     * @return array|stdClass
+     * @return array|\stdClass
      */
     public function json(bool $array = true)
     {

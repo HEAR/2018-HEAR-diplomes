@@ -8,6 +8,12 @@ use Kirby\Form\Form as BaseForm;
  * Extension of `Kirby\Form\Form` that introduces
  * a Form::for method that creates a proper form
  * definition for any Cms Model.
+ *
+ * @package   Kirby Cms
+ * @author    Bastian Allgeier <bastian@getkirby.com>
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://getkirby.com/license
  */
 class Form extends BaseForm
 {
@@ -21,7 +27,8 @@ class Form extends BaseForm
 
         if ($kirby->multilang() === true) {
             $fields            = $props['fields'] ?? [];
-            $isDefaultLanguage = $kirby->language()->isDefault();
+            $languageCode      = $props['language'] ?? $kirby->language()->code();
+            $isDefaultLanguage = $languageCode === $kirby->defaultLanguage()->code();
 
             foreach ($fields as $fieldName => $fieldProps) {
                 // switch untranslatable fields to readonly
@@ -37,10 +44,15 @@ class Form extends BaseForm
         parent::__construct($props);
     }
 
+    /**
+     * @param \Kirby\Cms\Model $model
+     * @param array $props
+     * @return self
+     */
     public static function for(Model $model, array $props = [])
     {
         // get the original model data
-        $original = $model->content()->toArray();
+        $original = $model->content($props['language'] ?? null)->toArray();
         $values   = $props['values'] ?? [];
 
         // convert closures to values

@@ -3,14 +3,18 @@
 namespace Kirby\Cms;
 
 use Closure;
-use Kirby\Data\Data;
-use Kirby\Exception\InvalidArgumentException;
-use Kirby\Toolkit\F;
-use Kirby\Toolkit\Str;
 
+/**
+ * SiteActions
+ *
+ * @package   Kirby Cms
+ * @author    Bastian Allgeier <bastian@getkirby.com>
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://getkirby.com/license
+ */
 trait SiteActions
 {
-
     /**
      * Commits a site action, by following these steps
      *
@@ -22,6 +26,7 @@ trait SiteActions
      *
      * @param string $action
      * @param mixed ...$arguments
+     * @param Closure $callback
      * @return mixed
      */
     protected function commit(string $action, array $arguments, Closure $callback)
@@ -44,7 +49,7 @@ trait SiteActions
      * @param string|null $languageCode
      * @return self
      */
-    public function changeTitle(string $title, string $languageCode = null): self
+    public function changeTitle(string $title, string $languageCode = null)
     {
         return $this->commit('changeTitle', [$this, $title, $languageCode], function ($site, $title, $languageCode) {
             return $site->save(['title' => $title], $languageCode);
@@ -55,7 +60,7 @@ trait SiteActions
      * Creates a main page
      *
      * @param array $props
-     * @return Page
+     * @return \Kirby\Cms\Page
      */
     public function createChild(array $props)
     {
@@ -71,14 +76,17 @@ trait SiteActions
 
     /**
      * Clean internal caches
+     *
+     * @return self
      */
-    public function purge(): self
+    public function purge()
     {
-        $this->children  = null;
-        $this->blueprint = null;
-        $this->files     = null;
-        $this->content   = null;
-        $this->inventory = null;
+        $this->blueprint    = null;
+        $this->children     = null;
+        $this->content      = null;
+        $this->files        = null;
+        $this->inventory    = null;
+        $this->translations = null;
 
         return $this;
     }

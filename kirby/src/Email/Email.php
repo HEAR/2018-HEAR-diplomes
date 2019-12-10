@@ -2,10 +2,9 @@
 
 namespace Kirby\Email;
 
+use Exception;
 use Kirby\Toolkit\Properties;
 use Kirby\Toolkit\V;
-
-use Exception;
 
 /**
  * Wrapper for email libraries
@@ -13,10 +12,10 @@ use Exception;
  * @package   Kirby Email
  * @author    Bastian Allgeier <bastian@getkirby.com>,
  *            Nico Hoffmann <nico@getkirby.com>
- * @link      http://getkirby.com
- * @copyright Bastian Allgeier
- * @license   MIT
-*/
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://opensource.org/licenses/MIT
+ */
 class Email
 {
     use Properties;
@@ -46,7 +45,10 @@ class Email
         return $this->attachments;
     }
 
-    public function body(): Body
+    /**
+     * @return \Kirby\Email\Body
+     */
+    public function body()
     {
         return $this->body;
     }

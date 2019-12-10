@@ -2,11 +2,18 @@
 
 namespace Kirby\Cms;
 
-use Exception;
+use Kirby\Exception\InvalidArgumentException;
 use Kirby\Exception\PermissionException;
+use Kirby\Toolkit\Str;
 
 /**
  * Validators for all site actions
+ *
+ * @package   Kirby Cms
+ * @author    Bastian Allgeier <bastian@getkirby.com>
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://getkirby.com/license
  */
 class SiteRules
 {
@@ -14,6 +21,10 @@ class SiteRules
     {
         if ($site->permissions()->changeTitle() !== true) {
             throw new PermissionException(['key' => 'site.changeTitle.permission']);
+        }
+
+        if (Str::length($title) === 0) {
+            throw new InvalidArgumentException(['key' => 'site.changeTitle.empty']);
         }
 
         return true;

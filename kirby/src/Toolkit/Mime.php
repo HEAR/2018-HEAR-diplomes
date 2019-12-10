@@ -6,19 +6,20 @@ use SimpleXMLElement;
 
 /**
  * The `Mime` class provides method
- * for mime type detection or guessing
+ * for MIME type detection or guessing
  * from different criteria like
  * extensions etc.
  *
  * @package   Kirby Toolkit
  * @author    Bastian Allgeier <bastian@getkirby.com>
- * @link      http://getkirby.com
- * @copyright Bastian Allgeier
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://opensource.org/licenses/MIT
  */
 class Mime
 {
     /**
-     * Extension to mime type map
+     * Extension to MIME type map
      *
      * @var array
      */
@@ -105,11 +106,13 @@ class Mime
         'xlsx'  => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         'xltx'  => 'application/vnd.openxmlformats-officedocument.spreadsheetml.template',
         'xsl'   => 'text/xml',
+        'yaml'  => ['application/yaml', 'text/yaml'],
+        'yml'   => ['application/yaml', 'text/yaml'],
         'zip'   => ['application/x-zip', 'application/zip', 'application/x-zip-compressed'],
     ];
 
     /**
-     * Fixes an invalid mime type guess for the given file
+     * Fixes an invalid MIME type guess for the given file
      *
      * @param string $file
      * @param string $mime
@@ -121,11 +124,12 @@ class Mime
         // fixing map
         $map = [
             'text/html' => [
-                'svg' => [Mime::class, 'fromSvg'],
+                'svg' => ['Kirby\Toolkit\Mime', 'fromSvg'],
             ],
             'text/plain' => [
-                'css' => 'text/css',
-                'svg' => [Mime::class, 'fromSvg'],
+                'css'  => 'text/css',
+                'json' => 'application/json',
+                'svg'  => ['Kirby\Toolkit\Mime', 'fromSvg'],
             ],
             'text/x-asm' => [
                 'css' => 'text/css'
@@ -149,7 +153,7 @@ class Mime
     }
 
     /**
-     * Guesses a mime type by extension
+     * Guesses a MIME type by extension
      *
      * @param string $extension
      * @return string|null
@@ -161,7 +165,7 @@ class Mime
     }
 
     /**
-     * Returns the mime type of a file
+     * Returns the MIME type of a file
      *
      * @param string $file
      * @return string|false
@@ -179,7 +183,7 @@ class Mime
     }
 
     /**
-     * Returns the mime type of a file
+     * Returns the MIME type of a file
      *
      * @param string $file
      * @return string|false
@@ -194,7 +198,7 @@ class Mime
     }
 
     /**
-     * Tries to detect a valid SVG and returns the mime type accordingly
+     * Tries to detect a valid SVG and returns the MIME type accordingly
      *
      * @param string $file
      * @return string|false
@@ -215,16 +219,19 @@ class Mime
     }
 
     /**
-     * Undocumented function
+     * Tests if a given MIME type is matched by an `Accept` header
+     * pattern; returns true if the MIME type is contained at all
      *
-     * @return boolean
+     * @param string $mime
+     * @param string $pattern
+     * @return bool
      */
     public static function isAccepted(string $mime, string $pattern): bool
     {
         $accepted = Str::accepted($pattern);
 
         foreach ($accepted as $m) {
-            if (fnmatch($m['value'], $mime, FNM_PATHNAME) === true) {
+            if (static::matches($mime, $m['value']) === true) {
                 return true;
             }
         }
@@ -233,7 +240,21 @@ class Mime
     }
 
     /**
-     * Returns the extension for a given mime type
+     * Tests if a MIME wildcard pattern from an `Accept` header
+     * matches a given type
+     * @since 3.3.0
+     *
+     * @param string $test
+     * @param string $wildcard
+     * @return bool
+     */
+    public static function matches(string $test, string $wildcard): bool
+    {
+        return fnmatch($wildcard, $test, FNM_PATHNAME) === true;
+    }
+
+    /**
+     * Returns the extension for a given MIME type
      *
      * @param string|null $mime
      * @return string|false
@@ -254,9 +275,35 @@ class Mime
     }
 
     /**
-     * Returns the mime type of a file
+     * Returns all available extensions for a given MIME type
+     *
+     * @param string|null $mime
+     * @return array
+     */
+    public static function toExtensions(string $mime = null): array
+    {
+        $extensions = [];
+
+        foreach (static::$types as $key => $value) {
+            if (is_array($value) === true && in_array($mime, $value) === true) {
+                $extensions[] = $key;
+                continue;
+            }
+
+            if ($value === $mime) {
+                $extensions[] = $key;
+                continue;
+            }
+        }
+
+        return $extensions;
+    }
+
+    /**
+     * Returns the MIME type of a file
      *
      * @param string $file
+     * @param string $extension
      * @return string|false
      */
     public static function type(string $file, string $extension = null)
@@ -282,7 +329,7 @@ class Mime
     }
 
     /**
-     * Returns all detectable mime types
+     * Returns all detectable MIME types
      *
      * @return array
      */

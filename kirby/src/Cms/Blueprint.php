@@ -3,20 +3,25 @@
 namespace Kirby\Cms;
 
 use Exception;
+use Kirby\Data\Data;
 use Kirby\Exception\InvalidArgumentException;
 use Kirby\Exception\NotFoundException;
-use Kirby\Data\Data;
 use Kirby\Form\Field;
 use Kirby\Toolkit\A;
 use Kirby\Toolkit\F;
 use Kirby\Toolkit\I18n;
-use Kirby\Toolkit\Obj;
 use Throwable;
 
 /**
  * The Blueprint class normalizes an array from a
  * blueprint file and converts sections, columns, fields
  * etc. into a correct tab layout.
+ *
+ * @package   Kirby Cms
+ * @author    Bastian Allgeier <bastian@getkirby.com>
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://getkirby.com/license
  */
 class Blueprint
 {
@@ -81,13 +86,13 @@ class Blueprint
     }
 
     /**
-     * Improved var_dump output
+     * Improved `var_dump` output
      *
      * @return array
      */
-    public function __debuginfo(): array
+    public function __debugInfo(): array
     {
-        return $this->props;
+        return $this->props ?? [];
     }
 
     /**
@@ -217,7 +222,7 @@ class Blueprint
      *
      * @param string $name
      * @param string $fallback
-     * @param Model $model
+     * @param \Kirby\Cms\Model $model
      * @return self
      */
     public static function factory(string $name, string $fallback = null, Model $model)
@@ -311,11 +316,9 @@ class Blueprint
      * Loads a blueprint from file or array
      *
      * @param string $name
-     * @param string $fallback
-     * @param Model $model
      * @return array
      */
-    public static function load(string $name)
+    public static function load(string $name): array
     {
         if (isset(static::$loaded[$name]) === true) {
             return static::$loaded[$name];
@@ -349,7 +352,7 @@ class Blueprint
     /**
      * Returns the parent model
      *
-     * @return Model
+     * @return \Kirby\Cms\Model
      */
     public function model()
     {
@@ -402,7 +405,7 @@ class Blueprint
         return $columns;
     }
 
-    public static function helpList(array $items)
+    public static function helpList(array $items): string
     {
         $md = [];
 
@@ -469,7 +472,7 @@ class Blueprint
         return [
             'label' => 'Error',
             'name'  => $name,
-            'text'  => $message,
+            'text'  => strip_tags($message),
             'theme' => 'negative',
             'type'  => 'info',
         ];
@@ -501,6 +504,12 @@ class Blueprint
             // use the name as type definition
             if ($fieldProps === true) {
                 $fieldProps = [];
+            }
+
+            // unset / remove field if its propperty is false
+            if ($fieldProps === false) {
+                unset($fields[$fieldName]);
+                continue;
             }
 
             // inject the name
@@ -580,15 +589,33 @@ class Blueprint
     {
         foreach ($sections as $sectionName => $sectionProps) {
 
+            // unset / remove section if its propperty is false
+            if ($sectionProps === false) {
+                unset($sections[$sectionName]);
+                continue;
+            }
+
+            // fallback to default props when true is passed
+            if ($sectionProps === true) {
+                $sectionProps = [];
+            }
+
             // inject all section extensions
             $sectionProps = $this->extend($sectionProps);
 
             $sections[$sectionName] = $sectionProps = array_merge($sectionProps, [
                 'name' => $sectionName,
-                'type' => $type = $sectionProps['type'] ?? null
+                'type' => $type = $sectionProps['type'] ?? $sectionName
             ]);
 
-            if (isset(Section::$types[$type]) === false) {
+            if (empty($type) === true || is_string($type) === false) {
+                $sections[$sectionName] = [
+                    'name' => $sectionName,
+                    'headline' => 'Invalid section type for section "' . $sectionName . '"',
+                    'type' => 'info',
+                    'text' => 'The following section types are available: ' . $this->helpList(array_keys(Section::$types))
+                ];
+            } elseif (isset(Section::$types[$type]) === false) {
                 $sections[$sectionName] = [
                     'name' => $sectionName,
                     'headline' => 'Invalid section type ("' . $type . '")',
@@ -648,6 +675,12 @@ class Blueprint
 
         foreach ($tabs as $tabName => $tabProps) {
 
+            // unset / remove tab if its propperty is false
+            if ($tabProps === false) {
+                unset($tabs[$tabName]);
+                continue;
+            }
+
             // inject all tab extensions
             $tabProps = $this->extend($tabProps);
 
@@ -691,9 +724,9 @@ class Blueprint
      * Returns a single section by name
      *
      * @param string $name
-     * @return Section|null
+     * @return \Kirby\Cms\Section|null
      */
-    public function section(string $name): ?Section
+    public function section(string $name)
     {
         if (empty($this->sections[$name]) === true) {
             return null;

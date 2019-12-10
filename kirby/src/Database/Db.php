@@ -7,6 +7,12 @@ use Kirby\Toolkit\Config;
 
 /**
  * Database shortcuts
+ *
+ * @package   Kirby Database
+ * @author    Bastian Allgeier <bastian@getkirby.com>
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://opensource.org/licenses/MIT
  */
 class Db
 {
@@ -30,7 +36,7 @@ class Db
      * (Re)connect the database
      *
      * @param array $params Pass [] to use the default params from the config
-     * @return Database
+     * @return \Kirby\Database\Database
      */
     public static function connect(array $params = null)
     {
@@ -55,7 +61,7 @@ class Db
     /**
      * Returns the current database connection
      *
-     * @return Database
+     * @return \Kirby\Database\Database
      */
     public static function connection()
     {
@@ -63,10 +69,12 @@ class Db
     }
 
     /**
-     * Sets the current table, which should be queried
+     * Sets the current table, which should be queried. Returns a
+     * Query object, which can be used to build a full query for
+     * that table.
      *
      * @param string $table
-     * @return Query Returns a Query object, which can be used to build a full query for that table
+     * @return \Kirby\Database\Query
      */
     public static function table($table)
     {
@@ -169,12 +177,12 @@ Db::$queries['column'] = function (string $table, string $column, $where = null,
 };
 
 /**
-* Shortcut for inserting a new row into a table
-*
-* @param string $table The name of the table, which should be queried
-* @param array $values An array of values, which should be inserted
-* @return boolean
-*/
+ * Shortcut for inserting a new row into a table
+ *
+ * @param string $table The name of the table, which should be queried
+ * @param array $values An array of values, which should be inserted
+ * @return bool
+ */
 Db::$queries['insert'] = function (string $table, array $values) {
     return Db::table($table)->insert($values);
 };
@@ -185,7 +193,7 @@ Db::$queries['insert'] = function (string $table, array $values) {
  * @param string $table The name of the table, which should be queried
  * @param array $values An array of values, which should be inserted
  * @param mixed $where An optional where clause
- * @return boolean
+ * @return bool
  */
 Db::$queries['update'] = function (string $table, array $values, $where = null) {
     return Db::table($table)->where($where)->update($values);
@@ -196,7 +204,7 @@ Db::$queries['update'] = function (string $table, array $values, $where = null) 
  *
  * @param string $table The name of the table, which should be queried
  * @param mixed $where An optional where clause
- * @return boolean
+ * @return bool
  */
 Db::$queries['delete'] = function (string $table, $where = null) {
     return Db::table($table)->where($where)->delete();

@@ -12,13 +12,12 @@ use Michelf\SmartyPantsTypographer;
  *
  * @package   Kirby Text
  * @author    Bastian Allgeier <bastian@getkirby.com>
- * @link      http://getkirby.com
- * @copyright Bastian Allgeier
- * @license   MIT
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://opensource.org/licenses/MIT
  */
 class SmartyPants
 {
-
     /**
      * Array with all configured options
      * for the parser
@@ -116,7 +115,7 @@ class SmartyPants
     /**
      * Parses the given text
      *
-     * @param  string $text
+     * @param string $text
      * @return string
      */
     public function parse(string $text): string

@@ -7,10 +7,15 @@ use Exception;
 
 /**
  * Localization class, roughly inspired by VueI18n
+ *
+ * @package   Kirby Toolkit
+ * @author    Bastian Allgeier <bastian@getkirby.com>
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://opensource.org/licenses/MIT
  */
 class I18n
 {
-
     /**
      * Custom loader function
      *
@@ -62,7 +67,7 @@ class I18n
      * depending on the given number
      *
      * @param int $count
-     * @param boolean $none If true, 'none' will be returned if the count is 0
+     * @param bool $none If true, 'none' will be returned if the count is 0
      * @return string
      */
     public static function form(int $count, bool $none = false): string
@@ -110,7 +115,7 @@ class I18n
                 return $key[$locale];
             }
             if (is_array($fallback)) {
-                return $fallback[$locale] ?? null;
+                return $fallback[$locale] ?? $fallback['en'] ?? reset($fallback);
             }
             return $fallback;
         }
@@ -189,7 +194,8 @@ class I18n
      * Translate amounts
      *
      * @param string $key
-     * @param integer $count
+     * @param int $count
+     * @param string $locale
      * @return mixed
      */
     public static function translateCount(string $key, int $count, string $locale = null)

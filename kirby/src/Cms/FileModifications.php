@@ -2,17 +2,24 @@
 
 namespace Kirby\Cms;
 
+use Kirby\Exception\InvalidArgumentException;
+
 /**
- * Resizing, blurring etc
+ * Resizing, blurring etc.
+ *
+ * @package   Kirby Cms
+ * @author    Bastian Allgeier <bastian@getkirby.com>
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://getkirby.com/license
  */
 trait FileModifications
 {
-
     /**
      * Blurs the image by the given amount of pixels
      *
-     * @param boolean $pixels
-     * @return self
+     * @param bool $pixels
+     * @return \Kirby\Cms\FileVersion|\Kirby\Cms\File
      */
     public function blur($pixels = true)
     {
@@ -22,7 +29,7 @@ trait FileModifications
     /**
      * Converts the image to black and white
      *
-     * @return self
+     * @return \Kirby\Cms\FileVersion|\Kirby\Cms\File
      */
     public function bw()
     {
@@ -32,10 +39,10 @@ trait FileModifications
     /**
      * Crops the image by the given width and height
      *
-     * @param integer $width
-     * @param integer $height
+     * @param int $width
+     * @param int $height
      * @param string|array $options
-     * @return self
+     * @return \Kirby\Cms\FileVersion|\Kirby\Cms\File
      */
     public function crop(int $width, int $height = null, $options = null)
     {
@@ -64,8 +71,8 @@ trait FileModifications
     /**
      * Sets the JPEG compression quality
      *
-     * @param integer $quality
-     * @return self
+     * @param int $quality
+     * @return \Kirby\Cms\FileVersion|\Kirby\Cms\File
      */
     public function quality(int $quality)
     {
@@ -76,10 +83,10 @@ trait FileModifications
      * Resizes the file with the given width and height
      * while keeping the aspect ratio.
      *
-     * @param integer $width
-     * @param integer $height
-     * @param integer $quality
-     * @return self
+     * @param int $width
+     * @param int $height
+     * @param int $quality
+     * @return \Kirby\Cms\FileVersion|\Kirby\Cms\File
      */
     public function resize(int $width = null, int $height = null, int $quality = null)
     {
@@ -97,7 +104,7 @@ trait FileModifications
      * @since 3.1.0
      *
      * @param array|string $sizes
-     * @return string
+     * @return string|null
      */
     public function srcset($sizes = null): ?string
     {
@@ -116,15 +123,22 @@ trait FileModifications
         $set = [];
 
         foreach ($sizes as $key => $value) {
-            if (is_string($value) === true) {
-                $size = $key;
-                $attr = $value;
+            if (is_array($value)) {
+                $options = $value;
+                $condition = $key;
+            } elseif (is_string($value) === true) {
+                $options = [
+                    'width' => $key
+                ];
+                $condition = $value;
             } else {
-                $size = $value;
-                $attr = $value . 'w';
+                $options = [
+                    'width' => $value
+                ];
+                $condition = $value . 'w';
             }
 
-            $set[] = $this->resize($size)->url() . ' ' . $attr;
+            $set[] = $this->thumb($options)->url() . ' ' . $condition;
         }
 
         return implode(', ', $set);
@@ -135,12 +149,12 @@ trait FileModifications
      * The media manager takes care of generating
      * those modified versions and putting them
      * in the right place. This is normally the
-     * /media folder of your installation, but
+     * `/media` folder of your installation, but
      * could potentially also be a CDN or any other
      * place.
      *
      * @param array|null|string $options
-     * @return FileVersion|File
+     * @return \Kirby\Cms\FileVersion|\Kirby\Cms\File
      */
     public function thumb($options = null)
     {
@@ -157,7 +171,7 @@ trait FileModifications
 
         $result = $this->kirby()->component('file::version')($this->kirby(), $this, $options);
 
-        if (is_a($result, FileVersion::class) === false && is_a($result, File::class) === false) {
+        if (is_a($result, 'Kirby\Cms\FileVersion') === false && is_a($result, 'Kirby\Cms\File') === false) {
             throw new InvalidArgumentException('The file::version component must return a File or FileVersion object');
         }
 

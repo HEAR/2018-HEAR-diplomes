@@ -9,27 +9,27 @@ use Exception;
  *
  * @package   Kirby Data
  * @author    Bastian Allgeier <bastian@getkirby.com>
- * @link      http://getkirby.com
- * @copyright Bastian Allgeier
- * @license   MIT
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://opensource.org/licenses/MIT
  */
 class Json extends Handler
 {
     /**
      * Converts an array to an encoded JSON string
      *
-     * @param  array  $data
+     * @param mixed $data
      * @return string
      */
-    public static function encode(array $data): string
+    public static function encode($data): string
     {
-        return json_encode($data);
+        return json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
 
     /**
      * Parses an encoded JSON string and returns a multi-dimensional array
      *
-     * @param  string $string
+     * @param string $json
      * @return array
      */
     public static function decode($json): array

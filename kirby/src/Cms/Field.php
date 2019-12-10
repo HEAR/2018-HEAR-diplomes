@@ -21,12 +21,12 @@ use Kirby\Exception\InvalidArgumentException;
  *
  * @package   Kirby Cms
  * @author    Bastian Allgeier <bastian@getkirby.com>
- * @link      http://getkirby.com
- * @copyright Bastian Allgeier
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://getkirby.com/license
  */
 class Field
 {
-
     /**
      * Field method aliases
      *
@@ -53,7 +53,7 @@ class Field
      * This will be the page, site, user or file
      * to which the content belongs
      *
-     * @var Site|Page|File|User
+     * @var Model
      */
     protected $parent;
 
@@ -95,7 +95,7 @@ class Field
      *
      * @param object $parent
      * @param string $key
-     * @param mixed  $value
+     * @param mixed $value
      */
     public function __construct($parent = null, string $key, $value)
     {
@@ -110,7 +110,7 @@ class Field
      * @see Field::toArray
      * @return void
      */
-    public function __debuginfo()
+    public function __debugInfo()
     {
         return $this->toArray();
     }
@@ -130,7 +130,7 @@ class Field
     /**
      * Checks if the field exists in the content data array
      *
-     * @return boolean
+     * @return bool
      */
     public function exists(): bool
     {
@@ -140,7 +140,7 @@ class Field
     /**
      * Checks if the field content is empty
      *
-     * @return boolean
+     * @return bool
      */
     public function isEmpty(): bool
     {
@@ -150,7 +150,7 @@ class Field
     /**
      * Checks if the field content is not empty
      *
-     * @return boolean
+     * @return bool
      */
     public function isNotEmpty(): bool
     {
@@ -169,7 +169,7 @@ class Field
 
     /**
      * @see Field::parent()
-     * @return Page|File|Site|User
+     * @return \Kirby\Cms\Model|null
      */
     public function model()
     {
@@ -200,7 +200,7 @@ class Field
     /**
      * Returns the parent object of the field
      *
-     * @return Page|File|Site|User
+     * @return \Kirby\Cms\Model|null
      */
     public function parent()
     {
@@ -228,12 +228,12 @@ class Field
     }
 
     /**
-     * Returns the field content
+     * Returns the field content. If a new value is passed,
+     * the modified field will be returned. Otherwise it
+     * will return the field value.
      *
-     * @param  string|Closure  $value
-     * @return mixed                    If a new value is passed, the modified
-     *                                  field will be returned. Otherwise it
-     *                                  will return the field value.
+     * @param string|Closure $value
+     * @return mixed
      */
     public function value($value = null)
     {

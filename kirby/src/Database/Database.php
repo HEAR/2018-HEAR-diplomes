@@ -12,10 +12,15 @@ use Throwable;
 
 /**
  * A simple database class
+ *
+ * @package   Kirby Database
+ * @author    Bastian Allgeier <bastian@getkirby.com>
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://opensource.org/licenses/MIT
  */
 class Database
 {
-
     /**
      * The number of affected rows for the last query
      *
@@ -59,7 +64,7 @@ class Database
     /**
      * Set to true to throw exceptions on failed queries
      *
-     * @var boolean
+     * @var bool
      */
     protected $fail = false;
 
@@ -153,9 +158,9 @@ class Database
      * Returns one of the started instance
      *
      * @param string $id
-     * @return Database
+     * @return self
      */
-    public static function instance(string $id = null): self
+    public static function instance(string $id = null)
     {
         return $id === null ? A::last(static::$connections) : static::$connections[$id] ?? null;
     }
@@ -174,7 +179,7 @@ class Database
      * Connects to a database
      *
      * @param array|null $params This can either be a config key or an array of parameters for the connection
-     * @return Database
+     * @return \Kirby\Database\Database
      */
     public function connect(array $params = null)
     {
@@ -217,7 +222,7 @@ class Database
     /**
      * Returns the currently active connection
      *
-     * @return Database|null
+     * @return \Kirby\Database\Database|null
      */
     public function connection()
     {
@@ -227,8 +232,8 @@ class Database
     /**
      * Sets the exception mode for the next query
      *
-     * @param boolean $fail
-     * @return Database
+     * @param bool $fail
+     * @return \Kirby\Database\Database
      */
     public function fail(bool $fail = true)
     {
@@ -353,7 +358,7 @@ class Database
      *
      * @param string $query
      * @param array $bindings
-     * @return boolean
+     * @return bool
      */
     protected function hit(string $query, array $bindings = []): bool
     {
@@ -450,7 +455,7 @@ class Database
      *
      * @param string $query
      * @param array $bindings
-     * @return boolean
+     * @return bool
      */
     public function execute(string $query, array $bindings = []): bool
     {
@@ -461,7 +466,7 @@ class Database
      * Returns the correct Sql generator instance
      * for the type of database
      *
-     * @return Sql
+     * @return \Kirby\Database\Sql
      */
     public function sql()
     {
@@ -470,10 +475,12 @@ class Database
     }
 
     /**
-     * Sets the current table, which should be queried
+     * Sets the current table, which should be queried. Returns a
+     * Query object, which can be used to build a full query
+     * for that table
      *
      * @param string $table
-     * @return Query Returns a Query object, which can be used to build a full query for that table
+     * @return \Kirby\Database\Query
      */
     public function table(string $table)
     {
@@ -484,7 +491,7 @@ class Database
      * Checks if a table exists in the current database
      *
      * @param string $table
-     * @return boolean
+     * @return bool
      */
     public function validateTable(string $table): bool
     {
@@ -508,7 +515,7 @@ class Database
      *
      * @param string $table
      * @param string $column
-     * @return boolean
+     * @return bool
      */
     public function validateColumn(string $table, string $column): bool
     {
@@ -537,7 +544,7 @@ class Database
      *
      * @param string $table
      * @param array $columns
-     * @return boolean
+     * @return bool
      */
     public function createTable($table, $columns = []): bool
     {
@@ -559,7 +566,7 @@ class Database
      * Drops a table
      *
      * @param string $table
-     * @return boolean
+     * @return bool
      */
     public function dropTable($table): bool
     {
@@ -571,6 +578,9 @@ class Database
      * Magic way to start queries for tables by
      * using a method named like the table.
      * I.e. $db->users()->all()
+     *
+     * @param mixed $method
+     * @param mixed $arguments
      */
     public function __call($method, $arguments = null)
     {

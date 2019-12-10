@@ -11,6 +11,12 @@ use Kirby\Toolkit\V;
 
 /**
  * Validators for all user actions
+ *
+ * @package   Kirby Cms
+ * @author    Bastian Allgeier <bastian@getkirby.com>
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://getkirby.com/license
  */
 class UserRules
 {
@@ -64,6 +70,27 @@ class UserRules
 
     public static function changeRole(User $user, string $role): bool
     {
+        // protect admin from role changes by non-admin
+        if (
+            $user->kirby()->user()->isAdmin() === false &&
+            $user->isAdmin() === true
+        ) {
+            throw new PermissionException([
+                'key'  => 'user.changeRole.permission',
+                'data' => ['name' => $user->username()]
+            ]);
+        }
+
+        // prevent non-admins making a user to admin
+        if (
+            $user->kirby()->user()->isAdmin() === false &&
+            $role === 'admin'
+        ) {
+            throw new PermissionException([
+                'key'  => 'user.changeRole.toAdmin'
+            ]);
+        }
+
         static::validRole($user, $role);
 
         if ($role !== 'admin' && $user->isLastAdmin() === true) {
@@ -88,11 +115,29 @@ class UserRules
         static::validId($user, $user->id());
         static::validEmail($user, $user->email(), true);
         static::validLanguage($user, $user->language());
-
+        
         if (empty($props['password']) === false) {
             static::validPassword($user, $props['password']);
         }
 
+        // get the current user if it exists
+        $currentUser = $user->kirby()->user();
+        
+        // admins are allowed everything
+        if ($currentUser && $currentUser->isAdmin() === true) {
+            return true;
+        }
+
+        // only admins are allowed to add admins
+        $role = $props['role'] ?? null;
+
+        if ($role === 'admin' && $currentUser && $currentUser->isAdmin() === false) {
+            throw new PermissionException([
+                'key' => 'user.create.permission'
+            ]);
+        }
+        
+        // check user permissions (if not on install)
         if ($user->kirby()->users()->count() > 0) {
             if ($user->permissions()->create() !== true) {
                 throw new PermissionException([
@@ -164,7 +209,7 @@ class UserRules
 
     public static function validId(User $user, string $id): bool
     {
-        if ($duplicate = $user->kirby()->users()->find($id)) {
+        if ($user->kirby()->users()->find($id)) {
             throw new DuplicateException('A user with this id exists');
         }
 

@@ -2,9 +2,9 @@
 
 namespace Kirby\Cms;
 
-use Throwable;
 use Kirby\Data\Json;
 use Kirby\Exception\Exception;
+use Kirby\Exception\InvalidArgumentException;
 use Kirby\Exception\PermissionException;
 use Kirby\Http\Remote;
 use Kirby\Http\Uri;
@@ -12,6 +12,8 @@ use Kirby\Http\Url;
 use Kirby\Toolkit\Dir;
 use Kirby\Toolkit\F;
 use Kirby\Toolkit\Str;
+use Kirby\Toolkit\V;
+use Throwable;
 
 /**
  * The System class gathers all information
@@ -20,17 +22,22 @@ use Kirby\Toolkit\Str;
  *
  * This is mostly used by the panel installer
  * to check if the panel can be installed at all.
+ *
+ * @package   Kirby Cms
+ * @author    Bastian Allgeier <bastian@getkirby.com>
+ * @link      https://getkirby.com
+ * @copyright Bastian Allgeier GmbH
+ * @license   https://getkirby.com/license
  */
 class System
 {
-
     /**
      * @var App
      */
     protected $app;
 
     /**
-     * @param App $app
+     * @param \Kirby\Cms\App $app
      */
     public function __construct(App $app)
     {
@@ -41,11 +48,11 @@ class System
     }
 
     /**
-     * Improved var_dump output
+     * Improved `var_dump` output
      *
      * @return array
      */
-    public function __debuginfo(): array
+    public function __debugInfo(): array
     {
         return $this->toArray();
     }
@@ -72,7 +79,7 @@ class System
     /**
      * Check for a writable accounts folder
      *
-     * @return boolean
+     * @return bool
      */
     public function accounts(): bool
     {
@@ -82,7 +89,7 @@ class System
     /**
      * Check for a writable content folder
      *
-     * @return boolean
+     * @return bool
      */
     public function content(): bool
     {
@@ -92,11 +99,34 @@ class System
     /**
      * Check for an existing curl extension
      *
-     * @return boolean
+     * @return bool
      */
     public function curl(): bool
     {
         return extension_loaded('curl');
+    }
+
+    /**
+     * Returns the app's human-readable
+     * index URL without scheme
+     *
+     * @return string
+     */
+    public function indexUrl(): string
+    {
+        $url = $this->app->url('index');
+
+        if (Url::isAbsolute($url)) {
+            $uri = Url::toObject($url);
+        } else {
+            // index URL was configured without host, use the current host
+            $uri = Uri::current([
+                'path'   => $url,
+                'query'  => null
+            ]);
+        }
+
+        return $uri->setScheme(null)->setSlash(false)->toString();
     }
 
     /**
@@ -107,20 +137,21 @@ class System
      */
     public function init()
     {
-        /* /site/accounts */
+        // init /site/accounts
         try {
             Dir::make($this->app->root('accounts'));
         } catch (Throwable $e) {
             throw new PermissionException('The accounts directory could not be created');
         }
 
-        /* /content */
+        // init /content
         try {
             Dir::make($this->app->root('content'));
         } catch (Throwable $e) {
             throw new PermissionException('The content directory could not be created');
         }
 
+        // init /media
         try {
             Dir::make($this->app->root('media'));
         } catch (Throwable $e) {
@@ -134,7 +165,7 @@ class System
      * option must be explicitly set to true
      * to get the installer up and running.
      *
-     * @return boolean
+     * @return bool
      */
     public function isInstallable(): bool
     {
@@ -144,7 +175,7 @@ class System
     /**
      * Check if Kirby is already installed
      *
-     * @return boolean
+     * @return bool
      */
     public function isInstalled(): bool
     {
@@ -154,7 +185,7 @@ class System
     /**
      * Check if this is a local installation
      *
-     * @return boolean
+     * @return bool
      */
     public function isLocal(): bool
     {
@@ -187,34 +218,11 @@ class System
     /**
      * Check if all tests pass
      *
-     * @return boolean
+     * @return bool
      */
     public function isOk(): bool
     {
         return in_array(false, array_values($this->status()), true) === false;
-    }
-
-    /**
-     * Returns the app's index URL for
-     * licensing purposes without scheme
-     *
-     * @return string
-     */
-    protected function licenseUrl(): string
-    {
-        $url = $this->app->url('index');
-
-        if (Url::isAbsolute($url)) {
-            $uri = Url::toObject($url);
-        } else {
-            // index URL was configured without host, use the current host
-            $uri = Uri::current([
-                'path'   => $url,
-                'query'  => null
-            ]);
-        }
-
-        return $uri->setScheme(null)->setSlash(false)->toString();
     }
 
     /**
@@ -224,10 +232,10 @@ class System
      * @param string|null $url Input URL, by default the app's index URL
      * @return string Normalized URL
      */
-    protected function licenseUrlNormalized(string $url = null): string
+    protected function licenseUrl(string $url = null): string
     {
         if ($url === null) {
-            $url = $this->licenseUrl();
+            $url = $this->indexUrl();
         }
 
         // remove common "testing" subdomains as well as www.
@@ -300,7 +308,7 @@ class System
         }
 
         // verify the URL
-        if ($this->licenseUrlNormalized() !== $this->licenseUrlNormalized($license['domain'])) {
+        if ($this->licenseUrl() !== $this->licenseUrl($license['domain'])) {
             return false;
         }
 
@@ -310,7 +318,7 @@ class System
     /**
      * Check for an existing mbstring extension
      *
-     * @return boolean
+     * @return bool
      */
     public function mbString(): bool
     {
@@ -320,7 +328,7 @@ class System
     /**
      * Check for a writable media folder
      *
-     * @return boolean
+     * @return bool
      */
     public function media(): bool
     {
@@ -330,7 +338,7 @@ class System
     /**
      * Check for a valid PHP version
      *
-     * @return boolean
+     * @return bool
      */
     public function php(): bool
     {
@@ -344,15 +352,27 @@ class System
      *
      * @param string $license
      * @param string $email
-     * @return boolean
+     * @return bool
      */
-    public function register(string $license, string $email): bool
+    public function register(string $license = null, string $email = null): bool
     {
+        if (Str::startsWith($license, 'K3-PRO-') === false) {
+            throw new InvalidArgumentException([
+                'key' => 'license.format'
+            ]);
+        }
+
+        if (V::email($email) === false) {
+            throw new InvalidArgumentException([
+                'key' => 'license.email'
+            ]);
+        }
+
         $response = Remote::get('https://licenses.getkirby.com/register', [
             'data' => [
                 'license' => $license,
                 'email'   => $email,
-                'domain'  => $this->licenseUrl()
+                'domain'  => $this->indexUrl()
             ]
         ]);
 
@@ -373,7 +393,9 @@ class System
         Json::write($file, $json);
 
         if ($this->license() === false) {
-            throw new Exception('The license could not be verified');
+            throw new InvalidArgumentException([
+                'key' => 'license.verification'
+            ]);
         }
 
         return true;
@@ -382,7 +404,7 @@ class System
     /**
      * Check for a valid server environment
      *
-     * @return boolean
+     * @return bool
      */
     public function server(): bool
     {
@@ -402,7 +424,7 @@ class System
     /**
      * Check for a writable sessions folder
      *
-     * @return boolean
+     * @return bool
      */
     public function sessions(): bool
     {

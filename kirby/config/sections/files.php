@@ -1,8 +1,7 @@
 <?php
 
 use Kirby\Cms\File;
-use Kirby\Toolkit\A;
-use Kirby\Toolkit\Str;
+use Kirby\Toolkit\I18n;
 
 return [
     'mixins' => [
@@ -17,6 +16,12 @@ return [
     ],
     'props' => [
         /**
+         * Enables/disables reverse sorting
+         */
+        'flip' => function (bool $flip = false) {
+            return $flip;
+        },
+        /**
          * Image options to control the source and look of file previews
          */
         'image' => function ($image = null) {
@@ -29,7 +34,7 @@ return [
             return $info;
         },
         /**
-         * The size option controls the size of cards. By default cards are auto-sized and the cards grid will always fill the full width. With a size you can disable auto-sizing. Available sizes: tiny, small, medium, large
+         * The size option controls the size of cards. By default cards are auto-sized and the cards grid will always fill the full width. With a size you can disable auto-sizing. Available sizes: `tiny`, `small`, `medium`, `large`, `huge`
          */
         'size' => function (string $size = 'auto') {
             return $size;
@@ -41,7 +46,7 @@ return [
             return $sortable;
         },
         /**
-         * Overwrites manual sorting and sorts by the given field and sorting direction (i.e. filename desc)
+         * Overwrites manual sorting and sorts by the given field and sorting direction (i.e. `filename desc`)
          */
         'sortBy' => function (string $sortBy = null) {
             return $sortBy;
@@ -72,9 +77,6 @@ return [
 
             return null;
         },
-        'dragTextType' => function () {
-            return (option('panel')['kirbytext'] ?? true) ? 'kirbytext' : 'markdown';
-        },
         'parent' => function () {
             return $this->parentModel();
         },
@@ -82,9 +84,14 @@ return [
             $files = $this->parent->files()->template($this->template);
 
             if ($this->sortBy) {
-                $files = $files->sortBy(...Str::split($this->sortBy, ' '));
+                $files = $files->sortBy(...$files::sortArgs($this->sortBy));
             } elseif ($this->sortable === true) {
-                $files = $files->sortBy('sort', 'asc');
+                $files = $files->sortBy('sort', 'asc', 'filename', 'asc');
+            }
+
+            // flip
+            if ($this->flip === true) {
+                $files = $files->flip();
             }
 
             // apply the default pagination
@@ -98,27 +105,15 @@ return [
         'data' => function () {
             $data = [];
 
-            if ($this->layout === 'list') {
-                $thumb = [
-                    'width'  => 100,
-                    'height' => 100
-                ];
-            } else {
-                $thumb = [
-                    'width'  => 400,
-                    'height' => 400
-                ];
-            }
-
             // the drag text needs to be absolute when the files come from
             // a different parent model
             $dragTextAbsolute = $this->model->is($this->parent) === false;
 
             foreach ($this->files as $file) {
-                $image = $file->panelImage($this->image, $thumb);
+                $image = $file->panelImage($this->image);
 
                 $data[] = [
-                    'dragText' => $file->dragText($this->dragTextType, $dragTextAbsolute),
+                    'dragText' => $file->dragText('auto', $dragTextAbsolute),
                     'filename' => $file->filename(),
                     'id'       => $file->id(),
                     'text'     => $file->toString($this->text),
@@ -184,6 +179,10 @@ return [
                 return false;
             }
 
+            if ($this->flip === true) {
+                return false;
+            }
+
             return true;
         },
         'upload' => function () {
@@ -220,6 +219,7 @@ return [
                 'accept'   => $this->accept,
                 'empty'    => $this->empty,
                 'headline' => $this->headline,
+                'help'     => $this->help,
                 'layout'   => $this->layout,
                 'link'     => $this->link,
                 'max'      => $this->max,

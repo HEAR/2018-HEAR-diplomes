@@ -1,9 +1,11 @@
 <?php
 
 use Kirby\Cms\Form;
-use Kirby\Cms\Blueprint;
+use Kirby\Data\Yaml;
+use Kirby\Toolkit\I18n;
 
 return [
+    'mixins' => ['min'],
     'props' => [
         /**
          * Unset inherited props
@@ -28,6 +30,14 @@ return [
         'empty' => function ($empty = null) {
             return I18n::translate($empty, $empty);
         },
+
+        /**
+         * Set the default rows for the structure
+         */
+        'default' => function (array $default = null) {
+            return $default;
+        },
+
         /**
          * Fields setup for the structure form. Works just like fields in regular forms.
          */
@@ -59,7 +69,7 @@ return [
             return $sortable;
         },
         /**
-         * Sorts the entries by the given field and order (i.e. title desc)
+         * Sorts the entries by the given field and order (i.e. `title desc`)
          * Drag & drop is disabled in this case
          */
         'sortBy' => function (string $sort = null) {
@@ -74,6 +84,10 @@ return [
             return $this->rows($this->value);
         },
         'fields' => function () {
+            if (empty($this->fields) === true) {
+                throw new Exception('Please provide some fields for the structure');
+            }
+
             return $this->form()->fields()->toArray();
         },
         'columns' => function () {
@@ -113,7 +127,7 @@ return [
             }
 
             return $columns;
-        },
+        }
     ],
     'methods' => [
         'rows' => function ($value) {
@@ -149,10 +163,10 @@ return [
             ]
         ];
     },
-    'save' => function () {
+    'save' => function ($value) {
         $data = [];
 
-        foreach ($this->value() as $row) {
+        foreach ($value as $row) {
             $data[] = $this->form($row)->data();
         }
 
