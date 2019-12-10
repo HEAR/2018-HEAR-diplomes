@@ -57,7 +57,7 @@ h4 {
 	margin-top: 1em;
 }
 
-@media (min-width:576px) {
+/*@media (min-width:576px) {
 	h4, .text {
 		font-size: 0.6rem;
 	}
@@ -101,13 +101,16 @@ h4 {
 	h1 {
 		font-size: 1.5rem;
 	}
-}
+}*/
 
 
 
 img {
 	width: 100%;
 }
+
+
+
 
 
 /* ENTETE */
@@ -131,6 +134,34 @@ header#entete
 	text-decoration: none;
 	grid-gap: 2rem;
 }
+
+/* https://jsfiddle.net/5o48vs9y/ */
+
+header{
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	background: #F00;
+	padding: 25px;
+	display: flex;
+
+}
+
+span.nbsp{
+	/*display: inline-block;*/
+	width: 0.2em;
+	/*background: #F00;*/
+} 
+
+/*span{
+margin-left: 30px;
+font-size:40px;
+line-height:40px;
+transition:  font-size 1s ease,line-height 1s ease;
+}*/
+
+
 
 
 nav
@@ -195,11 +226,72 @@ nav li{
 }
 
 
-
-
 /* FIN ENTETE */
 
 
+/* HOME */
+
+
+header.small span{
+	font-size:10px;
+	line-height:10px;
+}
+
+h1#logo{
+	color: var(--main-color);
+	position: fixed;
+	margin: 0;
+	top: 3.9rem;
+	left: 1.65rem;
+	font-size:8.35vw;
+	margin-left: -1.6vw;
+	font-stretch: 20%;
+	text-transform:uppercase;
+	line-height:40px;
+	/*line-height: 1em;*/
+	z-index: 500;
+	pointer-events: none;
+	/*background: #F00;*/
+}
+
+.home h1#logo{
+	transition:  font-size 2s ease,
+		line-height 2s ease, 
+		top 2s ease,
+		margin-left 2s ease, 
+		left 2s ease;
+}
+
+h1#logo.small{
+	font-size:1rem;
+	/*line-height: 1em;*/
+	top: 0.5rem;
+	left: 2rem;
+	margin-left: -1.5vw;
+	pointer-events: auto;
+}
+
+
+.gridimage{
+	margin-top: 170px;
+	/*margin-top: calc(8.35vw + 60px);*/
+	/*margin-top: calc(70px + 5.35vw);*/
+	margin-left: 20px;
+}
+
+.gridimage ul{
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.gridimage img{
+	height: 130px;
+	width: auto;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+/* FIN HOME */
 
 
 
@@ -352,95 +444,11 @@ main header h2{
 }
 
 
-/* https://jsfiddle.net/5o48vs9y/ */
 
-header{
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	background: #F00;
-	padding: 25px;
-	display: flex;
-
-}
-
-h1#logo{
-	color: var(--main-color);
-	position: fixed;
-	margin: 0;
-	top: 3.9rem;
-	left: 1.65rem;
-	font-size:8.35vw;
-	margin-left: -1.6vw;
-	font-stretch: 20%;
-	text-transform:uppercase;
-	line-height:40px;
-	z-index: 500;
-	pointer-events: none;
-}
-
-.home h1#logo{
-	transition:  font-size 2s ease,
-		line-height 2s ease, 
-		top 2s ease,
-		margin-left 2s ease, 
-		left 2s ease;
-}
-
-span.nbsp{
-	/*display: inline-block;*/
-	width: 0.2em;
-	/*background: #F00;*/
-} 
-
-/*span{
-margin-left: 30px;
-font-size:40px;
-line-height:40px;
-transition:  font-size 1s ease,line-height 1s ease;
-}*/
-
-header.small span{
-	font-size:10px;
-	line-height:10px;
-}
-
-h1#logo.small{
-	font-size:1rem;
-	top: 0.5rem;
-	left: 2rem;
-	margin-left: -1.5vw;
-	pointer-events: auto;
-}
 
 .etudiant{
 	/*margin: 120px 20px 20px;*/
 }
-
-
-
-
-
-
-/* HOME */
-
-.gridimage {
-	margin-top: 170px;
-	margin-left: 20px;
-	display: flex;
-	flex-wrap: wrap;
-}
-
-.gridimage img{
-	height: 130px;
-	width: auto;
-	margin-right: 10px;
-	margin-bottom: 10px;
-}
-
-/* FIN HOME */
-
 
 
 
@@ -580,6 +588,18 @@ h1#logo.small{
 #annuaire-container figure:hover img{
 	opacity: 0.3;
 	filter: grayscale(5);
+}
+
+#annuaire .filter button{
+	background: none;
+	border: 0;
+	padding: 0;
+	color: #999;
+	cursor: pointer;
+}
+#annuaire .filter button.active{
+	font-weight: bold;
+	color: #000;
 }
 
 /* FIN ANNUAIRE */

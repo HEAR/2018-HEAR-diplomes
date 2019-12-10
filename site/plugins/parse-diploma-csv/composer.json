@@ -1,0 +1,17 @@
+{
+    "name": "hear/parse-diploma-csv",
+    "description": "Kirby Plugin to create content from a csv",
+    "type": "kirby-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ComGraph Team",
+            "email": "loic.horellou@hear.fr",
+            "homepage": "https://comgraph.hear.fr"
+        }
+    ],
+    "minimum-stability": "beta",
+    "require": {
+        "parsecsv/php-parsecsv": "^1.1"
+    }
+}

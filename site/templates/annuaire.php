@@ -5,44 +5,36 @@
 <?= $page->title() ?>
 
 <main id="annuaire-container">
-<ul id="annuaire">
-	<li>
-		<span class="annee">Année</span>
-		<span class="groupe">Groupe</span>
-		<span class="nom">Nom</span>
-		<span class="url">Site</span>
-	</li>
-<?php 
+	<ul id="annuaire">
+		<li class="filter">
+			<span class="annee">Année <button data-tri="asc" class="active">↓</button><button data-tri="desc">↑</button></span>
+			<span class="groupe">Groupe <button data-tri="asc">↓</button><button data-tri="desc">↑</button></span>
+			<span class="nom">Nom <button data-tri="asc">↓</button><button data-tri="desc">↑</button></span>
+			<span class="url">Site <button data-tri="asc">↓</button><button data-tri="desc">↑</button></span>
+		</li>
+	<?php 
 
-$promos = $site->index()->filterBy('template', 'promo')->sortBy("title", "desc");
+	$promos = $site->index()->filterBy('template', 'promo')->sortBy("title", "desc");
 
-foreach($promos as $promo) :
-?>
+	foreach($promos as $promo) :
+	?>
 
-<!-- <li><?= $promo->title(); ?> -->
+		<?php foreach( $promo->children()->sortBy("title") as $etudiant ) : ?>
 
-	<!-- <ul> -->
-	<?php foreach( $promo->children()->sortBy("title") as $etudiant ) : ?>
+		<li data-url="<?= $etudiant->url() ?>">
+			<span class="annee" data-filter="<?= $etudiant->parent()->title()->text() ?>"><?= $etudiant->parent()->title()->text() ?></span>
+			<span class="groupe" data-filter="<?php snippet('groupe-mention', ['etudiant' => $etudiant])?>"><?php snippet('groupe-mention', ['etudiant' => $etudiant])?></span>
+			<span class="nom" data-filter="<?= $etudiant->title().' '.$etudiant->prenom() ?>"><!--<a href="<?= $etudiant->url() ?>">--><?= $etudiant->prenom().' '.$etudiant->title() ?><!--</a>--></span>
+			<span class="url" data-filter="<?php snippet('filter-url', ['url' => $etudiant->weburl()->value()])?>"><?php snippet('clean-url', ['url' => $etudiant->weburl()->value(), 'target'=>true ])?></span>
+			<div class="content"></div>
+		</li>
 
-	<li data-url="<?= $etudiant->url() ?>">
-		<span class="annee"><?= $etudiant->parent()->title()->text() ?></span>
-		<span class="groupe"><?php snippet('groupe-mention', ['etudiant' => $etudiant])?></span>
-		<span class="nom"><!--<a href="<?= $etudiant->url() ?>">--><?= $etudiant->prenom().' '.$etudiant->title() ?><!--</a>--></span>
-		<span class="url"><?php snippet('clean-url', ['url' => $etudiant->weburl()->value(), 'target'=>true ])?></span>
-		<div class="content"></div>
-	</li>
 
-	<!-- <li><a href="<?= $etudiant->url() ?>"><?= $etudiant->prenom().' '.$etudiant->title() ?></a></li> -->
+		<?php endforeach; ?>
 
 	<?php endforeach; ?>
-	<!-- </ul> -->
 
-<!-- </li> -->
-
-
-<?php endforeach; ?>
-
-</ul>
+	</ul>
 
 </main>
 <!-- fin annuaire.php -->

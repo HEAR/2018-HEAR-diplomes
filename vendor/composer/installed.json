@@ -484,6 +484,42 @@
         ]
     },
     {
+        "name": "sylvainjule/pagetable",
+        "version": "1.0.5",
+        "version_normalized": "1.0.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/sylvainjule/kirby-pagetable.git",
+            "reference": "adb2573c696c6a2d30f1846d2ba7d1b3aa611d42"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/sylvainjule/kirby-pagetable/zipball/adb2573c696c6a2d30f1846d2ba7d1b3aa611d42",
+            "reference": "adb2573c696c6a2d30f1846d2ba7d1b3aa611d42",
+            "shasum": ""
+        },
+        "require": {
+            "getkirby/composer-installer": "^1.1"
+        },
+        "time": "2019-11-01T09:33:31+00:00",
+        "type": "kirby-plugin",
+        "extra": {
+            "installer-name": "pagetable"
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Sylvain Julé",
+                "email": "contact@sylvain-jule.fr"
+            }
+        ],
+        "description": "Display subpages in a flexible table"
+    },
+    {
         "name": "symfony/polyfill-mbstring",
         "version": "v1.11.0",
         "version_normalized": "1.11.0.0",
