@@ -18,6 +18,12 @@
     <?php endforeach; ?>
   </ul>
 
+	<p><?php //$page->root() ?></p>
+	<p><?php //$page->file()->root() ?></p>
+	<p><?= $page->uri() ?></p>
+	<p><?= $page->template() ?>	</p>
+
+
 </main>
 
 <!-- fin promo.php -->

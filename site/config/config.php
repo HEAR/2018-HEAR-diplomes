@@ -14,6 +14,18 @@ return [
 		"design_textile" => "Design textile",
 		"musique" => "Musique"
     ],
+    'mentionInit' => [
+		"art" => "A",
+		"art_objet" => "AO",
+		"scenographie" => "S",
+		"communication_graphique" => "CG",
+		"design_graphique" => "DG",
+		"didactique_visuelle" => "DV",
+		"illustration" => "I",
+		"design" => "D",
+		"design_textile" => "DT",
+		"musique" => "M"
+    ],
     'atelier_groupe' => [
 		"farmteam" => "Farmteam / Storyteller",
 		"hors_format" => "Hors format",
@@ -29,4 +41,19 @@ return [
 		"metal" => "Métal",
 		"livre" => "Livre"
     ],
+    'atelier_groupeInit' => [
+		"farmteam" => "F/S",
+		"hors_format" => "HF",
+		"la_fabrique" => "LF",
+		"no_name" => "NN",
+		"peinture" => "Pt",
+		"phonon" => "Ph",
+		"le_plateau" => "LP",
+		"bijou" => "Bj",
+		"bois" => "Bs",
+		"terre" => "Tr",
+		"verre" => "Vr",
+		"metal" => "Mt",
+		"livre" => "Lv"
+    ]
 ];

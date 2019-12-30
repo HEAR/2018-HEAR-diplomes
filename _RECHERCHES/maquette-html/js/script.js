@@ -8,13 +8,13 @@ $(function(){
         	$(".home header").addClass("small");
         	$(".home #logo")
                 .addClass("small")
-                .text("Hear diplomés");
+                // .text("Hear diplomés");
         	
         }else{
         	$(".home header").removeClass("small");
         	$(".home #logo")
                 .removeClass("small")
-                .text("Hear diplomes");
+                // .text("Hear diplomes");
         }
 
     });

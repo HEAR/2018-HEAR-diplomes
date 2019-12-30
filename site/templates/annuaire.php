@@ -21,9 +21,19 @@
 
 		<?php foreach( $promo->children()->sortBy("title") as $etudiant ) : ?>
 
+		<?php 
+			if( $etudiant->atelier_groupe()->isEmpty() ):
+				$groupeMention 	   = $etudiant->mention()->optionToText() ;
+				$groupeMentionInit = $etudiant->mention()->optionToInit() ;
+			else :
+				$groupeMention = $etudiant->mention()->optionToText()." • ".$etudiant->atelier_groupe()->optionToText() ;
+				$groupeMentionInit = $etudiant->mention()->optionToInit()."•".$etudiant->atelier_groupe()->optionToInit() ;
+			endif;
+		 ?>
+
 		<li data-url="<?= $etudiant->url() ?>">
 			<span class="annee" data-filter="<?= $etudiant->parent()->title()->text() ?>"><?= $etudiant->parent()->title()->text() ?></span>
-			<span class="groupe" data-filter="<?php snippet('groupe-mention', ['etudiant' => $etudiant])?>"><?php snippet('groupe-mention', ['etudiant' => $etudiant])?></span>
+			<span class="groupe" data-filter="<?= $groupeMention ?>" data-init="<?= $groupeMentionInit ?>"><?= $groupeMention?></span>
 			<span class="nom" data-filter="<?= $etudiant->title().' '.$etudiant->prenom() ?>"><!--<a href="<?= $etudiant->url() ?>">--><?= $etudiant->prenom().' '.$etudiant->title() ?><!--</a>--></span>
 			<span class="url" data-filter="<?php snippet('filter-url', ['url' => $etudiant->weburl()->value()])?>"><?php snippet('clean-url', ['url' => $etudiant->weburl()->value(), 'target'=>true ])?></span>
 			<div class="content"></div>

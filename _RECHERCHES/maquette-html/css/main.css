@@ -116,10 +116,10 @@ header#entete
 
 	display: grid;
 	grid-template-columns:auto auto 100px 200px;
-	grid-template-rows: 1rem;
+	/*grid-template-rows: 1rem;*/
 	grid-template-areas: "  menu . url search";
 	text-decoration: none;
-	grid-gap: 2rem;
+	/*grid-gap: 2rem;*/
 }
 
 
@@ -127,7 +127,7 @@ nav
 {
 	/*top: 3px;*/
 	/*border: 1px blue solid;*/
-	float: left;
+	/*float: left;*/
 	/*margin-left: 1%; */
 	/*font-weight: bold;*/
 	text-transform: uppercase;
@@ -162,11 +162,7 @@ form{
 
 #search
 {
-	width:10vw;
-	/*margin-top: 4px;*/
-	/*float: right;*/
-	/*height:30px;*/
-	/*height: 0.8rem;*/
+	/*width:10vw;
 	background: transparent;
 	border: 0.8px solid var(--main-color);
 	color: var(--main-color); 
@@ -174,9 +170,8 @@ form{
 	bottom: 0.6rem;
 	border:0;
 	border-bottom: solid 8px var(--main-color);
-	/*margin-left: 1rem;*/
 	left: -0.85rem;
-	transform: rotate(-4deg);
+	transform: rotate(-4deg);*/
 }
 
 nav li{
@@ -356,7 +351,7 @@ header{
 }
 
 h1#logo{
-	color: var(--main-color);
+	/*color: var(--main-color);
 	position: fixed;
 	margin: 0;
 	top: 3.9rem;
@@ -367,13 +362,13 @@ h1#logo{
 	text-transform:uppercase;
 	line-height:40px;
 	transition:  font-size 2s ease,
-	line-height 2s ease, 
-	top 2s ease,
-	margin-left 2s ease, 
-	left 2s ease;
+				line-height 2s ease, 
+				top 2s ease,
+				margin-left 2s ease, 
+				left 2s ease;
 	z-index: 500;
 	pointer-events: none;
-}
+}*/
 
 span.nbsp{
 	/*display: inline-block;*/
@@ -394,11 +389,11 @@ header.small span{
 }
 
 h1#logo.small{
-	font-size:1rem;
+	/*font-size:1rem;
 	top: 0.5rem;
 	left: 2rem;
 	margin-left: -1.5vw;
-	pointer-events: auto;
+	pointer-events: auto;*/
 }
 
 .etudiant{
