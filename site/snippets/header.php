@@ -12,26 +12,31 @@
   	'//fonts.googleapis.com/css?family=Michroma&display=swap',
   	'//fonts.googleapis.com/css?family=Roboto:300&display=swap',
   	'assets/css/reset.css',
-  	'assets/css/main.css?v=0.11'
+  	'assets/css/main.css?v=0.15'
   	]) ?>
 
   <?= js([
   	'assets/js/jquery-3.4.1.min.js',
-  	'assets/js/script.js?v=0.11'
+  	'assets/js/script.js?v=0.15'
   	]) ?>
 
 
 </head>
 <body class="<?php echo $page->slug() ?>">
 
-	<header id="entete">
+  <h1 id="logo" class="<?php e(!$page->isHomePage(), 'small')?>">
+    <a href="<?= $site->url() ?>">
+      <?= $site->title() ?>
+      <?php snippet('logo') ?>
+    </a>
+  </h1>
 
-		<h1 id="logo"><a href="<?= $site->url() ?>">Hear&nbsp;diplomes</a></h1>
+	<header id="entete" class="<?php e(!$page->isHomePage(), 'small')?>">
 
 		<?php snippet('menu') ?>
 		
 
-		<p class="url"><a href="http://www.hear.fr">hear.fr</a></p>
+		<p class="home-url"><a href="http://www.hear.fr">hear.fr</a></p>
 		<form class="search-form" action="<?= $site->page('search')->url() ?>">
 				<?php 
 

@@ -4,8 +4,8 @@
 
 <main class="etudiant">
       <header>
-        <h1><?= option('mention')[ $page->mention()->value() ] ?? ucfirst($page->mention()->html()) ?></h1>
-        <h2><?= $page->prenom() ?> <?= $page->title() ?></h2>
+        <h1><?= $page->prenom() ?> <?= $page->title() ?></h1>
+        <h2><?= option('mention')[ $page->mention()->value() ] ?? ucfirst($page->mention()->html()) ?></h2>
       </header>
       <div id="content">
         <div class="gauche">

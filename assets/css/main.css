@@ -1,8 +1,11 @@
-/*https://developer.mozilla.org/fr/docs/Web/CSS/Using_CSS_custom_properties*/
+https://developer.mozilla.org/fr/docs/Web/CSS/Using_CSS_custom_properties*/
+
+/* GLOBAL */
+
 :root {
 	--petite-marge:0.5rem;
-	--main-color: #000;
-	--couleur-actif: #E6E6E6 ;
+	--color-main: #000;
+	--color-active: #E6E6E6 ;
 }
 
 *{
@@ -15,17 +18,153 @@ html {
 
 body {
 	font-family: 'Michroma', sans-serif;
-	color: var(--main-color);
+	color: var(--color-main);
 }
 
 a { 
 	text-decoration:none;
-	color: var(--main-color);
+	color: var(--color-main);
 }
 
 
+/* HEADER + TITLE */
+
+/* https://jsfiddle.net/5o48vs9y/ */
+
+header#entete {
+	background: #FFF;
+	/*height: 50px;*/
+	/*border: 1px blue solid;*/
+	top: 0;
+	left:0;
+	position: fixed;
+	width: 100%;
+	z-index: 3;
+	padding: 1rem;
+	display: grid;
+	text-decoration: none;
+	grid-template-columns:2fr 4fr 1fr 14.5vw;
+	grid-template-areas: ". menu url search";
+	grid-gap: 0.5rem;
+}
+
+.home header#entete {
+	background: transparent;
+}
+
+header.small span{
+	font-size: 1.5vw;
+	line-height: 1em;
+}
 
 
+h1#logo{
+	/*background: rgba(0,255,0,.5);*/
+	margin: 1rem;
+	position: sticky;
+	top: 1rem;
+	left: 1rem;
+	width: calc(100vw - 2rem);
+	font-size: 0;
+	z-index: 1;
+}
+
+.home h1#logo{
+	transition: width 2s ,
+				top 2s,
+				left 2s;
+}
+
+h1#logo #accent{
+	display: none;
+}
+
+h1#logo.small{
+	top: calc(1rem - .45vw);
+	width: 19vw;
+	height: 1.5vw;
+	z-index: 1000;
+	margin-top: calc(1rem - .45vw);
+}
+
+h1#logo.small #accent{
+	display: block;
+}
+
+
+nav{
+	text-transform: uppercase;
+	grid-area: menu;
+	margin-left: 0;
+	font-size: 1.5vw;
+}
+nav li{
+	display: inline-block;
+	margin-right: 1.5rem;
+}
+
+.home-url {
+	grid-area: url;
+	font-size: 1.5vw;
+}
+
+
+form {
+	grid-area: search;
+	z-index: 2000;
+	margin: 0;
+	display: flex;
+}
+
+input[type=text] {
+	font-family: Michroma, sans-serif;
+	font-size: 1rem;
+}
+
+input[type=text]:focus{
+	box-shadow: 0;
+	outline: none;
+}
+
+#search{
+	width:12vw;
+	font-size: 1.5vw;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	background: none;
+	line-height: 1em;
+	border-bottom: solid 0.65vw;
+	border-color: var(--color-main);
+	transform: rotate(-4deg); 
+	transform-origin: top left;
+}
+
+
+/* MOSAIQUE HOME */
+
+.gridimage{
+	/*background: #333;*/
+	/*min-height: 1800px;*/
+	margin: 1rem;
+}
+
+.gridimage ul{
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.gridimage img{
+	height: 130px;
+	width: auto;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+/* FIN HOME */
+
+
+/*
 h1 {
 	text-align: right;
 	font-size: 1.1rem;
@@ -55,7 +194,11 @@ h4 {
 
 .text{
 	margin-top: 1em;
-}
+}*/
+
+
+
+/* OLD */ 
 
 /*@media (min-width:576px) {
 	h4, .text {
@@ -113,185 +256,7 @@ img {
 
 
 
-/* ENTETE */
-header#entete
-{
-	top: 0;
-	left:0;
-	/*background: #F00;*/
-	position: fixed;
-	width: 100%;
-	/*height: 50px;*/
-	background: white;
-	/*border: 1px blue solid;*/
-	z-index: 3;
-	padding: 1rem;
 
-	display: grid;
-	grid-template-columns:auto auto 100px 200px;
-	grid-template-rows: 1rem;
-	grid-template-areas: "  menu . url search";
-	text-decoration: none;
-	grid-gap: 2rem;
-}
-
-/* https://jsfiddle.net/5o48vs9y/ */
-
-header{
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	background: #F00;
-	padding: 25px;
-	display: flex;
-
-}
-
-span.nbsp{
-	/*display: inline-block;*/
-	width: 0.2em;
-	/*background: #F00;*/
-} 
-
-/*span{
-margin-left: 30px;
-font-size:40px;
-line-height:40px;
-transition:  font-size 1s ease,line-height 1s ease;
-}*/
-
-
-
-
-nav
-{
-	/*top: 3px;*/
-	/*border: 1px blue solid;*/
-	float: left;
-	/*margin-left: 1%; */
-	/*font-weight: bold;*/
-	text-transform: uppercase;
-	grid-area: menu;
-	margin-left: 300px;
-}
-
-input[type=text] {
-	font-family: Michroma, sans-serif;
-	font-size: 1rem;
-}
-
-input[type=text]:focus{
-	box-shadow: 0;
-	outline: none;
-}
-
-.url
-{
-	/*top: 3px;*/
-	/*border: 1px blue solid;*/
-	/*float: right;*/
-	/*margin-right: 1%; */
-	/*font-weight: bold;*/
-	grid-area: url;
-}
-
-form{
-	grid-area: search;
-	z-index: 2000;
-}
-
-#search
-{
-	width:10vw;
-	/*margin-top: 4px;*/
-	/*float: right;*/
-	/*height:30px;*/
-	/*height: 0.8rem;*/
-	background: transparent;
-	border: 0.8px solid var(--main-color);
-	color: var(--main-color); 
-	position: relative;
-	bottom: 0.6rem;
-	border:0;
-	border-bottom: solid 8px var(--main-color);
-	/*margin-left: 1rem;*/
-	left: -0.85rem;
-	transform: rotate(-4deg);
-}
-
-nav li{
-	display: inline-block;
-	margin-right: 1.5rem;
-}
-
-
-/* FIN ENTETE */
-
-
-/* HOME */
-
-
-header.small span{
-	font-size:10px;
-	line-height:10px;
-}
-
-h1#logo{
-	color: var(--main-color);
-	position: fixed;
-	margin: 0;
-	top: 3.9rem;
-	left: 1.65rem;
-	font-size:8.35vw;
-	margin-left: -1.6vw;
-	font-stretch: 20%;
-	text-transform:uppercase;
-	line-height:40px;
-	/*line-height: 1em;*/
-	z-index: 500;
-	pointer-events: none;
-	/*background: #F00;*/
-}
-
-.home h1#logo{
-	transition:  font-size 2s ease,
-		line-height 2s ease, 
-		top 2s ease,
-		margin-left 2s ease, 
-		left 2s ease;
-}
-
-h1#logo.small{
-	font-size:1rem;
-	/*line-height: 1em;*/
-	top: 0.5rem;
-	left: 2rem;
-	margin-left: -1.5vw;
-	pointer-events: auto;
-}
-
-
-.gridimage{
-	margin-top: 170px;
-	/*margin-top: calc(8.35vw + 60px);*/
-	/*margin-top: calc(70px + 5.35vw);*/
-	margin-left: 20px;
-}
-
-.gridimage ul{
-	display: flex;
-	flex-wrap: wrap;
-}
-
-.gridimage img{
-	height: 130px;
-	width: auto;
-	margin-right: 10px;
-	margin-bottom: 10px;
-}
-
-/* FIN HOME */
 
 
 
@@ -306,10 +271,10 @@ main{
 }
 
 
-
 main header{
 	position: fixed;
-	top: 3rem;
+	/*top: 3rem;*/
+	top: calc(2rem + 2.75vw);
 	left: 0;
 	right: 0;
 	background: white;
@@ -318,18 +283,18 @@ main header{
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	grid-template-rows: 30px;
-	grid-template-areas: "option nom";
+	grid-template-areas: "nom option";
 	/*padding-left: 2rem;
 	padding-right: 2rem;*/
 }
 
 main header h1{
-	text-align: right;
+	text-align: left;
 	grid-area: nom;
 }
 
 main header h2{
-	text-align: left;
+	text-align: right;
 	grid-area: option;
 }
 
@@ -358,7 +323,7 @@ main header h2{
 
 .etudiant figure{
 	position: relative;
-	background: var(--main-color);
+	background: var(--color-main);
 	margin-bottom: 0.5rem;
 }
 
@@ -371,9 +336,9 @@ main header h2{
 .etudiant figcaption{
 	position: absolute;
 	font-size: 0.8rem;
-	bottom: -15px;
-	left:15px;
-	right: 15px;
+	bottom: .75rem;
+	left: .75rem;
+	right: .75rem;
 	color: #FFF;
 	opacity: 0;
 	transition: opacity 0.5s ease, bottom 1s ease;
@@ -390,7 +355,7 @@ main header h2{
 }
 
 .etudiant .legende {
-	color : white;
+	color: white;
 	position: absolute;
 	width: 40%;
 	/*border: 1px blue solid;*/
@@ -442,9 +407,13 @@ main header h2{
 	background: white;
 
 }
+.etudiant h3{
+	margin-bottom: 1em;
+}
 
-
-
+.etudiant .text+.text{
+	margin-top: 1em;
+}
 
 .etudiant{
 	/*margin: 120px 20px 20px;*/
@@ -459,18 +428,27 @@ main header h2{
 
 #annuaire li:first-child{
 	position: sticky;
-	top: 3rem;
+	/*top: 3rem;*/
+	top: calc(2rem + 2.75vw);
 	/*background: red;*/
-	border-top: 1px solid var(--main-color);
-	border-bottom: 1px solid var(--main-color);
+	border-top: 1px solid var(--color-main);
+	border-bottom: 1px solid var(--color-main);
+	background: #FFF;
 }
 
 
 #annuaire-container{
-	margin-top: 50px;
-	font-size: 0.7rem;
+	/*margin-top: 50px;*/
+	margin-top: calc(1rem + 2.75vw);
+	/*font-size: 0.7rem;*/
+	font-size: 1rem;
 	/*margin: 50px 20px 20px;*/
 	/*padding: 1rem;*/
+}
+
+#annuaire-container a{
+	font-size: 1rem;
+
 }
 
 
@@ -487,10 +465,10 @@ main header h2{
 	grid-template-areas:
 	"a g n u"
 	"c c c c";
-	border-bottom: 1px solid var(--main-color);
+	border-bottom: 1px solid var(--color-main);
 	padding: 5px 0px;
 	/*cursor:pointer;*/
-	background: #FFF;
+	/*background: #FFF;*/
 	/*transition: background 1s ease;*/
 }
 
@@ -503,7 +481,7 @@ main header h2{
 }
 
 #annuaire-container li.open{
-	background: var(--couleur-actif);
+	background: var(--color-active);
 }
 
 #annuaire-container li.open .content{
@@ -517,7 +495,17 @@ main header h2{
 
 #annuaire-container .groupe{
 	grid-area: g;
+	/*font-size: 0;*/
 }
+
+/*#annuaire-container li:first-child .groupe{
+	font-size: 1rem;
+}
+
+#annuaire-container .groupe:before{
+	content: attr(data-init);
+	font-size: 1rem;
+}*/
 
 #annuaire-container .nom{
 	grid-area: n;
@@ -532,7 +520,7 @@ main header h2{
 	max-height:100%;
 	width:auto;
 	position: relative;
-	background-color: var(--couleur-actif);
+	background-color: var(--color-active);
 }
 
 #annuaire-container .content .container{
@@ -547,10 +535,8 @@ main header h2{
 }
 
 #annuaire-container #content_informations{
-	padding: 5px 0px;
-	/*bottom: c;*/
-	position:absolute;
-	bottom:0;
+	padding: 1rem 0px;
+	/*padding-left: 10%;*/
 }
 
 #annuaire-container #content_informations p+p{
@@ -559,7 +545,7 @@ main header h2{
 
 #annuaire-container figure{
 	position: relative;
-	background: var(--main-color);
+	background: var(--color-main);
 	margin-bottom: 0.5rem;
 }
 
@@ -572,9 +558,10 @@ main header h2{
 
 #annuaire-container figcaption{
 	position: absolute;
-	bottom: -15px;
-	left:15px;
-	right: 15px;
+	font-size: 0.8rem;
+	bottom: -.75rem;
+	left: .75rem;
+	right: .75rem;
 	color: #FFF;
 	opacity: 0;
 	transition: opacity 0.5s ease, bottom 1s ease;
@@ -603,3 +590,104 @@ main header h2{
 }
 
 /* FIN ANNUAIRE */
+
+
+/* DEFAULT */
+
+
+.default header h1{
+	text-align: left;
+}
+
+.default .text{
+	width: calc(50% - 1rem);
+}
+
+.default .text p+p{
+	margin-top: 1rem;
+}
+
+/* FIN DEFAULT */
+
+@media screen and (max-width: 1280px){
+
+	html{
+		font-size: 16px;
+	}
+
+	body{
+		/*background: red;*/
+	}
+}
+
+@media screen and (max-width: 1024px){
+
+	html{
+		font-size: 14px;
+	}
+
+	body{
+		/*background: green;*/
+	}
+}
+
+@media screen and (max-width: 920px){
+
+	html{
+		font-size: 12px;
+	}
+
+	body{
+		/*background: yellow;*/
+	}
+}
+
+@media screen and (max-width: 840px){
+
+	html{
+		font-size: 12px;
+	}
+
+	body{
+		/*background: yellow;*/
+	}
+
+	#annuaire-container li{
+		grid-template-columns: 25% 25% 50%;
+		grid-template-areas:
+		"a g n"
+		"c c c";
+	}
+
+	#annuaire-container .groupe{
+		font-size: 0;
+	}
+
+	#annuaire-container li:first-child .groupe{
+		font-size: 1rem;
+	}
+
+	#annuaire-container .groupe:before{
+		content: attr(data-init);
+		font-size: 1rem;
+	}
+
+
+	#annuaire-container .prenom{
+		font-size: 0;
+	}
+
+	#annuaire-container .prenom:before{
+		content: attr(data-init);
+		font-size: 1rem;
+	}
+
+	#annuaire-container .url{
+		display: none
+	}
+
+	#annuaire-container #content_informations{
+		/*padding-left: 25%;*/
+	}
+
+}

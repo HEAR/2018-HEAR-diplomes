@@ -2,7 +2,7 @@
 
 <!-- annuaire.php -->
 
-<?= $page->title() ?>
+<!-- <?= $page->title() ?> -->
 
 <main id="annuaire-container">
 	<ul id="annuaire">
@@ -34,7 +34,7 @@
 		<li data-url="<?= $etudiant->url() ?>">
 			<span class="annee" data-filter="<?= $etudiant->parent()->title()->text() ?>"><?= $etudiant->parent()->title()->text() ?></span>
 			<span class="groupe" data-filter="<?= $groupeMention ?>" data-init="<?= $groupeMentionInit ?>"><?= $groupeMention?></span>
-			<span class="nom" data-filter="<?= $etudiant->title().' '.$etudiant->prenom() ?>"><!--<a href="<?= $etudiant->url() ?>">--><?= $etudiant->prenom().' '.$etudiant->title() ?><!--</a>--></span>
+			<span class="nom" data-filter="<?= $etudiant->title().' '.$etudiant->prenom() ?>"><!--<a href="<?= $etudiant->url() ?>">--><span class="prenom" data-init="<?= $etudiant->prenom()->prenomToInit()?>"><?= $etudiant->prenom()?></span> <?= $etudiant->title() ?><!--</a>--></span>
 			<span class="url" data-filter="<?php snippet('filter-url', ['url' => $etudiant->weburl()->value()])?>"><?php snippet('clean-url', ['url' => $etudiant->weburl()->value(), 'target'=>true ])?></span>
 			<div class="content"></div>
 		</li>

@@ -1,6 +1,8 @@
 <?php snippet('header') ?>
 
-<main>
+<!-- default.php -->
+
+<main class="default">
   <header class="intro">
     <h1><?= $page->title() ?></h1>
   </header>
@@ -8,5 +10,7 @@
     <?= $page->text()->kt() ?>
   </div>
 </main>
+
+<!-- fin default.php -->
 
 <?php snippet('footer') ?>

@@ -39,6 +39,9 @@ Kirby::plugin('hear/parse-diploma-csv', [
 					if( $i > 10 ){ break; }
 				}
 
+				//  https://www.codexworld.com/how-to/check-website-availability-php-curl/
+				//  https://stackoverflow.com/questions/9817046/get-the-site-status-up-or-down
+
 				// $newPage->createChild([
 				// 	'slug'     	=> 'aaatest2',
 				// 	'template' 	=> 'etudiant',
@@ -63,6 +66,6 @@ Kirby::plugin('hear/parse-diploma-csv', [
 
 function my_mb_ucfirst($str) {
 	$str = mb_strtolower($str);
-    $fc = mb_strtoupper(mb_substr($str, 0, 1));
+    $fc  = mb_strtoupper(mb_substr($str, 0, 1));
     return $fc.mb_substr($str, 1);
 }

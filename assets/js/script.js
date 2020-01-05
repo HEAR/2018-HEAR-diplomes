@@ -6,9 +6,9 @@ $(function(){
     // GESTION DU LOGO
     if( ! $("body").hasClass('home') ){
         $("#logo")
-            .addClass("small")
-            .find("a")
-            .text("Hear diplomés");
+            .addClass("small");
+            //.find("a")
+            //.text("Hear diplomés");
     }
 
 	$(window).scroll(function(){
@@ -18,16 +18,16 @@ $(function(){
         
         	$(".home header").addClass("small");
         	$(".home #logo")
-                .addClass("small")
-                .find("a")
-                .text("Hear diplomés");
+                .addClass("small");
+                //.find("a")
+                //.text("Hear diplomés");
         	
         }else{
         	$(".home header").removeClass("small");
         	$(".home #logo")
-                .removeClass("small")
-                .find("a")
-                .text("Hear diplomes");
+                .removeClass("small");
+                //.find("a")
+                //.text("Hear diplomes");
         }
 
     });
@@ -79,7 +79,7 @@ $(function(){
                 }
                 htmlContent += `</figure>`;
                 htmlContent += `</div>`;
-                htmlContent += `<div id="content_informations"><p><a href="${data.url}">> Aller sur la page</a></p><p>${data.ville}, ${data.pays}<br>${data.telephone}<br>${data.mail}</p></div>`;
+                htmlContent += `<div id="content_informations"><p>${data.ville}, ${data.pays}<br>${data.telephone}<br>${data.mail}</p><p><a href="${data.url}">→ Aller sur la page</a></p></div>`;
                 htmlContent += `</div>`;
 
                 $(".open")
