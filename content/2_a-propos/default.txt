@@ -2,10 +2,11 @@ Title: À propos
 
 ----
 
-Text: 
+Text:
 
 Ce site a été réalisé par un groupe d'étudiant·es de l'atelier de communication graphique de 2018 à 2019 dans le cadre du cours de web de la 4e année.
 Julie Bassinot, Lucie Clause, Pauline Dessombre, Valentin Maynadié, Marie Serrie, Julia von Dorpp, Lucile Weber.
 Accompagné·es par Loïc Horellou.
 
 Il est composé en Michroma et Roboto.
+Il est programmé avec le CMS (link: https://getkirby.com text: Kirby).
