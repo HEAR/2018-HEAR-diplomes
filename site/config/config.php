@@ -15,16 +15,16 @@ return [
 		"musique" => "Musique"
     ],
     'mentionInit' => [
-		"art" => "A",
+		"art" => "Art",
 		"art_objet" => "AO",
-		"scenographie" => "S",
-		"communication_graphique" => "CG",
-		"design_graphique" => "DG",
-		"didactique_visuelle" => "DV",
-		"illustration" => "I",
-		"design" => "D",
-		"design_textile" => "DT",
-		"musique" => "M"
+		"scenographie" => "Scéno.",
+		"communication_graphique" => "Com. Graph.",
+		"design_graphique" => "Dsgn. Graph.",
+		"didactique_visuelle" => "Dida. Vis.",
+		"illustration" => "Illu.",
+		"design" => "Dsgn.",
+		"design_textile" => "Dsgn. Txt.",
+		"musique" => "Musi"
     ],
     'atelier_groupe' => [
 		"farmteam" => "Farmteam / Storyteller",
@@ -43,17 +43,17 @@ return [
     ],
     'atelier_groupeInit' => [
 		"farmteam" => "F/S",
-		"hors_format" => "HF",
-		"la_fabrique" => "LF",
-		"no_name" => "NN",
-		"peinture" => "Pt",
-		"phonon" => "Ph",
-		"le_plateau" => "LP",
-		"bijou" => "Bj",
-		"bois" => "Bs",
-		"terre" => "Tr",
-		"verre" => "Vr",
-		"metal" => "Mt",
-		"livre" => "Lv"
+		"hors_format" => "H. Frmt.",
+		"la_fabrique" => "La Fab.",
+		"no_name" => "No Name",
+		"peinture" => "Peint.",
+		"phonon" => "Phon.",
+		"le_plateau" => "Le Plt.",
+		"bijou" => "Bjx.",
+		"bois" => "Bois",
+		"terre" => "Terre",
+		"verre" => "Verre",
+		"metal" => "Métal",
+		"livre" => "Livre"
     ]
 ];

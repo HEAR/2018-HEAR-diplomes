@@ -1,8 +1,8 @@
-https://developer.mozilla.org/fr/docs/Web/CSS/Using_CSS_custom_properties*/
+/*https://developer.mozilla.org/fr/docs/Web/CSS/Using_CSS_custom_properties*/
 
 /* GLOBAL */
 
-:root {
+:root{
 	--petite-marge:0.5rem;
 	--color-main: #000;
 	--color-active: #E6E6E6 ;
@@ -434,6 +434,7 @@ main header h2{
 	border-top: 1px solid var(--color-main);
 	border-bottom: 1px solid var(--color-main);
 	background: #FFF;
+	z-index: 99999;
 }
 
 
@@ -482,7 +483,7 @@ main header h2{
 }
 
 #annuaire-container li.open{
-	background: var(--color-active, #E6E6E6);
+	background: var(--color-active);
 	height: auto;
 }
 
@@ -515,7 +516,7 @@ main header h2{
 	max-height:100%;
 	width:auto;
 	position: relative;
-	background-color: var(--color-active, #E6E6E6);
+	background-color: var(--color-active);
 }
 
 #annuaire-container .content .container{
@@ -648,7 +649,7 @@ main header h2{
 	}
 
 	#annuaire-container li{
-		grid-template-columns: 25% 25% 50%;
+		grid-template-columns: 20% 30% 50%;
 		grid-template-areas:
 		"a g n"
 		"c c c";
@@ -684,5 +685,12 @@ main header h2{
 	#annuaire-container #content_informations{
 		padding-left: 50%;
 	}
-
+	
+	#annuaire-container #content_vignette {
+	    max-height: auto;
+	    width: 50%;
+	    padding: 5px 1rem 5px 0;
+	    float: none;
+	    margin-left: 50%;
+	}
 }
