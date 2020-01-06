@@ -274,7 +274,7 @@ main{
 main header{
 	position: fixed;
 	/*top: 3rem;*/
-	top: calc(2rem + 2.75vw);
+	top: calc(2rem + 2.65vw);
 	left: 0;
 	right: 0;
 	background: white;
@@ -429,7 +429,7 @@ main header h2{
 #annuaire li:first-child{
 	position: sticky;
 	/*top: 3rem;*/
-	top: calc(2rem + 2.75vw);
+	top: calc(2rem + 2.65vw);
 	/*background: red;*/
 	border-top: 1px solid var(--color-main);
 	border-bottom: 1px solid var(--color-main);
@@ -439,7 +439,7 @@ main header h2{
 
 #annuaire-container{
 	/*margin-top: 50px;*/
-	margin-top: calc(1rem + 2.75vw);
+	margin-top: calc(1rem + 2.65vw);
 	/*font-size: 0.7rem;*/
 	font-size: 1rem;
 	/*margin: 50px 20px 20px;*/
@@ -463,10 +463,11 @@ main header h2{
 	width: 100%;
 	grid-template-columns: 10% 30% 30% 30%;
 	grid-template-areas:
-	"a g n u"
-	"c c c c";
+		"a g n u"
+		"c c c c";
 	border-bottom: 1px solid var(--color-main);
 	padding: 5px 0px;
+	height: calc(1rem + 10px);
 	/*cursor:pointer;*/
 	/*background: #FFF;*/
 	/*transition: background 1s ease;*/
@@ -481,7 +482,8 @@ main header h2{
 }
 
 #annuaire-container li.open{
-	background: var(--color-active);
+	background: var(--color-active, #E6E6E6);
+	height: auto;
 }
 
 #annuaire-container li.open .content{
@@ -495,17 +497,7 @@ main header h2{
 
 #annuaire-container .groupe{
 	grid-area: g;
-	/*font-size: 0;*/
 }
-
-/*#annuaire-container li:first-child .groupe{
-	font-size: 1rem;
-}
-
-#annuaire-container .groupe:before{
-	content: attr(data-init);
-	font-size: 1rem;
-}*/
 
 #annuaire-container .nom{
 	grid-area: n;
@@ -513,6 +505,9 @@ main header h2{
 
 #annuaire-container .url{
 	grid-area: u;
+  	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.15rem;
 }
 
 #annuaire-container .content{
@@ -520,7 +515,7 @@ main header h2{
 	max-height:100%;
 	width:auto;
 	position: relative;
-	background-color: var(--color-active);
+	background-color: var(--color-active, #E6E6E6);
 }
 
 #annuaire-container .content .container{
@@ -529,14 +524,14 @@ main header h2{
 
 #annuaire-container #content_vignette{
 	max-height:auto;width:30%;
-	padding: 5px 0px;
+	padding: 5px 1rem 5px 0;
 	float:right;
 	position: relative;
 }
 
 #annuaire-container #content_informations{
 	padding: 1rem 0px;
-	/*padding-left: 10%;*/
+	padding-left: 40%;
 }
 
 #annuaire-container #content_informations p+p{
@@ -687,7 +682,7 @@ main header h2{
 	}
 
 	#annuaire-container #content_informations{
-		/*padding-left: 25%;*/
+		padding-left: 50%;
 	}
 
 }
